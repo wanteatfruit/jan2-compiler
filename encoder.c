@@ -136,6 +136,7 @@ int string_decode(const char* es, char* s)
             return 1;
         }
     }
+    printf("null-terminated: %s\n", s[strlen(s)]==null_term?"true":"false");
     return 0;
 }
 int string_encode(const char* s, char* es)
@@ -210,6 +211,7 @@ int string_encode(const char* s, char* es)
         start++;
     }
     es[start] = '\"';
+    es[start + 1] = '\0';
 
 
     return 0;

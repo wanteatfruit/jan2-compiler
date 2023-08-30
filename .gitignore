@@ -1,0 +1,4 @@
+# Ignore object files and executables and .out files
+*.o
+*.out
+bminor
