@@ -1,4 +1,4 @@
-Starter Code for BMinor Project
+Starter Code for BMinor Project - Junwen An
 -------------------------------
 
 This directory contains the starter code for the BMinor compiler.
