@@ -30,13 +30,13 @@ int main(int argc, char* argv[])
     int status = string_decode(input, decoded);
 
     if (status != 0) {
-        fprintf(stderr, "Error encoding string\n");
+        // fprintf(stderr, "Error encoding string\n");
         return 1;
     }else{
         printf("Decoded success: %s\n", decoded);
     }
 
-    char encoded[256];
+    char encoded[512];
     status = string_encode(decoded, encoded);
     printf("Encoded: %s\n", encoded);
 

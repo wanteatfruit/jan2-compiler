@@ -11,8 +11,8 @@ int string_decode(const char* es, char* s)
     int i = 1; // index for es
 
 
-    // case ""
-    if (es[0] == '\"' && es[1] == '\"')
+    // case "", avoid """
+    if (es[0] == '\"' && es[1] == '\"' && length==2)
     {
         s[0] = '\0';
         return 0;
@@ -108,7 +108,7 @@ int string_decode(const char* es, char* s)
                     hex[1] = next_hex_2;
                     int decimal_value = strtol(hex, NULL, 16);
                     //check if range valid
-                    if (decimal_value >= 32 && decimal_value <= 126) {
+                    if (decimal_value >=  1 && decimal_value <= 127) { //exluding null
                         s[s_index] = decimal_value;
                         s_index++;
                         i += 5;
@@ -121,13 +121,15 @@ int string_decode(const char* es, char* s)
                 else { // invalid next char
                     return 1;
                 }
+            }else{
+                return 1;
             }
         }
-        else if (cur == '\"') { // end of string
+        else if (cur == '\"' &&  i==length-1) { // end of string
             s[s_index] = null_term;
             break;
         }
-        else if (cur >= 32 && cur <= 126) { // normal char
+        else if (cur >= 32 && cur <= 126 && cur!=34 && cur!=92) { // normal char
             s[s_index] = es[i];
             s_index++;
             i++;
