@@ -1,0 +1,2161 @@
+=====STUDENT TESTS=====
+====Good Tests====
+===[good0.bminor Input]===
+"It's really hot!\n"
+===[good0.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good0.bminor Output]===
+File size: 20
+Input: "It's really hot!\n"
+starting string_decode
+passed starting and ending quote testcur: I
+cur: t
+cur: '
+cur: s
+cur:  
+cur: r
+cur: e
+cur: a
+cur: l
+cur: l
+cur: y
+cur:  
+cur: h
+cur: o
+cur: t
+cur: !
+cur: \
+backslashed char: n
+cur: "
+null-terminated: true
+Decoded success: It's really hot!
+
+Encoded: "It\'s really hot!\n"
+
+
+
+
+===[good1.bminor Input]===
+"Hello\n"
+===[good1.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good1.bminor Output]===
+File size: 9
+Input: "Hello\n"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: l
+cur: o
+cur: \
+backslashed char: n
+cur: "
+null-terminated: true
+Decoded success: Hello
+
+Encoded: "Hello\n"
+
+
+
+
+===[good2.bminor Input]===
+"Good \n\0x7A"
+===[good2.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good2.bminor Output]===
+File size: 14
+Input: "Good \n\0x7A"
+starting string_decode
+passed starting and ending quote testcur: G
+cur: o
+cur: o
+cur: d
+cur:  
+cur: \
+backslashed char: n
+cur: \
+backslashed char: 0
+cur: "
+null-terminated: true
+Decoded success: Good 
+z
+Encoded: "Good \nz"
+
+
+
+
+===[good3.bminor Input]===
+""
+===[good3.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good3.bminor Output]===
+File size: 2
+Input: ""
+starting string_decode
+Decoded success: 
+Encoded: ""
+
+
+
+
+===[good4.bminor Input]===
+"1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+===[good4.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good4.bminor Output]===
+File size: 255
+Input: "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+starting string_decode
+passed starting and ending quote testcur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: 1
+cur: "
+null-terminated: true
+Decoded success: 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Encoded: "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+
+
+
+
+===[good5.bminor Input]===
+"Hel\n\tlo\0x36\0x23\0x44"
+===[good5.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good5.bminor Output]===
+File size: 26
+Input: "Hel\n\tlo\0x36\0x23\0x44"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: \
+backslashed char: n
+cur: \
+backslashed char: t
+cur: l
+cur: o
+cur: \
+backslashed char: 0
+cur: \
+backslashed char: 0
+cur: \
+backslashed char: 0
+cur: "
+null-terminated: true
+Decoded success: Hel
+	lo6#D
+Encoded: "Hel\n\tlo6#D"
+
+
+
+
+===[good6.bminor Input]===
+"\""
+===[good6.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good6.bminor Output]===
+File size: 4
+Input: "\""
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: "
+cur: "
+null-terminated: true
+Decoded success: "
+Encoded: "\""
+
+
+
+
+===[good7.bminor Input]===
+"\\n"
+===[good7.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good7.bminor Output]===
+File size: 5
+Input: "\\n"
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: \
+cur: n
+cur: "
+null-terminated: true
+Decoded success: \n
+Encoded: "\\n"
+
+
+
+
+===[good8.bminor Input]===
+"\\\\"
+===[good8.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good8.bminor Output]===
+File size: 6
+Input: "\\\\"
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: \
+cur: \
+backslashed char: \
+cur: "
+null-terminated: true
+Decoded success: \\
+Encoded: "\\\\"
+
+
+
+
+===[good9.bminor Input]===
+"\'lasjdlasjfhal3498239429384,,,.....;;"
+===[good9.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good9.bminor Output]===
+File size: 40
+Input: "\'lasjdlasjfhal3498239429384,,,.....;;"
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: '
+cur: l
+cur: a
+cur: s
+cur: j
+cur: d
+cur: l
+cur: a
+cur: s
+cur: j
+cur: f
+cur: h
+cur: a
+cur: l
+cur: 3
+cur: 4
+cur: 9
+cur: 8
+cur: 2
+cur: 3
+cur: 9
+cur: 4
+cur: 2
+cur: 9
+cur: 3
+cur: 8
+cur: 4
+cur: ,
+cur: ,
+cur: ,
+cur: .
+cur: .
+cur: .
+cur: .
+cur: .
+cur: ;
+cur: ;
+cur: "
+null-terminated: true
+Decoded success: 'lasjdlasjfhal3498239429384,,,.....;;
+Encoded: "\'lasjdlasjfhal3498239429384,,,.....;;"
+
+
+
+
+====Bad Tests====
+===[bad0.bminor Input]===
+"Hello"World"
+===[bad0.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad0.bminor Output]===
+File size: 13
+Input: "Hello"World"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: l
+cur: o
+cur: "
+
+
+
+
+===[bad1.bminor Input]===
+"Hello\0x00"
+===[bad1.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad1.bminor Output]===
+File size: 12
+Input: "Hello\0x00"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: l
+cur: o
+cur: \
+backslashed char: 0
+
+
+
+
+===[bad2.bminor Input]===
+"Hello\l"
+===[bad2.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad2.bminor Output]===
+File size: 9
+Input: "Hello\l"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: l
+cur: o
+cur: \
+backslashed char: l
+
+
+
+
+===[bad3.bminor Input]===
+"Hello
+World"
+===[bad3.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad3.bminor Output]===
+File size: 13
+Input: "Hello
+World"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: l
+cur: o
+cur: 
+
+
+
+
+
+===[bad4.bminor Input]===
+"asdadBad'
+===[bad4.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad4.bminor Output]===
+File size: 10
+Input: "asdadBad'
+starting string_decode
+
+
+
+
+===[bad5.bminor Input]===
+"\0x"
+===[bad5.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad5.bminor Output]===
+File size: 5
+Input: "\0x"
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: 0
+
+
+
+
+===[bad6.bminor Input]===
+"""
+===[bad6.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad6.bminor Output]===
+File size: 3
+Input: """
+starting string_decode
+passed starting and ending quote testcur: "
+
+
+
+
+===[bad7.bminor Input]===
+"Hello\0b02\n"
+===[bad7.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad7.bminor Output]===
+File size: 14
+Input: "Hello\0b02\n"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: e
+cur: l
+cur: l
+cur: o
+cur: \
+backslashed char: 0
+
+
+
+
+===[bad8.bminor Input]===
+"\"
+===[bad8.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad8.bminor Output]===
+File size: 3
+Input: "\"
+starting string_decode
+passed starting and ending quote testcur: \
+
+
+
+
+===[bad9.bminor Input]===
+"\\\"""
+===[bad9.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad9.bminor Output]===
+File size: 7
+Input: "\\\"""
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: \
+cur: \
+backslashed char: "
+cur: "
+
+
+
+
+=====HIDDEN TESTS=====
+====Good Tests====
+===[good1.bminor Input]===
+"Whan that Aprill with his shoures soote"
+===[good1.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good1.bminor Output]===
+File size: 41
+Input: "Whan that Aprill with his shoures soote"
+starting string_decode
+passed starting and ending quote testcur: W
+cur: h
+cur: a
+cur: n
+cur:  
+cur: t
+cur: h
+cur: a
+cur: t
+cur:  
+cur: A
+cur: p
+cur: r
+cur: i
+cur: l
+cur: l
+cur:  
+cur: w
+cur: i
+cur: t
+cur: h
+cur:  
+cur: h
+cur: i
+cur: s
+cur:  
+cur: s
+cur: h
+cur: o
+cur: u
+cur: r
+cur: e
+cur: s
+cur:  
+cur: s
+cur: o
+cur: o
+cur: t
+cur: e
+cur: "
+null-terminated: true
+Decoded success: Whan that Aprill with his shoures soote
+Encoded: "Whan that Aprill with his shoures soote"
+
+
+
+
+===[good10.bminor Input]===
+"That slepen al the nyght with open ye\n(So priketh hem Nature in hir corages),\nThanne longen folk to goon on pilgrimages,\nAnd palmeres for to seken straunge strondes,\n To ferne halwes, kowthe in sondry londes;\t And specially from every shires ende."
+===[good10.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good10.bminor Output]===
+File size: 254
+Input: "That slepen al the nyght with open ye\n(So priketh hem Nature in hir corages),\nThanne longen folk to goon on pilgrimages,\nAnd palmeres for to seken straunge strondes,\n To ferne halwes, kowthe in sondry londes;\t And specially from every shires ende."
+starting string_decode
+passed starting and ending quote testcur: T
+cur: h
+cur: a
+cur: t
+cur:  
+cur: s
+cur: l
+cur: e
+cur: p
+cur: e
+cur: n
+cur:  
+cur: a
+cur: l
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: n
+cur: y
+cur: g
+cur: h
+cur: t
+cur:  
+cur: w
+cur: i
+cur: t
+cur: h
+cur:  
+cur: o
+cur: p
+cur: e
+cur: n
+cur:  
+cur: y
+cur: e
+cur: \
+backslashed char: n
+cur: (
+cur: S
+cur: o
+cur:  
+cur: p
+cur: r
+cur: i
+cur: k
+cur: e
+cur: t
+cur: h
+cur:  
+cur: h
+cur: e
+cur: m
+cur:  
+cur: N
+cur: a
+cur: t
+cur: u
+cur: r
+cur: e
+cur:  
+cur: i
+cur: n
+cur:  
+cur: h
+cur: i
+cur: r
+cur:  
+cur: c
+cur: o
+cur: r
+cur: a
+cur: g
+cur: e
+cur: s
+cur: )
+cur: ,
+cur: \
+backslashed char: n
+cur: T
+cur: h
+cur: a
+cur: n
+cur: n
+cur: e
+cur:  
+cur: l
+cur: o
+cur: n
+cur: g
+cur: e
+cur: n
+cur:  
+cur: f
+cur: o
+cur: l
+cur: k
+cur:  
+cur: t
+cur: o
+cur:  
+cur: g
+cur: o
+cur: o
+cur: n
+cur:  
+cur: o
+cur: n
+cur:  
+cur: p
+cur: i
+cur: l
+cur: g
+cur: r
+cur: i
+cur: m
+cur: a
+cur: g
+cur: e
+cur: s
+cur: ,
+cur: \
+backslashed char: n
+cur: A
+cur: n
+cur: d
+cur:  
+cur: p
+cur: a
+cur: l
+cur: m
+cur: e
+cur: r
+cur: e
+cur: s
+cur:  
+cur: f
+cur: o
+cur: r
+cur:  
+cur: t
+cur: o
+cur:  
+cur: s
+cur: e
+cur: k
+cur: e
+cur: n
+cur:  
+cur: s
+cur: t
+cur: r
+cur: a
+cur: u
+cur: n
+cur: g
+cur: e
+cur:  
+cur: s
+cur: t
+cur: r
+cur: o
+cur: n
+cur: d
+cur: e
+cur: s
+cur: ,
+cur: \
+backslashed char: n
+cur:  
+cur: T
+cur: o
+cur:  
+cur: f
+cur: e
+cur: r
+cur: n
+cur: e
+cur:  
+cur: h
+cur: a
+cur: l
+cur: w
+cur: e
+cur: s
+cur: ,
+cur:  
+cur: k
+cur: o
+cur: w
+cur: t
+cur: h
+cur: e
+cur:  
+cur: i
+cur: n
+cur:  
+cur: s
+cur: o
+cur: n
+cur: d
+cur: r
+cur: y
+cur:  
+cur: l
+cur: o
+cur: n
+cur: d
+cur: e
+cur: s
+cur: ;
+cur: \
+backslashed char: t
+cur:  
+cur: A
+cur: n
+cur: d
+cur:  
+cur: s
+cur: p
+cur: e
+cur: c
+cur: i
+cur: a
+cur: l
+cur: l
+cur: y
+cur:  
+cur: f
+cur: r
+cur: o
+cur: m
+cur:  
+cur: e
+cur: v
+cur: e
+cur: r
+cur: y
+cur:  
+cur: s
+cur: h
+cur: i
+cur: r
+cur: e
+cur: s
+cur:  
+cur: e
+cur: n
+cur: d
+cur: e
+cur: .
+cur: "
+null-terminated: true
+Decoded success: That slepen al the nyght with open ye
+(So priketh hem Nature in hir corages),
+Thanne longen folk to goon on pilgrimages,
+And palmeres for to seken straunge strondes,
+ To ferne halwes, kowthe in sondry londes;	 And specially from every shires ende.
+Encoded: "That slepen al the nyght with open ye\n(So priketh hem Nature in hir corages),\nThanne longen folk to goon on pilgrimages,\nAnd palmeres for to seken straunge strondes,\n To ferne halwes, kowthe in sondry londes;\t And specially from every shires ende."
+
+
+
+
+===[good3.bminor Input]===
+"And bathed  \bevery veyne in swich licour"
+===[good3.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good3.bminor Output]===
+File size: 43
+Input: "And bathed  \bevery veyne in swich licour"
+starting string_decode
+passed starting and ending quote testcur: A
+cur: n
+cur: d
+cur:  
+cur: b
+cur: a
+cur: t
+cur: h
+cur: e
+cur: d
+cur:  
+cur:  
+cur: \
+backslashed char: b
+cur: e
+cur: v
+cur: e
+cur: r
+cur: y
+cur:  
+cur: v
+cur: e
+cur: y
+cur: n
+cur: e
+cur:  
+cur: i
+cur: n
+cur:  
+cur: s
+cur: w
+cur: i
+cur: c
+cur: h
+cur:  
+cur: l
+cur: i
+cur: c
+cur: o
+cur: u
+cur: r
+cur: "
+null-terminated: true
+Decoded success: And bathed  every veyne in swich licour
+Encoded: "And bathed  \bevery veyne in swich licour"
+
+
+
+
+===[good4.bminor Input]===
+"Of which vertu engendred is the flour\e"
+===[good4.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good4.bminor Output]===
+File size: 41
+Input: "Of which vertu engendred is the flour\e"
+starting string_decode
+passed starting and ending quote testcur: O
+cur: f
+cur:  
+cur: w
+cur: h
+cur: i
+cur: c
+cur: h
+cur:  
+cur: v
+cur: e
+cur: r
+cur: t
+cur: u
+cur:  
+cur: e
+cur: n
+cur: g
+cur: e
+cur: n
+cur: d
+cur: r
+cur: e
+cur: d
+cur:  
+cur: i
+cur: s
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: f
+cur: l
+cur: o
+cur: u
+cur: r
+cur: \
+backslashed char: e
+cur: "
+null-terminated: true
+Decoded success: Of which vertu engendred is the flour
+Encoded: "Of which vertu engendred is the flour\e"
+
+
+
+
+===[good5.bminor Input]===
+"\fWhan Zephirus eek with his sweete breeth"
+===[good5.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good5.bminor Output]===
+File size: 44
+Input: "\fWhan Zephirus eek with his sweete breeth"
+starting string_decode
+passed starting and ending quote testcur: \
+backslashed char: f
+cur: W
+cur: h
+cur: a
+cur: n
+cur:  
+cur: Z
+cur: e
+cur: p
+cur: h
+cur: i
+cur: r
+cur: u
+cur: s
+cur:  
+cur: e
+cur: e
+cur: k
+cur:  
+cur: w
+cur: i
+cur: t
+cur: h
+cur:  
+cur: h
+cur: i
+cur: s
+cur:  
+cur: s
+cur: w
+cur: e
+cur: e
+cur: t
+cur: e
+cur:  
+cur: b
+cur: r
+cur: e
+cur: e
+cur: t
+cur: h
+cur: "
+null-terminated: true
+Decoded success: Whan Zephirus eek with his sweete breeth
+Encoded: "\fWhan Zephirus eek with his sweete breeth"
+
+
+
+
+===[good6.bminor Input]===
+"Inspired hath in \nevery\nholt\nand\nheeth\rheeth"
+===[good6.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good6.bminor Output]===
+File size: 51
+Input: "Inspired hath in \nevery\nholt\nand\nheeth\rheeth"
+starting string_decode
+passed starting and ending quote testcur: I
+cur: n
+cur: s
+cur: p
+cur: i
+cur: r
+cur: e
+cur: d
+cur:  
+cur: h
+cur: a
+cur: t
+cur: h
+cur:  
+cur: i
+cur: n
+cur:  
+cur: \
+backslashed char: n
+cur: e
+cur: v
+cur: e
+cur: r
+cur: y
+cur: \
+backslashed char: n
+cur: h
+cur: o
+cur: l
+cur: t
+cur: \
+backslashed char: n
+cur: a
+cur: n
+cur: d
+cur: \
+backslashed char: n
+cur: h
+cur: e
+cur: e
+cur: t
+cur: h
+cur: \
+backslashed char: r
+cur: h
+cur: e
+cur: e
+cur: t
+cur: h
+cur: "
+null-terminated: true
+Decoded success: Inspired hath in 
+every
+holt
+and
+heeth
+heeth
+Encoded: "Inspired hath in \nevery\nholt\nand\nheeth\rheeth"
+
+
+
+
+===[good7.bminor Input]===
+"The tendre croppes, \t and the yonge sonne"
+===[good7.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good7.bminor Output]===
+File size: 44
+Input: "The tendre croppes, \t and the yonge sonne"
+starting string_decode
+passed starting and ending quote testcur: T
+cur: h
+cur: e
+cur:  
+cur: t
+cur: e
+cur: n
+cur: d
+cur: r
+cur: e
+cur:  
+cur: c
+cur: r
+cur: o
+cur: p
+cur: p
+cur: e
+cur: s
+cur: ,
+cur:  
+cur: \
+backslashed char: t
+cur:  
+cur: a
+cur: n
+cur: d
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: y
+cur: o
+cur: n
+cur: g
+cur: e
+cur:  
+cur: s
+cur: o
+cur: n
+cur: n
+cur: e
+cur: "
+null-terminated: true
+Decoded success: The tendre croppes, 	 and the yonge sonne
+Encoded: "The tendre croppes, \t and the yonge sonne"
+
+
+
+
+===[good8.bminor Input]===
+"Hath in the Ram his half \\ \'cours\' yronne,"
+===[good8.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good8.bminor Output]===
+File size: 47
+Input: "Hath in the Ram his half \\ \'cours\' yronne,"
+starting string_decode
+passed starting and ending quote testcur: H
+cur: a
+cur: t
+cur: h
+cur:  
+cur: i
+cur: n
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: R
+cur: a
+cur: m
+cur:  
+cur: h
+cur: i
+cur: s
+cur:  
+cur: h
+cur: a
+cur: l
+cur: f
+cur:  
+cur: \
+backslashed char: \
+cur:  
+cur: \
+backslashed char: '
+cur: c
+cur: o
+cur: u
+cur: r
+cur: s
+cur: \
+backslashed char: '
+cur:  
+cur: y
+cur: r
+cur: o
+cur: n
+cur: n
+cur: e
+cur: ,
+cur: "
+null-terminated: true
+Decoded success: Hath in the Ram his half \ 'cours' yronne,
+Encoded: "Hath in the Ram his half \\ \'cours\' yronne,"
+
+
+
+
+===[good9.bminor Input]===
+"And smale \"foweles\" maken melodye,\v"
+===[good9.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good9.bminor Output]===
+File size: 40
+Input: "And smale \"foweles\" maken melodye,\v"
+starting string_decode
+passed starting and ending quote testcur: A
+cur: n
+cur: d
+cur:  
+cur: s
+cur: m
+cur: a
+cur: l
+cur: e
+cur:  
+cur: \
+backslashed char: "
+cur: f
+cur: o
+cur: w
+cur: e
+cur: l
+cur: e
+cur: s
+cur: \
+backslashed char: "
+cur:  
+cur: m
+cur: a
+cur: k
+cur: e
+cur: n
+cur:  
+cur: m
+cur: e
+cur: l
+cur: o
+cur: d
+cur: y
+cur: e
+cur: ,
+cur: \
+backslashed char: v
+cur: "
+null-terminated: true
+Decoded success: And smale "foweles" maken melodye,
+Encoded: "And smale \"foweles\" maken melodye,\v"
+
+
+
+
+===[good2.bminor Input]===
+"The droghte \a of March hath per\0x5Ed to \0x22 the roote\n"
+===[good2.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[good2.bminor Output]===
+File size: 61
+Input: "The droghte \a of March hath per\0x5Ed to \0x22 the roote\n"
+starting string_decode
+passed starting and ending quote testcur: T
+cur: h
+cur: e
+cur:  
+cur: d
+cur: r
+cur: o
+cur: g
+cur: h
+cur: t
+cur: e
+cur:  
+cur: \
+backslashed char: a
+cur:  
+cur: o
+cur: f
+cur:  
+cur: M
+cur: a
+cur: r
+cur: c
+cur: h
+cur:  
+cur: h
+cur: a
+cur: t
+cur: h
+cur:  
+cur: p
+cur: e
+cur: r
+cur: \
+backslashed char: 0
+cur: d
+cur:  
+cur: t
+cur: o
+cur:  
+cur: \
+backslashed char: 0
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: r
+cur: o
+cur: o
+cur: t
+cur: e
+cur: \
+backslashed char: n
+cur: "
+null-terminated: true
+Decoded success: The droghte  of March hath per^d to " the roote
+
+Encoded: "The droghte \a of March hath per^d to \" the roote\n"
+
+
+
+
+====Bad Tests====
+===[bad1.bminor Input]===
+Bifil that seson on a day
+===[bad1.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad1.bminor Output]===
+File size: 25
+Input: Bifil that seson on a day
+starting string_decode
+
+
+
+
+===[bad4.bminor Input]===
+"To Caunterbury with ful devout corage \c \d \g \h \i \j \k \l \m \o \p \q \s \u \w \x \y \z"
+===[bad4.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad4.bminor Output]===
+File size: 93
+Input: "To Caunterbury with ful devout corage \c \d \g \h \i \j \k \l \m \o \p \q \s \u \w \x \y \z"
+starting string_decode
+passed starting and ending quote testcur: T
+cur: o
+cur:  
+cur: C
+cur: a
+cur: u
+cur: n
+cur: t
+cur: e
+cur: r
+cur: b
+cur: u
+cur: r
+cur: y
+cur:  
+cur: w
+cur: i
+cur: t
+cur: h
+cur:  
+cur: f
+cur: u
+cur: l
+cur:  
+cur: d
+cur: e
+cur: v
+cur: o
+cur: u
+cur: t
+cur:  
+cur: c
+cur: o
+cur: r
+cur: a
+cur: g
+cur: e
+cur:  
+cur: \
+backslashed char: c
+
+
+
+
+===[bad5.bminor Input]===
+"At nyght was come "into that hostelrye"
+===[bad5.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad5.bminor Output]===
+File size: 40
+Input: "At nyght was come "into that hostelrye"
+starting string_decode
+passed starting and ending quote testcur: A
+cur: t
+cur:  
+cur: n
+cur: y
+cur: g
+cur: h
+cur: t
+cur:  
+cur: w
+cur: a
+cur: s
+cur:  
+cur: c
+cur: o
+cur: m
+cur: e
+cur:  
+cur: "
+
+
+
+
+===[bad6.bminor Input]===
+"Wel nyne and twenty \~in a compaignye"
+===[bad6.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad6.bminor Output]===
+File size: 39
+Input: "Wel nyne and twenty \~in a compaignye"
+starting string_decode
+passed starting and ending quote testcur: W
+cur: e
+cur: l
+cur:  
+cur: n
+cur: y
+cur: n
+cur: e
+cur:  
+cur: a
+cur: n
+cur: d
+cur:  
+cur: t
+cur: w
+cur: e
+cur: n
+cur: t
+cur: y
+cur:  
+cur: \
+backslashed char: ~
+
+
+
+
+===[bad7.bminor Input]===
+"Of sondry folk, by aventure yfalle" \n\n
+===[bad7.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad7.bminor Output]===
+File size: 41
+Input: "Of sondry folk, by aventure yfalle" \n\n
+starting string_decode
+
+
+
+
+===[bad8.bminor Input]===
+\n "In felaweshipe, and pilgrimes were they alle,"
+===[bad8.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad8.bminor Output]===
+File size: 50
+Input: \n "In felaweshipe, and pilgrimes were they alle,"
+starting string_decode
+
+
+
+
+===[bad9.bminor Input]===
+"That toward Caunterbuty \" wolden "" ryde."
+===[bad9.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad9.bminor Output]===
+File size: 44
+Input: "That toward Caunterbuty \" wolden "" ryde."
+starting string_decode
+passed starting and ending quote testcur: T
+cur: h
+cur: a
+cur: t
+cur:  
+cur: t
+cur: o
+cur: w
+cur: a
+cur: r
+cur: d
+cur:  
+cur: C
+cur: a
+cur: u
+cur: n
+cur: t
+cur: e
+cur: r
+cur: b
+cur: u
+cur: t
+cur: y
+cur:  
+cur: \
+backslashed char: "
+cur:  
+cur: w
+cur: o
+cur: l
+cur: d
+cur: e
+cur: n
+cur:  
+cur: "
+
+
+
+
+===[bad2.bminor Input]===
+"In \0xfg Southwerk at the tabard as I lay"
+===[bad2.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad2.bminor Output]===
+File size: 43
+Input: "In \0xfg Southwerk at the tabard as I lay"
+starting string_decode
+passed starting and ending quote testcur: I
+cur: n
+cur:  
+cur: \
+backslashed char: 0
+
+
+
+
+===[bad3.bminor Input]===
+"
+===[bad3.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[bad3.bminor Output]===
+File size: 1
+Input: "
+starting string_decode
+passed starting and ending quote testcur:  
+
+
+
+
+===[bad10.bminor Input]===
+"The chambres and the stables weren wyde, And wel we weren esed atte beste. And shortly, whan the sonne was to reste, So hadde I spoken with hem everichon That I was of hir felaweshipe anon, And made forward erly for to ryse, To take oure wey ther as I yow devyse. This is over 255 bytes"
+===[bad10.bminor Status]===
+return code: 0
+TEST NOT PASSED
+
+===[bad10.bminor Output]===
+File size: 288
+Input: "The chambres and the stables weren wyde, And wel we weren esed atte beste. And shortly, whan the sonne was to reste, So hadde I spoken with hem everichon That I was of hir felaweshipe anon, And made forward erly for to ryse, To take oure wey ther as I yow devyse. This is over 255 bytes"
+starting string_decode
+passed starting and ending quote testcur: T
+cur: h
+cur: e
+cur:  
+cur: c
+cur: h
+cur: a
+cur: m
+cur: b
+cur: r
+cur: e
+cur: s
+cur:  
+cur: a
+cur: n
+cur: d
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: s
+cur: t
+cur: a
+cur: b
+cur: l
+cur: e
+cur: s
+cur:  
+cur: w
+cur: e
+cur: r
+cur: e
+cur: n
+cur:  
+cur: w
+cur: y
+cur: d
+cur: e
+cur: ,
+cur:  
+cur: A
+cur: n
+cur: d
+cur:  
+cur: w
+cur: e
+cur: l
+cur:  
+cur: w
+cur: e
+cur:  
+cur: w
+cur: e
+cur: r
+cur: e
+cur: n
+cur:  
+cur: e
+cur: s
+cur: e
+cur: d
+cur:  
+cur: a
+cur: t
+cur: t
+cur: e
+cur:  
+cur: b
+cur: e
+cur: s
+cur: t
+cur: e
+cur: .
+cur:  
+cur: A
+cur: n
+cur: d
+cur:  
+cur: s
+cur: h
+cur: o
+cur: r
+cur: t
+cur: l
+cur: y
+cur: ,
+cur:  
+cur: w
+cur: h
+cur: a
+cur: n
+cur:  
+cur: t
+cur: h
+cur: e
+cur:  
+cur: s
+cur: o
+cur: n
+cur: n
+cur: e
+cur:  
+cur: w
+cur: a
+cur: s
+cur:  
+cur: t
+cur: o
+cur:  
+cur: r
+cur: e
+cur: s
+cur: t
+cur: e
+cur: ,
+cur:  
+cur: S
+cur: o
+cur:  
+cur: h
+cur: a
+cur: d
+cur: d
+cur: e
+cur:  
+cur: I
+cur:  
+cur: s
+cur: p
+cur: o
+cur: k
+cur: e
+cur: n
+cur:  
+cur: w
+cur: i
+cur: t
+cur: h
+cur:  
+cur: h
+cur: e
+cur: m
+cur:  
+cur: e
+cur: v
+cur: e
+cur: r
+cur: i
+cur: c
+cur: h
+cur: o
+cur: n
+cur:  
+cur: T
+cur: h
+cur: a
+cur: t
+cur:  
+cur: I
+cur:  
+cur: w
+cur: a
+cur: s
+cur:  
+cur: o
+cur: f
+cur:  
+cur: h
+cur: i
+cur: r
+cur:  
+cur: f
+cur: e
+cur: l
+cur: a
+cur: w
+cur: e
+cur: s
+cur: h
+cur: i
+cur: p
+cur: e
+cur:  
+cur: a
+cur: n
+cur: o
+cur: n
+cur: ,
+cur:  
+cur: A
+cur: n
+cur: d
+cur:  
+cur: m
+cur: a
+cur: d
+cur: e
+cur:  
+cur: f
+cur: o
+cur: r
+cur: w
+cur: a
+cur: r
+cur: d
+cur:  
+cur: e
+cur: r
+cur: l
+cur: y
+cur:  
+cur: f
+cur: o
+cur: r
+cur:  
+cur: t
+cur: o
+cur:  
+cur: r
+cur: y
+cur: s
+cur: e
+cur: ,
+cur:  
+cur: T
+cur: o
+cur:  
+cur: t
+cur: a
+cur: k
+cur: e
+cur:  
+cur: o
+cur: u
+cur: r
+cur: e
+cur:  
+cur: w
+cur: e
+cur: y
+cur:  
+cur: t
+cur: h
+cur: e
+cur: r
+cur:  
+cur: a
+cur: s
+cur:  
+cur: I
+cur:  
+cur: y
+cur: o
+cur: w
+cur:  
+cur: d
+cur: e
+cur: v
+cur: y
+cur: s
+cur: e
+cur: .
+cur:  
+cur: T
+cur: h
+cur: i
+cur: s
+cur:  
+cur: i
+cur: s
+cur:  
+cur: o
+cur: v
+cur: e
+cur: r
+cur:  
+cur: 2
+cur: 5
+cur: 5
+cur:  
+cur: b
+cur: y
+cur: t
+cur: e
+cur: s
+cur: "
+null-terminated: true
+Decoded success: The chambres and the stables weren wyde, And wel we weren esed atte beste. And shortly, whan the sonne was to reste, So hadde I spoken with hem everichon That I was of hir felaweshipe anon, And made forward erly for to ryse, To take oure wey ther as I yow devyse. This
+Encoded: "The chambres and the stables weren wyde, And wel we weren esed atte beste. And shortly, whan the sonne was to reste, So hadde I spoken with hem everichon That I was of hir felaweshipe anon, And made forward erly for to ryse, To take oure wey ther as I yow devyse. This"
+
+
+
+
+===== SUMMARIZED ENCODER RESULTS =====
+{
+  "student_tests": {
+    "Good": {
+      "correct": 10,
+      "incorrect": 0
+    },
+    "Bad": {
+      "correct": 10,
+      "incorrect": 0
+    }
+  },
+  "hidden_tests": {
+    "Good": {
+      "correct": 10,
+      "incorrect": 0
+    },
+    "Bad": {
+      "correct": 9,
+      "incorrect": 1
+    }
+  }
+}
+Encoder Project Grade
+---------------------------------
+
+GitHub Usage (2/2 points)
+----------------------------------------------
+Looks good
+
+Makefile (5/5 points)
+----------------------------------------------
+I would have make clean remove all of the test.bminor.out files in your test folder.
+I would also reccomend to create .o files, as this will reduce your compile time later on in the project
+
+Return Code (8/8 points)
+----------------------------------------------
+Looks good
+
+General Structure (15/15 points)
+----------------------------------------------
+I would not include your debug output in future assignments. For this one its okay, but points may be taken off in the future
+
+Student Tests (20/20 points)
+------------------------------------------
+Tests look good!
+
+Hidden Tests (19/20 points)
+------------------------------------------
+Looks like you missed bad10.bminor, which has a string that has an internal representation over 255 characters.
+
+Coding Style (10/10 points)
+------------------------------------------
+I would like to see some more comments in your main function. Some more descriptive comments in encoder.c would be nice also.
+
+Total (79/80 Points)
+------------------------------------------
