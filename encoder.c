@@ -209,6 +209,19 @@ int string_encode(const char* s, char* es)
             }
 
         }
+        else if(cur<32 || cur>127){//encode into \0xhh format
+            es[start] = '\\';
+            start++;
+            es[start] = '0';
+            start++;
+            es[start] = 'x';
+            start++;
+            char hex[3];
+            sprintf(hex, "%02x", cur);
+            es[start] = hex[0];
+            start++;
+            es[start] = hex[1];
+        }
         else // normal char
         {
             es[start] = s[i];
