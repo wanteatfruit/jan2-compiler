@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     long input_file_size = ftell(input_file);
     rewind(input_file);
 
-    printf("File size: %ld\n", input_file_size);
+
 
     char *input = malloc(input_file_size + 1);
     fread(input, 1, input_file_size, input_file);
@@ -26,14 +26,13 @@ int main(int argc, char* argv[])
     fclose(input_file);
 
     char decoded[256];
-    printf("Input: %s\n", input);
     int status = string_decode(input, decoded);
 
     if (status != 0) {
         // fprintf(stderr, "Error encoding string\n");
         return 1;
     }else{
-        printf("Decoded success: %s\n", decoded);
+        
     }
 
     char encoded[512];

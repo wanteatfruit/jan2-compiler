@@ -10,7 +10,9 @@ int string_decode(const char* es, char* s)
     int s_index = 0;
     int i = 1; // index for es
 
-    printf("starting string_decode\n");
+    if(length>255){
+        return 1;
+    }
 
     // case "", avoid """
     if (es[0] == '\"' && es[1] == '\"' && length==2)
@@ -25,15 +27,11 @@ int string_decode(const char* es, char* s)
         return 1;
     }
 
-    printf("passed starting and ending quote test");
-
     // parse string
     while (1)
     {
         char cur = es[i];
-        printf("cur: %c\n", cur);
         if (cur == '\\' && i < length - 2) { // no escaping last "
-            printf("backslashed char: %c\n", es[i + 1]);
             char next = es[i + 1];
             if (next == 'a') {
                 s[s_index] = 7;
@@ -141,7 +139,7 @@ int string_decode(const char* es, char* s)
             return 1;
         }
     }
-    printf("null-terminated: %s\n", s[strlen(s)]==null_term?"true":"false");
+    // printf("null-terminated: %s\n", s[strlen(s)]==null_term?"true":"false");
     return 0;
 }
 int string_encode(const char* s, char* es)
@@ -217,7 +215,6 @@ int string_encode(const char* s, char* es)
             es[start] = 'x';
             start++;
             char hex[3];
-            sprintf(hex, "%02x", cur);
             es[start] = hex[0];
             start++;
             es[start] = hex[1];

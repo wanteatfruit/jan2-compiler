@@ -4,6 +4,7 @@ bminor: main.c encoder.c
 
 clean:
 	rm -f bminor
+	rm -f ./test/*/*.out
 
 test: bminor
 	./runtest.sh
