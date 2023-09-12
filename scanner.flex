@@ -41,7 +41,7 @@ while           { return TOKEN_WHILE; }
 ==              { return TOKEN_EQUAL; }
 !=              { return TOKEN_NEQUAL; }
 \<              { return TOKEN_LESS; }
->              { return TOKEN_GREATER; }
+>               { return TOKEN_GREATER; }
 &&              { return TOKEN_AND; }
 \|\|            { return TOKEN_OR; }
 =               { return TOKEN_ASSIGN; }
@@ -52,7 +52,21 @@ while           { return TOKEN_WHILE; }
 :               { return TOKEN_COLON; }
 \\              { return TOKEN_BACKSLASH; }
 
+
+({LETTER}|_)({LETTER}|{DIGIT}|_){0,255} { return TOKEN_IDENTIFIER; }
+
+^\".+\"$     { return TOKEN_STRING_LITERAL; }
+\'[\\0a-zA-Z]{1,4}\' { return TOKEN_CHARACTER_LITERAL; } /* need post-processing */
+
+[+-]?{DIGIT}{0,4}\.{DIGIT}{1,52}  { return TOKEN_FLOAT_LITERAL; }
+{DIGIT}*\.?{DIGIT}[eE][-]?{DIGIT}{1,20} { return TOKEN_FLOAT_LITERAL; } /* may match integer section, flex need match int first */
+
+([+-]?){DIGIT}{1,20}       { return TOKEN_INTEGER_LITERAL; }
+
+
 <<EOF>>         { return TOKEN_EOF; }
-.               { return TOKEN_ERROR; } 
+.               { return TOKEN_ERROR; }
+
+
 %%
 int yywrap() {return 1;}

@@ -1,6 +1,8 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+extern char *token_names[];
+
 typedef enum
 {
     // Types
@@ -16,6 +18,7 @@ typedef enum
     TOKEN_INTEGER_LITERAL,   
     TOKEN_CHARACTER_LITERAL, 
     TOKEN_STRING_LITERAL,
+    TOKEN_FLOAT_LITERAL,
     // Keywords
     TOKEN_ELSE,
     TOKEN_FALSE,
@@ -60,8 +63,11 @@ typedef enum
     TOKEN_BACKSLASH,
 
     // Everything else
+    TOKEN_C_COMMENT,
+    TOKEN_CPP_COMMENT,
     TOKEN_ERROR,
     TOKEN_EOF
 } token_t;
+
 
 #endif
