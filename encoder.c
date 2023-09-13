@@ -99,7 +99,7 @@ int string_decode(const char* es, char* s)
                 i+=2;
                 continue;
             }
-            else if (next == '0') { //hex or invalid
+            else if (next == '0') { //hex or invalid or '\0'
                 char next_x = es[i + 2];
                 char next_hex_1 = es[i + 3];
                 char next_hex_2 = es[i + 4];
@@ -119,11 +119,15 @@ int string_decode(const char* es, char* s)
                         return 1;
                     }
                 }
-                else { // invalid next char
-                    return 1;
+                else { // treat as '\0', terminate
+                    // return 1;
+                    s[s_index] = '\0';
+                    break;
                 }
             }else{
-                return 1;
+                s[s_index] = '\\';
+                s_index++;
+                i++;
             }
         }
         else if (cur == '\"' &&  i==length-1) { // end of string
