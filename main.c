@@ -147,11 +147,8 @@ int main(int argc, char *argv[])
             {
                 // regex matches both special chars (incl. \' and hex) and normal chars surrounded by single quotes,
                 // check validity here
-                char *text = malloc(strlen(yytext) + 1);
-                strcpy(text, yytext);
-                text[strlen(yytext)] = '\0';
                 char decoded[256];
-                int status = char_decode(text, decoded);
+                int status = is_valid_char(yytext, decoded);
                 if (status != 0)
                 {
                     fprintf(stderr, "Error encoding character\n");
@@ -165,11 +162,8 @@ int main(int argc, char *argv[])
             else if (token == TOKEN_STRING_LITERAL)
             {
                 // regex matches all strings surrounded by double quotes. check validity inside encoder
-                char *text = malloc(strlen(yytext) + 1);
-                strcpy(text, yytext);
-                text[strlen(yytext)] = '\0';
                 char decoded[256];
-                int status = string_decode(text, decoded);
+                int status = is_valid_string(yytext, decoded);
                 if (status != 0)
                 {
                     fprintf(stderr, "Error encoding string\n");
@@ -217,4 +211,20 @@ int is_overflow_float(const char *text){
         return 1; // overflow
     }
     return 0; // valid
+}
+
+int is_valid_char(const char *input, char *valid_chars){
+    char *text = malloc(strlen(yytext) + 1);
+    strcpy(text, yytext);
+    text[strlen(yytext)] = '\0';
+    int status = char_decode(text, valid_chars);
+    return status;
+}
+
+int is_valid_string(const char *input, char *valid_chars){
+    char *text = malloc(strlen(yytext) + 1);
+    strcpy(text, yytext);
+    text[strlen(yytext)] = '\0';
+    int status = string_decode(text, valid_chars);
+    return status;
 }
