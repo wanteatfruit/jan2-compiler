@@ -5,6 +5,8 @@ DIGIT [0-9]
 LETTER [a-zA-Z]
 %%
 (" "|\t|\n|\r) /* skip whitespace */
+\/\/.*$                   { return TOKEN_CPP_COMMENT; }
+\/\*.*?\*\/                 {return TOKEN_C_COMMENT; }
 array           { return TOKEN_ARRAY; }
 boolean         { return TOKEN_BOOLEAN; }
 char            { return TOKEN_CHARACTER; }
@@ -58,13 +60,12 @@ while           { return TOKEN_WHILE; }
 \"(([^\"\\]|\\.)*)\"    { return TOKEN_STRING_LITERAL; }
 \'[\\0-9a-zA-Z]{1,4}\' { return TOKEN_CHARACTER_LITERAL; } /* need post-processing */
 
-[+-]?{DIGIT}*\.{DIGIT}{1,20}  { return TOKEN_FLOAT_LITERAL; }
-{DIGIT}*\.?{DIGIT}[eE][-]?{DIGIT}{1,20} { return TOKEN_FLOAT_LITERAL; } /* may match integer section, flex need match int first */
+[+-]?{DIGIT}*\.{DIGIT}+  { return TOKEN_FLOAT_LITERAL; }
+{DIGIT}*\.?{DIGIT}[eE][-]?{DIGIT}+ { return TOKEN_FLOAT_LITERAL; } /* may match integer section, flex need match int first */
 
-([+-]?){DIGIT}{1,20}       { return TOKEN_INTEGER_LITERAL; }
+([+-]?){DIGIT}+       { return TOKEN_INTEGER_LITERAL; }
 
-^\/\/.*$                   { return TOKEN_CPP_COMMENT; }
-\/\*.*?\*\/                 {return TOKEN_C_COMMENT; }
+
 
 <<EOF>>         { return TOKEN_EOF; }
 .               { return TOKEN_ERROR; }

@@ -1,5 +1,8 @@
-bminor: main.o encoder.c scanner.o
-	gcc -o bminor main.o encoder.c scanner.o
+bminor: main.o encoder.o scanner.o
+	gcc -o bminor main.o encoder.o scanner.o
+
+encoder.o: encoder.c
+	gcc -c encoder.c -c -o encoder.o
 
 main.o: main.c token.h
 	gcc -c main.c -c -o main.o

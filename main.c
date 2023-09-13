@@ -1,8 +1,12 @@
 #include "encoder.h"
 #include "token.h"
+#include "main.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <float.h>
+#include <limits.h>
+#include <errno.h>
 
 extern FILE *yyin;
 extern int yylex();
@@ -115,6 +119,30 @@ int main(int argc, char *argv[])
                 fprintf(stderr, "Scan error, invalid token: %s\n", yytext);
                 return 1;
             }
+            else if (token == TOKEN_INTEGER_LITERAL)
+            {
+                if (is_overflow_int(yytext))
+                {
+                    fprintf(stderr, "Scan error, invalid integer: %s\n", yytext);
+                    return 1;
+                }
+                else
+                {
+                    printf("%s %s\n", token_names[token], yytext);
+                }
+            }
+            else if (token == TOKEN_FLOAT_LITERAL)
+            {
+                if (is_overflow_float(yytext))
+                {
+                    fprintf(stderr, "Scan error, invalid float: %s\n", yytext);
+                    return 1;
+                }
+                else
+                {
+                    printf("%s %s\n", token_names[token], yytext);
+                }
+            }
             else if (token == TOKEN_CHARACTER_LITERAL) //\'[\\0a-zA-Z]{1,4}\'
             {
                 // regex matches both special chars (incl. \' and hex) and normal chars surrounded by single quotes,
@@ -165,4 +193,29 @@ int main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+//helper functions
+int is_overflow_int(const char *text)
+{
+    char *endptr;
+    errno = 0;
+    int64_t result = strtoll(text, &endptr, 10);
+    if ((errno == ERANGE && (result == LLONG_MAX || result == LLONG_MIN)))
+    {
+        return 1; // overflow
+    }
+    return 0; // valid
+}
+
+int is_overflow_float(const char *text){
+    double result = atof(text);
+    double pos_inf = 1.0 / 0.0;
+    double neg_inf = -1.0 / 0.0;
+    printf("result: %f\n", result);
+    if (result == pos_inf || result == neg_inf)
+    {
+        return 1; // overflow
+    }
+    return 0; // valid
 }

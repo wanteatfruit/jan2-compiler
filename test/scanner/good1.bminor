@@ -3,7 +3,7 @@
 /* comment */
 array 
 boolean 
-char 
+char  // comment after
 else 
 false 
 for 
