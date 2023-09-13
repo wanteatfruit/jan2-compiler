@@ -232,4 +232,107 @@ int string_encode(const char* s, char* es)
     return 0;
 }
 
+int char_decode(const char* es, char* s ){
+    int length = strlen(es);
+    // starting and ending ' is guaranteed by scanner
+    // content inside guranteed \,0-9,a-z,A-Z by scanner
+    if(length==3){ // 'a'
+        if(es[1]=='\\'){ // corner case '\'
+            return 1;
+        }
+        s[0] = es[1];
+        s[1] = '\0';
+        return 0;
+    }else if(length==4){ // '\n'
+        if(es[1]!='\\'){
+            return 1;
+        }
+        char next = es[2];
+        if(next=='a'){
+            s[0] = '\\';
+            s[1] = 'a';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='b'){
+            s[0] = '\\';
+            s[1] = 'b';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='e'){
+            s[0] = '\\';
+            s[1] = 'e';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='f'){
+            s[0] = '\\';
+            s[1] = 'f';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='n'){
+            s[0] = '\\';
+            s[1] = 'n';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='r'){
+            s[0] = '\\';
+            s[1] = 'r';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='t'){
+            s[0] = '\\';
+            s[1] = 't';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='v'){
+            s[0] = '\\';
+            s[1] = 'v';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='\\'){
+            s[0] = '\\';
+            s[1] = '\\';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='\''){
+            s[0] = '\\';
+            s[1] = '\'';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='\"'){
+            s[0] = '\\';
+            s[1] = '\"';
+            s[2] = '\0';
+            return 0;
+        } else if(next=='0'){
+            s[0] = '\\';
+            s[1] = '0';
+            s[2] = '\0';
+            return 0;
+        } else{
+            return 1;
+        }
 
+
+    }
+    else if(length==7){ // '\0xaa'
+        if(es[1]!='\\' || es[2]!='0' || es[3]!='x'){
+            return 1;
+        }
+        char hex[3];
+        hex[0] = es[4];
+        hex[1] = es[5];
+        int decimal_value = strtol(hex, NULL, 16);
+        //check if range valid
+        if (decimal_value >=  1 && decimal_value <= 127) { //exluding null
+            s[0] = decimal_value;
+            s[1] = '\0';
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }else{
+        return 1;
+    }
+    
+}

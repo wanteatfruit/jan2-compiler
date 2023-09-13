@@ -16,8 +16,8 @@ char *token_names[] = {
     "TOKEN_INTEGER",
     "TOKEN_STRING",
     "TOKEN_VOID",
-    "TOKEN_INTEGER_LITERAL",   
-    "TOKEN_CHARACTER_LITERAL", 
+    "TOKEN_INTEGER_LITERAL",
+    "TOKEN_CHARACTER_LITERAL",
     "TOKEN_STRING_LITERAL",
     "TOKEN_FLOAT_LITERAL",
     "TOKEN_ELSE",
@@ -62,8 +62,7 @@ char *token_names[] = {
     "TOKEN_C_COMMENT",
     "TOKEN_CPP_COMMENT",
     "TOKEN_ERROR",
-    "TOKEN_EOF"
-};
+    "TOKEN_EOF"};
 
 int main(int argc, char *argv[])
 {
@@ -111,17 +110,35 @@ int main(int argc, char *argv[])
             {
                 break;
             }
-            if (token == TOKEN_ERROR)
+            else if (token == TOKEN_ERROR)
             {
-                fprintf(stderr, "Error scanning file\n");
+                fprintf(stderr, "Scan error, invalid token: %s\n", yytext);
                 return 1;
             }
-            if(token == TOKEN_CHARACTER_LITERAL){
-
-            }
-            if (token == TOKEN_STRING_LITERAL){
+            else if (token == TOKEN_CHARACTER_LITERAL) //\'[\\0a-zA-Z]{1,4}\'
+            {
+                // regex matches both special chars (incl. \' and hex) and normal chars surrounded by single quotes,
+                // check validity here
                 char *text = malloc(strlen(yytext) + 1);
-                strcpy(text, yytext);   
+                strcpy(text, yytext);
+                text[strlen(yytext)] = '\0';
+                char decoded[256];
+                int status = char_decode(text, decoded);
+                if (status != 0)
+                {
+                    fprintf(stderr, "Error encoding character\n");
+                    return 1;
+                }
+                else
+                {
+                    printf("%s %s\n", token_names[token], yytext);
+                }
+            }
+            else if (token == TOKEN_STRING_LITERAL)
+            {
+                // regex matches all strings surrounded by double quotes. check validity inside encoder
+                char *text = malloc(strlen(yytext) + 1);
+                strcpy(text, yytext);
                 text[strlen(yytext)] = '\0';
                 char decoded[256];
                 int status = string_decode(text, decoded);
@@ -129,17 +146,20 @@ int main(int argc, char *argv[])
                 {
                     fprintf(stderr, "Error encoding string\n");
                     return 1;
-                }else{
-                    char encoded[512];
-                    status = string_encode(decoded, encoded);
-                    printf("token: %d text: %s\n",token_names[token],encoded);
+                }
+                else
+                {
+                    printf("%s %s\n", token_names[token], decoded);
                 }
             }
-             else {
-                printf("token: %s text: %s\n",token_names[token],yytext);
+            else
+            {
+                printf("%s %s\n", token_names[token], yytext);
             }
         }
-    }else{
+    }
+    else
+    {
         fprintf(stderr, "Invalid argument\n");
         return 1;
     }
