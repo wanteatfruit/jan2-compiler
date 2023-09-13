@@ -212,7 +212,6 @@ int is_overflow_float(const char *text){
     double result = atof(text);
     double pos_inf = 1.0 / 0.0;
     double neg_inf = -1.0 / 0.0;
-    printf("result: %f\n", result);
     if (result == pos_inf || result == neg_inf)
     {
         return 1; // overflow
