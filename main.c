@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <float.h>
-#include <limits.h>
-#include <errno.h>
 
 extern FILE *yyin;
 extern int yylex();
@@ -121,7 +118,7 @@ int main(int argc, char *argv[])
             }
             else if (token == TOKEN_INTEGER_LITERAL)
             {
-                if (is_overflow_int(yytext))
+                if (is_valid_int(yytext)==1)
                 {
                     fprintf(stderr, "Scan error, invalid integer: %s\n", yytext);
                     return 1;
@@ -133,7 +130,7 @@ int main(int argc, char *argv[])
             }
             else if (token == TOKEN_FLOAT_LITERAL)
             {
-                if (is_overflow_float(yytext))
+                if (is_valid_float(yytext)==1) // r returns 1
                 {
                     fprintf(stderr, "Scan error, invalid float: %s\n", yytext);
                     return 1;
@@ -190,27 +187,17 @@ int main(int argc, char *argv[])
 }
 
 //helper functions
-int is_overflow_int(const char *text)
+int is_valid_int(const char *text)
 {
-    char *endptr;
-    errno = 0;
-    int64_t result = strtoll(text, &endptr, 10);
-    if ((errno == ERANGE && (result == LLONG_MAX || result == LLONG_MIN)))
-    {
-        return 1; // overflow
-    }
-    return 0; // valid
+    int64_t result = atoi(text);
+    int r = sscanf(text, "%lld", &result);
+    return r;
 }
 
-int is_overflow_float(const char *text){
+int is_valid_float(const char *text){
     double result = atof(text);
-    double pos_inf = 1.0 / 0.0;
-    double neg_inf = -1.0 / 0.0;
-    if (result == pos_inf || result == neg_inf)
-    {
-        return 1; // overflow
-    }
-    return 0; // valid
+    int r = sscanf(text, "%lf", &result);
+    return r;
 }
 
 int is_valid_char(const char *input, char *valid_chars){
