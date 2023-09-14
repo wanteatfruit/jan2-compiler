@@ -119,15 +119,11 @@ int string_decode(const char* es, char* s)
                         return 1;
                     }
                 }
-                else { // treat as '\0', terminate
-                    // return 1;
-                    s[s_index] = '\0';
-                    break;
+                else { 
+                    return 1;
                 }
             }else{
-                s[s_index] = '\\';
-                s_index++;
-                i++;
+                return 1;
             }
         }
         else if (cur == '\"' &&  i==length-1) { // end of string

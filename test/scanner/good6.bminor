@@ -3,8 +3,7 @@ str:string = "";
 
 str:string = "we can write an escaped backslash \\";
 " \"this is a unique test case \" ";
-" \n \tasd \0adsd"
-"\e \r \y"
+
 str:string = "single qoute ' or \' ";
 str:string = " double qoute \" ";
 
