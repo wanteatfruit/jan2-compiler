@@ -1,0 +1,3031 @@
+=====STUDENT TESTS=====
+====Good Tests====
+===[STUDENT TESTS/good0.bminor Input]===
+// just runs all basic tokens
+//
+/* comment */
+array 
+boolean 
+char 
+else 
+false 
+for 
+function 
+if 
+integer 
+print 
+return 
+string 
+true
+void
+while
+:
+;
+,
+[
+]
+{
+}
+(
+)
+=
+^
++
+-
+++
+--
+*
+/
+%
+==
+>=
+<=
+<
+>
+!=
+a
+ab
+ab3
+ab3a
+12314
+1
+12
+123
+'A'
+""
+"a"
+"aa"
+===[STUDENT TESTS/good0.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good0.bminor Output]===
+TOKEN_CPP_COMMENT // just runs all basic tokens
+TOKEN_CPP_COMMENT //
+TOKEN_C_COMMENT /* comment */
+TOKEN_ARRAY array
+TOKEN_BOOLEAN boolean
+TOKEN_CHARACTER char
+TOKEN_ELSE else
+TOKEN_FALSE false
+TOKEN_FOR for
+TOKEN_FUNCTION function
+TOKEN_IF if
+TOKEN_INTEGER integer
+TOKEN_PRINT print
+TOKEN_RETURN return
+TOKEN_STRING string
+TOKEN_TRUE true
+TOKEN_VOID void
+TOKEN_WHILE while
+TOKEN_COLON :
+TOKEN_SEMICOLON ;
+TOKEN_COMMA ,
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_L_BRACE {
+TOKEN_R_BRACE }
+TOKEN_L_PAREN (
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_EXP ^
+TOKEN_ADD +
+TOKEN_SUB -
+TOKEN_POSTINC ++
+TOKEN_POSTDEC --
+TOKEN_MUL *
+TOKEN_DIV /
+TOKEN_MOD %
+TOKEN_EQUAL ==
+TOKEN_GE >=
+TOKEN_LE <=
+TOKEN_LESS <
+TOKEN_GREATER >
+TOKEN_NEQUAL !=
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER ab
+TOKEN_IDENTIFIER ab3
+TOKEN_IDENTIFIER ab3a
+TOKEN_INTEGER_LITERAL 12314
+TOKEN_INTEGER_LITERAL 1
+TOKEN_INTEGER_LITERAL 12
+TOKEN_INTEGER_LITERAL 123
+TOKEN_CHARACTER_LITERAL 'A'
+TOKEN_STRING_LITERAL 
+TOKEN_STRING_LITERAL a
+TOKEN_STRING_LITERAL aa
+
+
+
+
+===[STUDENT TESTS/good1.bminor Input]===
+// just runs all basic tokens
+//
+/* comment */
+array 
+boolean 
+char  // comment after
+else 
+false 
+for 
+function 
+if 
+integer 
+print 
+return 
+string 
+true
+void
+while
+:
+;
+,
+[
+]
+{
+}
+(
+)
+=
+^
++
+-
+++
+--
+*
+/
+%
+==
+>=
+<=
+<
+>
+!=
+a
+ab
+ab3
+ab3a
+12314
+1
+12
+123
+'A'
+""
+"a"
+"aa"
+
+===[STUDENT TESTS/good1.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good1.bminor Output]===
+TOKEN_CPP_COMMENT // just runs all basic tokens
+TOKEN_CPP_COMMENT //
+TOKEN_C_COMMENT /* comment */
+TOKEN_ARRAY array
+TOKEN_BOOLEAN boolean
+TOKEN_CHARACTER char
+TOKEN_CPP_COMMENT // comment after
+TOKEN_ELSE else
+TOKEN_FALSE false
+TOKEN_FOR for
+TOKEN_FUNCTION function
+TOKEN_IF if
+TOKEN_INTEGER integer
+TOKEN_PRINT print
+TOKEN_RETURN return
+TOKEN_STRING string
+TOKEN_TRUE true
+TOKEN_VOID void
+TOKEN_WHILE while
+TOKEN_COLON :
+TOKEN_SEMICOLON ;
+TOKEN_COMMA ,
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_L_BRACE {
+TOKEN_R_BRACE }
+TOKEN_L_PAREN (
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_EXP ^
+TOKEN_ADD +
+TOKEN_SUB -
+TOKEN_POSTINC ++
+TOKEN_POSTDEC --
+TOKEN_MUL *
+TOKEN_DIV /
+TOKEN_MOD %
+TOKEN_EQUAL ==
+TOKEN_GE >=
+TOKEN_LE <=
+TOKEN_LESS <
+TOKEN_GREATER >
+TOKEN_NEQUAL !=
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER ab
+TOKEN_IDENTIFIER ab3
+TOKEN_IDENTIFIER ab3a
+TOKEN_INTEGER_LITERAL 12314
+TOKEN_INTEGER_LITERAL 1
+TOKEN_INTEGER_LITERAL 12
+TOKEN_INTEGER_LITERAL 123
+TOKEN_CHARACTER_LITERAL 'A'
+TOKEN_STRING_LITERAL 
+TOKEN_STRING_LITERAL a
+TOKEN_STRING_LITERAL aa
+
+
+
+
+===[STUDENT TESTS/good1.minor Input]===
+
+===[STUDENT TESTS/good1.minor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good1.minor Output]===
+
+
+
+
+===[STUDENT TESTS/good10.bminor Input]===
+/* tests some more constructs in bminor */
+z = -x; // unary negation
+x^2; //exponantiotion
+//simple test cases
+x ^ 2
+z != x % 2
+z = 5 + 6;
+z = 5 * 6;
+z = 5 - 6;
+z = 5 / 6;
+q++;
+z--;
+z = 7 + 7 - z;
+
+
+===[STUDENT TESTS/good10.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good10.bminor Output]===
+TOKEN_C_COMMENT /* tests some more constructs in bminor */
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_SUB -
+TOKEN_IDENTIFIER x
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT // unary negation
+TOKEN_IDENTIFIER x
+TOKEN_EXP ^
+TOKEN_INTEGER_LITERAL 2
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT //exponantiotion
+TOKEN_CPP_COMMENT //simple test cases
+TOKEN_IDENTIFIER x
+TOKEN_EXP ^
+TOKEN_INTEGER_LITERAL 2
+TOKEN_IDENTIFIER z
+TOKEN_NEQUAL !=
+TOKEN_IDENTIFIER x
+TOKEN_MOD %
+TOKEN_INTEGER_LITERAL 2
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 5
+TOKEN_ADD +
+TOKEN_INTEGER_LITERAL 6
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 5
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 6
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SUB -
+TOKEN_INTEGER_LITERAL 6
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 5
+TOKEN_DIV /
+TOKEN_INTEGER_LITERAL 6
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER q
+TOKEN_POSTINC ++
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_POSTDEC --
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 7
+TOKEN_ADD +
+TOKEN_INTEGER_LITERAL 7
+TOKEN_SUB -
+TOKEN_IDENTIFIER z
+TOKEN_SEMICOLON ;
+
+
+
+
+===[STUDENT TESTS/good11.bminor Input]===
+// some more complicated corner cases
+z = -(5 * 4);
+z = 15 + 5 - 4*3/7;
+z = x + (y * 5 - (4 + 20/v) - 15) % 6 + z; //long integer expr
+z+++; // these will cause parsing errors
+w---;
+
+
+===[STUDENT TESTS/good11.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good11.bminor Output]===
+TOKEN_CPP_COMMENT // some more complicated corner cases
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_SUB -
+TOKEN_L_PAREN (
+TOKEN_INTEGER_LITERAL 5
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 4
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 15
+TOKEN_ADD +
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SUB -
+TOKEN_INTEGER_LITERAL 4
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 3
+TOKEN_DIV /
+TOKEN_INTEGER_LITERAL 7
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER x
+TOKEN_ADD +
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER y
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SUB -
+TOKEN_L_PAREN (
+TOKEN_INTEGER_LITERAL 4
+TOKEN_ADD +
+TOKEN_INTEGER_LITERAL 20
+TOKEN_DIV /
+TOKEN_IDENTIFIER v
+TOKEN_R_PAREN )
+TOKEN_SUB -
+TOKEN_INTEGER_LITERAL 15
+TOKEN_R_PAREN )
+TOKEN_MOD %
+TOKEN_INTEGER_LITERAL 6
+TOKEN_ADD +
+TOKEN_IDENTIFIER z
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT //long integer expr
+TOKEN_IDENTIFIER z
+TOKEN_POSTINC ++
+TOKEN_ADD +
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT // these will cause parsing errors
+TOKEN_IDENTIFIER w
+TOKEN_POSTDEC --
+TOKEN_SUB -
+TOKEN_SEMICOLON ;
+
+
+
+
+===[STUDENT TESTS/good12.bminor Input]===
+//tests the for/print keyword and while keyword
+x:integer;
+for(x = 0; x < 5; x++)
+{
+	print "counting: ", x;
+}
+a:integer = 0;
+while(a > 0)
+{
+	a--;
+}
+
+
+
+===[STUDENT TESTS/good12.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good12.bminor Output]===
+TOKEN_CPP_COMMENT //tests the for/print keyword and while keyword
+TOKEN_IDENTIFIER x
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_FOR for
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER x
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_LESS <
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_POSTINC ++
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL counting: 
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER x
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER a
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_WHILE while
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_GREATER >
+TOKEN_INTEGER_LITERAL 0
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER a
+TOKEN_POSTDEC --
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[STUDENT TESTS/good13.bminor Input]===
+//test some odd identifier names
+ident55
+ident55_
+ident__55__
+thisIsAReallyReallyLongIdentifierNameThatHasTonsOfLettersInIt = 7
+variable_names_may_contain_underscores_
+_variables_can_start_with_an_underscore_67
+7minus5 
+
+===[STUDENT TESTS/good13.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good13.bminor Output]===
+TOKEN_CPP_COMMENT //test some odd identifier names
+TOKEN_IDENTIFIER ident55
+TOKEN_IDENTIFIER ident55_
+TOKEN_IDENTIFIER ident__55__
+TOKEN_IDENTIFIER thisIsAReallyReallyLongIdentifierNameThatHasTonsOfLettersInIt
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 7
+TOKEN_IDENTIFIER variable_names_may_contain_underscores_
+TOKEN_IDENTIFIER _variables_can_start_with_an_underscore_67
+TOKEN_INTEGER_LITERAL 7
+TOKEN_IDENTIFIER minus5
+
+
+
+
+===[STUDENT TESTS/good14.bminor Input]===
+main: function integer ( argc: integer, argv: array [] string ) =
+{
+}
+boolFunction: function boolean(intVar:integer) =
+{
+	return intVar > 5;
+}
+intFunction: function integer(integer n) =
+{
+	total:integer = 0;
+	int count;
+	for(count = 0; count < n+1; count++)
+	{
+		total = total + count;
+	
+}
+
+
+===[STUDENT TESTS/good14.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good14.bminor Output]===
+TOKEN_IDENTIFIER main
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER argc
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER argv
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_STRING string
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER boolFunction
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_BOOLEAN boolean
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intVar
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_RETURN return
+TOKEN_IDENTIFIER intVar
+TOKEN_GREATER >
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER intFunction
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_INTEGER integer
+TOKEN_IDENTIFIER n
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER total
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER int
+TOKEN_IDENTIFIER count
+TOKEN_SEMICOLON ;
+TOKEN_FOR for
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER count
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER count
+TOKEN_LESS <
+TOKEN_IDENTIFIER n
+TOKEN_INTEGER_LITERAL +1
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER count
+TOKEN_POSTINC ++
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER total
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER total
+TOKEN_ADD +
+TOKEN_IDENTIFIER count
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[STUDENT TESTS/good15.bminor Input]===
+intFunction: function integer(intVar:integer, boolVar: boolean)
+{
+	if(boolVar)
+	{
+		intVar = intVar * 2;
+	}
+	return intVar;
+}
+// finds the largest value in the array
+getLargest: function integer(intArrVar:array [] integer, int len) =
+{
+	largest:integer = 0;
+	x:integer;
+	for(x = 0; x < len; x++)
+	{
+		if(intArrVar[x] > largest)
+		{
+			largest = intArrVar[x];
+		}
+	}
+	return largest;
+		
+}
+
+main: function integer ( argc: integer, argv: array [] string ) =
+{
+	b:array [10] integer = {0,1,2,3,4,5};
+	b[4] = 6;
+	i:integer;
+	z:integer = intFunction(i, true);
+	print intArrFunction(v, z);
+}
+
+===[STUDENT TESTS/good15.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good15.bminor Output]===
+TOKEN_IDENTIFIER intFunction
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intVar
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER boolVar
+TOKEN_COLON :
+TOKEN_BOOLEAN boolean
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER boolVar
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER intVar
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER intVar
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 2
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_RETURN return
+TOKEN_IDENTIFIER intVar
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_CPP_COMMENT // finds the largest value in the array
+TOKEN_IDENTIFIER getLargest
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intArrVar
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER int
+TOKEN_IDENTIFIER len
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER largest
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_FOR for
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER x
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_LESS <
+TOKEN_IDENTIFIER len
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_POSTINC ++
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intArrVar
+TOKEN_L_BRACKET [
+TOKEN_IDENTIFIER x
+TOKEN_R_BRACKET ]
+TOKEN_GREATER >
+TOKEN_IDENTIFIER largest
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER largest
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER intArrVar
+TOKEN_L_BRACKET [
+TOKEN_IDENTIFIER x
+TOKEN_R_BRACKET ]
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_R_BRACE }
+TOKEN_RETURN return
+TOKEN_IDENTIFIER largest
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER main
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER argc
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER argv
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_STRING string
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER b
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 10
+TOKEN_R_BRACKET ]
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_INTEGER_LITERAL 0
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 1
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 2
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 3
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 4
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_BRACE }
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER b
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 4
+TOKEN_R_BRACKET ]
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 6
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER i
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER intFunction
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER i
+TOKEN_COMMA ,
+TOKEN_TRUE true
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+TOKEN_PRINT print
+TOKEN_IDENTIFIER intArrFunction
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER v
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER z
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[STUDENT TESTS/good16.bminor Input]===
+// mix of integer and float
+1234
+1233.44
+.23
+12141414
+34.11111
+45e1
+2.4e-2
+0123
+===[STUDENT TESTS/good16.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good16.bminor Output]===
+TOKEN_CPP_COMMENT // mix of integer and float
+TOKEN_INTEGER_LITERAL 1234
+TOKEN_FLOAT_LITERAL 1233.44
+TOKEN_FLOAT_LITERAL .23
+TOKEN_INTEGER_LITERAL 12141414
+TOKEN_FLOAT_LITERAL 34.11111
+TOKEN_FLOAT_LITERAL 45e1
+TOKEN_FLOAT_LITERAL 2.4e-2
+TOKEN_INTEGER_LITERAL 0123
+
+
+
+
+===[STUDENT TESTS/good17.bminor Input]===
+// floats
+
+===[STUDENT TESTS/good17.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good17.bminor Output]===
+TOKEN_CPP_COMMENT // floats
+
+
+
+
+===[STUDENT TESTS/good18.bminor Input]===
+//check int and float boundary here
+9223372036854775807
+1.7e300
+===[STUDENT TESTS/good18.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good18.bminor Output]===
+TOKEN_CPP_COMMENT //check int and float boundary here
+TOKEN_INTEGER_LITERAL 9223372036854775807
+TOKEN_FLOAT_LITERAL 1.7e300
+
+
+
+
+===[STUDENT TESTS/good2.bminor Input]===
+// basic data types
+number: integer;
+number = 56;
+number = -56;
+number = +56;
+number = 0005006;
+number = +0005006;
+number = -000050006;
+
+
+
+
+
+
+
+
+
+===[STUDENT TESTS/good2.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good2.bminor Output]===
+TOKEN_CPP_COMMENT // basic data types
+TOKEN_IDENTIFIER number
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 56
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL -56
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL +56
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0005006
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL +0005006
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL -000050006
+TOKEN_SEMICOLON ;
+
+
+
+
+===[STUDENT TESTS/good3.bminor Input]===
+//test some boolean types
+bool:boolean = true;
+bool:boolean = false;
+bool = 5 > 4;
+
+
+===[STUDENT TESTS/good3.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good3.bminor Output]===
+TOKEN_CPP_COMMENT //test some boolean types
+TOKEN_IDENTIFIER bool
+TOKEN_COLON :
+TOKEN_BOOLEAN boolean
+TOKEN_ASSIGN =
+TOKEN_TRUE true
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER bool
+TOKEN_COLON :
+TOKEN_BOOLEAN boolean
+TOKEN_ASSIGN =
+TOKEN_FALSE false
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER bool
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 5
+TOKEN_GREATER >
+TOKEN_INTEGER_LITERAL 4
+TOKEN_SEMICOLON ;
+
+
+
+
+===[STUDENT TESTS/good4.bminor Input]===
+// basic data types
+
+
+character:	 	char = 'c';
+character: char = '\n';
+character:	char = '\0';
+character = '\t'
+
+
+===[STUDENT TESTS/good4.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good4.bminor Output]===
+TOKEN_CPP_COMMENT // basic data types
+TOKEN_IDENTIFIER character
+TOKEN_COLON :
+TOKEN_CHARACTER char
+TOKEN_ASSIGN =
+TOKEN_CHARACTER_LITERAL 'c'
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER character
+TOKEN_COLON :
+TOKEN_CHARACTER char
+TOKEN_ASSIGN =
+TOKEN_CHARACTER_LITERAL '\n'
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER character
+TOKEN_COLON :
+TOKEN_CHARACTER char
+TOKEN_ASSIGN =
+TOKEN_CHARACTER_LITERAL '\0'
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER character
+TOKEN_ASSIGN =
+TOKEN_CHARACTER_LITERAL '\t'
+
+
+
+
+===[STUDENT TESTS/good5.bminor Input]===
+"This is a string"
+"Notre \n Dame"
+" "
+" string with numbers 3213"
+"String with @@ works in the program"
+""
+
+===[STUDENT TESTS/good5.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good5.bminor Output]===
+TOKEN_STRING_LITERAL This is a string
+TOKEN_STRING_LITERAL Notre 
+ Dame
+TOKEN_STRING_LITERAL  
+TOKEN_STRING_LITERAL  string with numbers 3213
+TOKEN_STRING_LITERAL String with @@ works in the program
+TOKEN_STRING_LITERAL 
+
+
+
+
+===[STUDENT TESTS/good6.bminor Input]===
+// strings
+str:string = "";
+
+str:string = "we can write an escaped backslash \\";
+" \"this is a unique test case \" ";
+
+str:string = "single qoute ' or \' ";
+str:string = " double qoute \" ";
+
+
+===[STUDENT TESTS/good6.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good6.bminor Output]===
+TOKEN_CPP_COMMENT // strings
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL 
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL we can write an escaped backslash \
+TOKEN_SEMICOLON ;
+TOKEN_STRING_LITERAL  "this is a unique test case " 
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL single qoute ' or ' 
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL  double qoute " 
+TOKEN_SEMICOLON ;
+
+
+
+
+===[STUDENT TESTS/good7.bminor Input]===
+// strings
+str:string = "";
+
+str:string = "hello this is a string!";
+
+str:string = "11234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567"// less then 160 characters 
+
+
+
+===[STUDENT TESTS/good7.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good7.bminor Output]===
+TOKEN_CPP_COMMENT // strings
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL 
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL hello this is a string!
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER str
+TOKEN_COLON :
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_STRING_LITERAL 11234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567
+TOKEN_CPP_COMMENT // less then 160 characters 
+
+
+
+
+===[STUDENT TESTS/good8.bminor Input]===
+//test arrays
+f:array [5]integer = { 1, 2, 3, 4, 5};
+f:array[5]char = {'a', 'b', 'c', 'd', 'e'};
+f:array[5] boolean = {false, false, true, true, true};
+f:array [] 	string = {"this", "i", "s", "a,", "test", "."};
+
+===[STUDENT TESTS/good8.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good8.bminor Output]===
+TOKEN_CPP_COMMENT //test arrays
+TOKEN_IDENTIFIER f
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_BRACKET ]
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_INTEGER_LITERAL 1
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 2
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 3
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 4
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_BRACE }
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER f
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_BRACKET ]
+TOKEN_CHARACTER char
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_CHARACTER_LITERAL 'a'
+TOKEN_COMMA ,
+TOKEN_CHARACTER_LITERAL 'b'
+TOKEN_COMMA ,
+TOKEN_CHARACTER_LITERAL 'c'
+TOKEN_COMMA ,
+TOKEN_CHARACTER_LITERAL 'd'
+TOKEN_COMMA ,
+TOKEN_CHARACTER_LITERAL 'e'
+TOKEN_R_BRACE }
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER f
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_BRACKET ]
+TOKEN_BOOLEAN boolean
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_FALSE false
+TOKEN_COMMA ,
+TOKEN_FALSE false
+TOKEN_COMMA ,
+TOKEN_TRUE true
+TOKEN_COMMA ,
+TOKEN_TRUE true
+TOKEN_COMMA ,
+TOKEN_TRUE true
+TOKEN_R_BRACE }
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER f
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_STRING string
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_STRING_LITERAL this
+TOKEN_COMMA ,
+TOKEN_STRING_LITERAL i
+TOKEN_COMMA ,
+TOKEN_STRING_LITERAL s
+TOKEN_COMMA ,
+TOKEN_STRING_LITERAL a,
+TOKEN_COMMA ,
+TOKEN_STRING_LITERAL test
+TOKEN_COMMA ,
+TOKEN_STRING_LITERAL .
+TOKEN_R_BRACE }
+TOKEN_SEMICOLON ;
+
+
+
+
+===[STUDENT TESTS/good9.bminor Input]===
+// test comparotors and boolean logic
+if ( a >= 5 )
+{
+	print "a >= 5";
+}
+if( a > 5 )
+{
+	print "a > 5";
+}
+if( a <= 5 )
+{
+	print "a <= 5";
+}
+if( a < 5 )
+{
+	print "a < 5";
+}
+if( a == 5 )
+{
+	print "a == 5";
+}
+if( a != 5 )
+{
+	print "a != 5";
+}
+a = 5; // test assigment
+if (a || b)
+{
+	print " a || b is true";
+}
+if (a && b)
+{
+	print " a && b is true";
+}
+
+===[STUDENT TESTS/good9.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[STUDENT TESTS/good9.bminor Output]===
+TOKEN_CPP_COMMENT // test comparotors and boolean logic
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_GE >=
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL a >= 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_GREATER >
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL a > 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_LE <=
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL a <= 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_LESS <
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL a < 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_EQUAL ==
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL a == 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_NEQUAL !=
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL a != 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER a
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT // test assigment
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_OR ||
+TOKEN_IDENTIFIER b
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL  a || b is true
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_AND &&
+TOKEN_IDENTIFIER b
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL  a && b is true
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+====Bad Tests====
+===[STUDENT TESTS/bad0.bminor Input]===
+string
+1534
+3.4
+10e9
+'a'
+Notre Dame
+"\'Notre Dame\'";
+>=
+@
+===[STUDENT TESTS/bad0.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad0.bminor Output]===
+TOKEN_STRING string
+TOKEN_INTEGER_LITERAL 1534
+TOKEN_FLOAT_LITERAL 3.4
+TOKEN_FLOAT_LITERAL 10e9
+TOKEN_CHARACTER_LITERAL 'a'
+TOKEN_IDENTIFIER Notre
+TOKEN_IDENTIFIER Dame
+TOKEN_STRING_LITERAL 'Notre Dame'
+TOKEN_SEMICOLON ;
+TOKEN_GE >=
+
+Scan error, invalid token: @
+
+
+
+===[STUDENT TESTS/bad1.bminor Input]===
+@
+#
+&
+|
+\
+
+===[STUDENT TESTS/bad1.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad1.bminor Output]===
+
+Scan error, invalid token: @
+
+
+
+===[STUDENT TESTS/bad10.bminor Input]===
+// invalid character
+'\'
+
+===[STUDENT TESTS/bad10.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad10.bminor Output]===
+TOKEN_CPP_COMMENT // invalid character
+
+Error encoding character
+
+
+
+===[STUDENT TESTS/bad11.bminor Input]===
+/*
+A string should not contain a literal newline,
+but use backslash-n instead.
+*/
+
+"invalid
+
+string"
+
+===[STUDENT TESTS/bad11.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad11.bminor Output]===
+TOKEN_DIV /
+TOKEN_MUL *
+TOKEN_IDENTIFIER A
+TOKEN_STRING string
+TOKEN_IDENTIFIER should
+TOKEN_IDENTIFIER not
+TOKEN_IDENTIFIER contain
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER literal
+TOKEN_IDENTIFIER newline
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER but
+TOKEN_IDENTIFIER use
+TOKEN_IDENTIFIER backslash
+TOKEN_SUB -
+TOKEN_IDENTIFIER n
+TOKEN_IDENTIFIER instead
+
+Scan error, invalid token: .
+
+
+
+===[STUDENT TESTS/bad12.bminor Input]===
+'ca'
+
+===[STUDENT TESTS/bad12.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad12.bminor Output]===
+
+Error encoding character
+
+
+
+===[STUDENT TESTS/bad13.bminor Input]===
+''
+
+===[STUDENT TESTS/bad13.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad13.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[STUDENT TESTS/bad14.bminor Input]===
+'\ac'
+
+===[STUDENT TESTS/bad14.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad14.bminor Output]===
+
+Error encoding character
+
+
+
+===[STUDENT TESTS/bad15.bminor Input]===
+'
+
+===[STUDENT TESTS/bad15.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad15.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[STUDENT TESTS/bad16.bminor Input]===
+//bad float
+123.
+
+===[STUDENT TESTS/bad16.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad16.bminor Output]===
+TOKEN_CPP_COMMENT //bad float
+TOKEN_INTEGER_LITERAL 123
+
+Scan error, invalid token: .
+
+
+
+===[STUDENT TESTS/bad17.bminor Input]===
+// int overflow
+92233720368547758099
+===[STUDENT TESTS/bad17.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad17.bminor Output]===
+TOKEN_CPP_COMMENT // int overflow
+
+Scan error, invalid integer: 92233720368547758099
+
+
+
+===[STUDENT TESTS/bad18.bminor Input]===
+// float overflow
+1.7e309
+===[STUDENT TESTS/bad18.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad18.bminor Output]===
+TOKEN_CPP_COMMENT // float overflow
+
+Scan error, invalid float: 1.7e309
+
+
+
+===[STUDENT TESTS/bad19.bminor Input]===
+//bad string
+"\e \r \y"
+===[STUDENT TESTS/bad19.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad19.bminor Output]===
+TOKEN_CPP_COMMENT //bad string
+
+Error encoding string
+
+
+
+===[STUDENT TESTS/bad2.bminor Input]===
+// unmatched comment throws error 
+/* This is a comment.
+
+
+
+
+
+
+
+
+===[STUDENT TESTS/bad2.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad2.bminor Output]===
+TOKEN_CPP_COMMENT // unmatched comment throws error 
+TOKEN_DIV /
+TOKEN_MUL *
+TOKEN_IDENTIFIER This
+TOKEN_IDENTIFIER is
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER comment
+
+Scan error, invalid token: .
+
+
+
+===[STUDENT TESTS/bad3.bminor Input]===
+// basic data types
+" the quote is unmatched
+
+
+
+
+
+
+
+===[STUDENT TESTS/bad3.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad3.bminor Output]===
+TOKEN_CPP_COMMENT // basic data types
+
+Scan error, invalid token: "
+
+
+
+===[STUDENT TESTS/bad5.bminor Input]===
+// test comparotors and boolean logic
+if (a | b)
+{
+	print " a || b is true";
+}
+if (a & b)// must had 2 &&
+{
+	print " a || b is true";
+}
+
+===[STUDENT TESTS/bad5.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad5.bminor Output]===
+TOKEN_CPP_COMMENT // test comparotors and boolean logic
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+
+Scan error, invalid token: |
+
+
+
+===[STUDENT TESTS/bad6.bminor Input]===
+
+"""
+
+
+===[STUDENT TESTS/bad6.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad6.bminor Output]===
+TOKEN_STRING_LITERAL 
+
+Scan error, invalid token: "
+
+
+
+===[STUDENT TESTS/bad7.bminor Input]===
+"012345678901234567890101234567890123456789010123456789012345678901012345678901234567890101234567890123456789010123456789012345678901012345678901234567890101234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+
+
+===[STUDENT TESTS/bad7.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad7.bminor Output]===
+
+Error encoding string
+
+
+
+===[STUDENT TESTS/bad8.bminor Input]===
+$minus
+
+===[STUDENT TESTS/bad8.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad8.bminor Output]===
+
+Scan error, invalid token: $
+
+
+
+===[STUDENT TESTS/bad9.bminor Input]===
+minus#44
+
+===[STUDENT TESTS/bad9.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[STUDENT TESTS/bad9.bminor Output]===
+TOKEN_IDENTIFIER minus
+
+Scan error, invalid token: #
+
+
+
+=====HIDDEN TESTS=====
+====Good Tests====
+===[HIDDEN TESTS/good11.bminor Input]===
+// some more complicated corner cases
+z = -(5 * 4);
+z = 15 + 5 - 4*3/7;
+z = x + (y * 5 - (4 + 20/v) - 15) % 6 + z; //long integer expr
+z+++; // these will cause parsing errors
+w---;
+
+
+===[HIDDEN TESTS/good11.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good11.bminor Output]===
+TOKEN_CPP_COMMENT // some more complicated corner cases
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_SUB -
+TOKEN_L_PAREN (
+TOKEN_INTEGER_LITERAL 5
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 4
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 15
+TOKEN_ADD +
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SUB -
+TOKEN_INTEGER_LITERAL 4
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 3
+TOKEN_DIV /
+TOKEN_INTEGER_LITERAL 7
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER x
+TOKEN_ADD +
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER y
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SUB -
+TOKEN_L_PAREN (
+TOKEN_INTEGER_LITERAL 4
+TOKEN_ADD +
+TOKEN_INTEGER_LITERAL 20
+TOKEN_DIV /
+TOKEN_IDENTIFIER v
+TOKEN_R_PAREN )
+TOKEN_SUB -
+TOKEN_INTEGER_LITERAL 15
+TOKEN_R_PAREN )
+TOKEN_MOD %
+TOKEN_INTEGER_LITERAL 6
+TOKEN_ADD +
+TOKEN_IDENTIFIER z
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT //long integer expr
+TOKEN_IDENTIFIER z
+TOKEN_POSTINC ++
+TOKEN_ADD +
+TOKEN_SEMICOLON ;
+TOKEN_CPP_COMMENT // these will cause parsing errors
+TOKEN_IDENTIFIER w
+TOKEN_POSTDEC --
+TOKEN_SUB -
+TOKEN_SEMICOLON ;
+
+
+
+
+===[HIDDEN TESTS/good12.bminor Input]===
+//tests the for/print keyword and while keyword
+x:integer;
+for(x = 0; x < 5; x++)
+{
+	print "counting: ", x;
+}
+a:integer = 0;
+while(a > 0)
+{
+	a--;
+}
+
+
+
+===[HIDDEN TESTS/good12.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good12.bminor Output]===
+TOKEN_CPP_COMMENT //tests the for/print keyword and while keyword
+TOKEN_IDENTIFIER x
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_FOR for
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER x
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_LESS <
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_POSTINC ++
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL counting: 
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER x
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER a
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_WHILE while
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+TOKEN_GREATER >
+TOKEN_INTEGER_LITERAL 0
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER a
+TOKEN_POSTDEC --
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[HIDDEN TESTS/good13.bminor Input]===
+//test some odd identifier names
+ident55
+ident55_
+ident__55__
+thisIsAReallyReallyLongIdentifierNameThatHasTonsOfLettersInIt = 7
+variable_names_may_contain_underscores_
+_variables_can_start_with_an_underscore_67
+7minus5 
+
+===[HIDDEN TESTS/good13.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good13.bminor Output]===
+TOKEN_CPP_COMMENT //test some odd identifier names
+TOKEN_IDENTIFIER ident55
+TOKEN_IDENTIFIER ident55_
+TOKEN_IDENTIFIER ident__55__
+TOKEN_IDENTIFIER thisIsAReallyReallyLongIdentifierNameThatHasTonsOfLettersInIt
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 7
+TOKEN_IDENTIFIER variable_names_may_contain_underscores_
+TOKEN_IDENTIFIER _variables_can_start_with_an_underscore_67
+TOKEN_INTEGER_LITERAL 7
+TOKEN_IDENTIFIER minus5
+
+
+
+
+===[HIDDEN TESTS/good14.bminor Input]===
+main: function integer ( argc: integer, argv: array [] string ) =
+{
+}
+boolFunction: function boolean(intVar:integer) =
+{
+	return intVar > 5;
+}
+intFunction: function integer(integer n) =
+{
+	total:integer = 0;
+	int count;
+	for(count = 0; count < n+1; count++)
+	{
+		total = total + count;
+	
+}
+
+
+===[HIDDEN TESTS/good14.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good14.bminor Output]===
+TOKEN_IDENTIFIER main
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER argc
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER argv
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_STRING string
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER boolFunction
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_BOOLEAN boolean
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intVar
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_RETURN return
+TOKEN_IDENTIFIER intVar
+TOKEN_GREATER >
+TOKEN_INTEGER_LITERAL 5
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER intFunction
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_INTEGER integer
+TOKEN_IDENTIFIER n
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER total
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER int
+TOKEN_IDENTIFIER count
+TOKEN_SEMICOLON ;
+TOKEN_FOR for
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER count
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER count
+TOKEN_LESS <
+TOKEN_IDENTIFIER n
+TOKEN_INTEGER_LITERAL +1
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER count
+TOKEN_POSTINC ++
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER total
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER total
+TOKEN_ADD +
+TOKEN_IDENTIFIER count
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[HIDDEN TESTS/good15.bminor Input]===
+intFunction: function integer(intVar:integer, boolVar: boolean)
+{
+	if(boolVar)
+	{
+		intVar = intVar * 2;
+	}
+	return intVar;
+}
+// finds the largest value in the array
+getLargest: function integer(intArrVar:array [] integer, int len) =
+{
+	largest:integer = 0;
+	x:integer;
+	for(x = 0; x < len; x++)
+	{
+		if(intArrVar[x] > largest)
+		{
+			largest = intArrVar[x];
+		}
+	}
+	return largest;
+		
+}
+
+main: function integer ( argc: integer, argv: array [] string ) =
+{
+	b:array [10] integer = {0,1,2,3,4,5};
+	b[4] = 6;
+	i:integer;
+	z:integer = intFunction(i, true);
+	print intArrFunction(v, z);
+}
+
+===[HIDDEN TESTS/good15.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good15.bminor Output]===
+TOKEN_IDENTIFIER intFunction
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intVar
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER boolVar
+TOKEN_COLON :
+TOKEN_BOOLEAN boolean
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER boolVar
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER intVar
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER intVar
+TOKEN_MUL *
+TOKEN_INTEGER_LITERAL 2
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_RETURN return
+TOKEN_IDENTIFIER intVar
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_CPP_COMMENT // finds the largest value in the array
+TOKEN_IDENTIFIER getLargest
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intArrVar
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER int
+TOKEN_IDENTIFIER len
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER largest
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_FOR for
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER x
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 0
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_LESS <
+TOKEN_IDENTIFIER len
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER x
+TOKEN_POSTINC ++
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER intArrVar
+TOKEN_L_BRACKET [
+TOKEN_IDENTIFIER x
+TOKEN_R_BRACKET ]
+TOKEN_GREATER >
+TOKEN_IDENTIFIER largest
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER largest
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER intArrVar
+TOKEN_L_BRACKET [
+TOKEN_IDENTIFIER x
+TOKEN_R_BRACKET ]
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_R_BRACE }
+TOKEN_RETURN return
+TOKEN_IDENTIFIER largest
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_IDENTIFIER main
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER argc
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER argv
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_STRING string
+TOKEN_R_PAREN )
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_IDENTIFIER b
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 10
+TOKEN_R_BRACKET ]
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_L_BRACE {
+TOKEN_INTEGER_LITERAL 0
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 1
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 2
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 3
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 4
+TOKEN_COMMA ,
+TOKEN_INTEGER_LITERAL 5
+TOKEN_R_BRACE }
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER b
+TOKEN_L_BRACKET [
+TOKEN_INTEGER_LITERAL 4
+TOKEN_R_BRACKET ]
+TOKEN_ASSIGN =
+TOKEN_INTEGER_LITERAL 6
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER i
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER z
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_ASSIGN =
+TOKEN_IDENTIFIER intFunction
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER i
+TOKEN_COMMA ,
+TOKEN_TRUE true
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+TOKEN_PRINT print
+TOKEN_IDENTIFIER intArrFunction
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER v
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER z
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[HIDDEN TESTS/good1.bminor Input]===
+// Easy comment
+/* Easy comment */
+
+===[HIDDEN TESTS/good1.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good1.bminor Output]===
+TOKEN_CPP_COMMENT // Easy comment
+TOKEN_C_COMMENT /* Easy comment */
+
+
+
+
+===[HIDDEN TESTS/good10.bminor Input]===
+// Modulus operator
+15%3
+
+// Exponentiation operator
+2^6
+
+// Negation
+-value
+
+// Postincrement and postdecrement
+number++;
+
+number--;
+
+===[HIDDEN TESTS/good10.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good10.bminor Output]===
+TOKEN_CPP_COMMENT // Modulus operator
+TOKEN_INTEGER_LITERAL 15
+TOKEN_MOD %
+TOKEN_INTEGER_LITERAL 3
+TOKEN_CPP_COMMENT // Exponentiation operator
+TOKEN_INTEGER_LITERAL 2
+TOKEN_EXP ^
+TOKEN_INTEGER_LITERAL 6
+TOKEN_CPP_COMMENT // Negation
+TOKEN_SUB -
+TOKEN_IDENTIFIER value
+TOKEN_CPP_COMMENT // Postincrement and postdecrement
+TOKEN_IDENTIFIER number
+TOKEN_POSTINC ++
+TOKEN_SEMICOLON ;
+TOKEN_IDENTIFIER number
+TOKEN_POSTDEC --
+TOKEN_SEMICOLON ;
+
+
+
+
+===[HIDDEN TESTS/good2.bminor Input]===
+////* Harder comment ***/
+/******************/
+/*
+This one works too.
+*/
+/***************
+Also a good comment.
+****************/
+// comment // comment // comment
+
+
+===[HIDDEN TESTS/good2.bminor Status]===
+return code: 1
+TEST NOT PASSED
+
+===[HIDDEN TESTS/good2.bminor Output]===
+TOKEN_CPP_COMMENT ////* Harder comment ***/
+TOKEN_C_COMMENT /******************/
+TOKEN_DIV /
+TOKEN_MUL *
+TOKEN_IDENTIFIER This
+TOKEN_IDENTIFIER one
+TOKEN_IDENTIFIER works
+TOKEN_IDENTIFIER too
+
+Scan error, invalid token: .
+
+
+
+===[HIDDEN TESTS/good3.bminor Input]===
+// Identifiers
+CamelCase
+lower_case
+skiddo23
+B4UFLY
+i
+x15
+
+
+===[HIDDEN TESTS/good3.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good3.bminor Output]===
+TOKEN_CPP_COMMENT // Identifiers
+TOKEN_IDENTIFIER CamelCase
+TOKEN_IDENTIFIER lower_case
+TOKEN_IDENTIFIER skiddo23
+TOKEN_IDENTIFIER B4UFLY
+TOKEN_IDENTIFIER i
+TOKEN_IDENTIFIER x15
+
+
+
+
+===[HIDDEN TESTS/good4.bminor Input]===
+// Equality Operators
+== != <= < > >=
+
+===[HIDDEN TESTS/good4.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good4.bminor Output]===
+TOKEN_CPP_COMMENT // Equality Operators
+TOKEN_EQUAL ==
+TOKEN_NEQUAL !=
+TOKEN_LE <=
+TOKEN_LESS <
+TOKEN_GREATER >
+TOKEN_GE >=
+
+
+
+
+===[HIDDEN TESTS/good5.bminor Input]===
+// Various bits of punctuation
+, : ; ( ) [ ] { }
+
+
+===[HIDDEN TESTS/good5.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good5.bminor Output]===
+TOKEN_CPP_COMMENT // Various bits of punctuation
+TOKEN_COMMA ,
+TOKEN_COLON :
+TOKEN_SEMICOLON ;
+TOKEN_L_PAREN (
+TOKEN_R_PAREN )
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_L_BRACE {
+TOKEN_R_BRACE }
+
+
+
+
+===[HIDDEN TESTS/good6.bminor Input]===
+// Complete function prototype
+main: function integer ( argc: integer, argv: array [] string );
+
+
+===[HIDDEN TESTS/good6.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good6.bminor Output]===
+TOKEN_CPP_COMMENT // Complete function prototype
+TOKEN_IDENTIFIER main
+TOKEN_COLON :
+TOKEN_FUNCTION function
+TOKEN_INTEGER integer
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER argc
+TOKEN_COLON :
+TOKEN_INTEGER integer
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER argv
+TOKEN_COLON :
+TOKEN_ARRAY array
+TOKEN_L_BRACKET [
+TOKEN_R_BRACKET ]
+TOKEN_STRING string
+TOKEN_R_PAREN )
+TOKEN_SEMICOLON ;
+
+
+
+
+===[HIDDEN TESTS/good7.bminor Input]===
+// Nested statements
+if( x<15 ) {
+    print "small";
+} else {
+    print "large!";
+}
+
+
+===[HIDDEN TESTS/good7.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good7.bminor Output]===
+TOKEN_CPP_COMMENT // Nested statements
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER x
+TOKEN_LESS <
+TOKEN_INTEGER_LITERAL 15
+TOKEN_R_PAREN )
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL small
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+TOKEN_ELSE else
+TOKEN_L_BRACE {
+TOKEN_PRINT print
+TOKEN_STRING_LITERAL large!
+TOKEN_SEMICOLON ;
+TOKEN_R_BRACE }
+
+
+
+
+===[HIDDEN TESTS/good8.bminor Input]===
+// Valid integers
+0
+1024
+-512
++256
+// valid floats
+1.2
+0.45
+.67
+12e10
++1.2
+-1.2
+1.2e+1
+1.2e-1
++1.2e+1
++1.2e-1
+-1.2e+1
+-1.2e-1
+
+===[HIDDEN TESTS/good8.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good8.bminor Output]===
+TOKEN_CPP_COMMENT // Valid integers
+TOKEN_INTEGER_LITERAL 0
+TOKEN_INTEGER_LITERAL 1024
+TOKEN_INTEGER_LITERAL -512
+TOKEN_INTEGER_LITERAL +256
+TOKEN_CPP_COMMENT // valid floats
+TOKEN_FLOAT_LITERAL 1.2
+TOKEN_FLOAT_LITERAL 0.45
+TOKEN_FLOAT_LITERAL .67
+TOKEN_FLOAT_LITERAL 12e10
+TOKEN_FLOAT_LITERAL +1.2
+TOKEN_FLOAT_LITERAL -1.2
+TOKEN_FLOAT_LITERAL 1.2
+TOKEN_IDENTIFIER e
+TOKEN_INTEGER_LITERAL +1
+TOKEN_FLOAT_LITERAL 1.2e-1
+TOKEN_FLOAT_LITERAL +1.2
+TOKEN_IDENTIFIER e
+TOKEN_INTEGER_LITERAL +1
+TOKEN_FLOAT_LITERAL +1.2
+TOKEN_IDENTIFIER e
+TOKEN_INTEGER_LITERAL -1
+TOKEN_FLOAT_LITERAL -1.2
+TOKEN_IDENTIFIER e
+TOKEN_INTEGER_LITERAL +1
+TOKEN_FLOAT_LITERAL -1.2
+TOKEN_IDENTIFIER e
+TOKEN_INTEGER_LITERAL -1
+
+
+
+
+===[HIDDEN TESTS/good9.bminor Input]===
+// Type Keywords
+array
+boolean
+char
+string
+void
+integer
+float
+
+===[HIDDEN TESTS/good9.bminor Status]===
+return code: 0
+Test passed successfully!
+
+===[HIDDEN TESTS/good9.bminor Output]===
+TOKEN_CPP_COMMENT // Type Keywords
+TOKEN_ARRAY array
+TOKEN_BOOLEAN boolean
+TOKEN_CHARACTER char
+TOKEN_STRING string
+TOKEN_VOID void
+TOKEN_INTEGER integer
+TOKEN_FLOAT float
+
+
+
+
+====Bad Tests====
+===[HIDDEN TESTS/bad11.bminor Input]===
+/*
+A string should not contain a literal newline,
+but use backslash-n instead.
+*/
+
+"invalid
+
+string"
+
+===[HIDDEN TESTS/bad11.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad11.bminor Output]===
+TOKEN_DIV /
+TOKEN_MUL *
+TOKEN_IDENTIFIER A
+TOKEN_STRING string
+TOKEN_IDENTIFIER should
+TOKEN_IDENTIFIER not
+TOKEN_IDENTIFIER contain
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER literal
+TOKEN_IDENTIFIER newline
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER but
+TOKEN_IDENTIFIER use
+TOKEN_IDENTIFIER backslash
+TOKEN_SUB -
+TOKEN_IDENTIFIER n
+TOKEN_IDENTIFIER instead
+
+Scan error, invalid token: .
+
+
+
+===[HIDDEN TESTS/bad12.bminor Input]===
+'ca'
+
+===[HIDDEN TESTS/bad12.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad12.bminor Output]===
+
+Error encoding character
+
+
+
+===[HIDDEN TESTS/bad13.bminor Input]===
+''
+
+===[HIDDEN TESTS/bad13.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad13.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad14.bminor Input]===
+'\ac'
+
+===[HIDDEN TESTS/bad14.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad14.bminor Output]===
+
+Error encoding character
+
+
+
+===[HIDDEN TESTS/bad15.bminor Input]===
+'
+
+===[HIDDEN TESTS/bad15.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad15.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad1.bminor Input]===
+"unmatched string""
+
+===[HIDDEN TESTS/bad1.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad1.bminor Output]===
+TOKEN_STRING_LITERAL unmatched string
+
+Scan error, invalid token: "
+
+
+
+===[HIDDEN TESTS/bad10.bminor Input]===
+#compilers // No hashtags in B-minor
+
+===[HIDDEN TESTS/bad10.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad10.bminor Output]===
+
+Scan error, invalid token: #
+
+
+
+===[HIDDEN TESTS/bad2.bminor Input]===
+"unterminated \"
+
+
+===[HIDDEN TESTS/bad2.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad2.bminor Output]===
+
+Scan error, invalid token: "
+
+
+
+===[HIDDEN TESTS/bad3.bminor Input]===
+never started"
+
+
+
+
+
+
+===[HIDDEN TESTS/bad3.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad3.bminor Output]===
+TOKEN_IDENTIFIER never
+TOKEN_IDENTIFIER started
+
+Scan error, invalid token: "
+
+
+
+===[HIDDEN TESTS/bad4.bminor Input]===
+'character?' // Character too long.
+
+===[HIDDEN TESTS/bad4.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad4.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad5.bminor Input]===
+'' // Empty character not allowed.
+
+===[HIDDEN TESTS/bad5.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad5.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad6.bminor Input]===
+~tilde // Invalid symbol
+
+===[HIDDEN TESTS/bad6.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad6.bminor Output]===
+
+Scan error, invalid token: ~
+
+
+
+===[HIDDEN TESTS/bad7.bminor Input]===
+/* Is this a valid comment */ @ */
+
+
+===[HIDDEN TESTS/bad7.bminor Status]===
+return code: 0
+TEST NOT PASSED
+
+===[HIDDEN TESTS/bad7.bminor Output]===
+TOKEN_C_COMMENT /* Is this a valid comment */ @ */
+
+
+
+
+===[HIDDEN TESTS/bad8.bminor Input]===
+"\0xGG" // invalid escape sequence
+
+===[HIDDEN TESTS/bad8.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad8.bminor Output]===
+
+Error encoding string
+
+
+
+===[HIDDEN TESTS/bad9.bminor Input]===
+minus#44
+
+===[HIDDEN TESTS/bad9.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad9.bminor Output]===
+TOKEN_IDENTIFIER minus
+
+Scan error, invalid token: #
+
+
+
+===[HIDDEN TESTS/bad16.bminor Input]===
+@
+#
+&
+|
+\
+
+===[HIDDEN TESTS/bad16.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad16.bminor Output]===
+
+Scan error, invalid token: @
+
+
+
+===[HIDDEN TESTS/bad17.bminor Input]===
+// unmatched comment throws error 
+/* This is a comment.
+
+
+
+
+
+
+
+
+===[HIDDEN TESTS/bad17.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad17.bminor Output]===
+TOKEN_CPP_COMMENT // unmatched comment throws error 
+TOKEN_DIV /
+TOKEN_MUL *
+TOKEN_IDENTIFIER This
+TOKEN_IDENTIFIER is
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER comment
+
+Scan error, invalid token: .
+
+
+
+===[HIDDEN TESTS/bad18.bminor Input]===
+// basic data types
+" the quote is unmatched
+
+
+
+
+
+
+
+===[HIDDEN TESTS/bad18.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad18.bminor Output]===
+TOKEN_CPP_COMMENT // basic data types
+
+Scan error, invalid token: "
+
+
+
+===[HIDDEN TESTS/bad19.bminor Input]===
+// floating point mistake
+5..6..0..5..0;
+
+===[HIDDEN TESTS/bad19.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad19.bminor Output]===
+TOKEN_CPP_COMMENT // floating point mistake
+TOKEN_INTEGER_LITERAL 5
+
+Scan error, invalid token: .
+
+
+
+===[HIDDEN TESTS/bad20.bminor Input]===
+// test comparotors and boolean logic
+if (a | b)
+{
+	print " a || b is true";
+}
+if (a & b)// must had 2 &&
+{
+	print " a || b is true";
+}
+
+===[HIDDEN TESTS/bad20.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad20.bminor Output]===
+TOKEN_CPP_COMMENT // test comparotors and boolean logic
+TOKEN_IF if
+TOKEN_L_PAREN (
+TOKEN_IDENTIFIER a
+
+Scan error, invalid token: |
+
+
+
+===[HIDDEN TESTS/bad21.bminor Input]===
+
+"""
+
+
+===[HIDDEN TESTS/bad21.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad21.bminor Output]===
+TOKEN_STRING_LITERAL 
+
+Scan error, invalid token: "
+
+
+
+===[HIDDEN TESTS/bad22.bminor Input]===
+"012345678901234567890101234567890123456789010123456789012345678901012345678901234567890101234567890123456789010123456789012345678901012345678901234567890101234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+
+
+===[HIDDEN TESTS/bad22.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad22.bminor Output]===
+
+Error encoding string
+
+
+
+===[HIDDEN TESTS/bad23.bminor Input]===
+$minus
+
+===[HIDDEN TESTS/bad23.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad23.bminor Output]===
+
+Scan error, invalid token: $
+
+
+
+===[HIDDEN TESTS/bad25.bminor Input]===
+// invalid character
+'😋'
+
+===[HIDDEN TESTS/bad25.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad25.bminor Output]===
+TOKEN_CPP_COMMENT // invalid character
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad26.bminor Input]===
+/*
+A string should not contain a literal newline,
+but use backslash-n instead.
+*/
+
+"invalid
+
+string"
+
+===[HIDDEN TESTS/bad26.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad26.bminor Output]===
+TOKEN_DIV /
+TOKEN_MUL *
+TOKEN_IDENTIFIER A
+TOKEN_STRING string
+TOKEN_IDENTIFIER should
+TOKEN_IDENTIFIER not
+TOKEN_IDENTIFIER contain
+TOKEN_IDENTIFIER a
+TOKEN_IDENTIFIER literal
+TOKEN_IDENTIFIER newline
+TOKEN_COMMA ,
+TOKEN_IDENTIFIER but
+TOKEN_IDENTIFIER use
+TOKEN_IDENTIFIER backslash
+TOKEN_SUB -
+TOKEN_IDENTIFIER n
+TOKEN_IDENTIFIER instead
+
+Scan error, invalid token: .
+
+
+
+===[HIDDEN TESTS/bad27.bminor Input]===
+'''
+
+===[HIDDEN TESTS/bad27.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad27.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad28.bminor Input]===
+"'"'"
+
+===[HIDDEN TESTS/bad28.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad28.bminor Output]===
+TOKEN_STRING_LITERAL '
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad29.bminor Input]===
+'\t\e\s\t\ \s\t\r\i\n\g'
+
+===[HIDDEN TESTS/bad29.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad29.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad30.bminor Input]===
+'\0x12\0x34'
+
+===[HIDDEN TESTS/bad30.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad30.bminor Output]===
+
+Scan error, invalid token: '
+
+
+
+===[HIDDEN TESTS/bad0.bminor Input]===
+!@#$*(!&%!@)#(@!+)!@*!@)*$!@_)(%!@_%(*!
+
+===[HIDDEN TESTS/bad0.bminor Status]===
+return code: 1
+Test passed successfully!
+
+===[HIDDEN TESTS/bad0.bminor Output]===
+TOKEN_NOT !
+
+Scan error, invalid token: @
+
+
+
+===== SUMMARIZED SCANNER RESULTS =====
+{
+  "student_tests": {
+    "Good": {
+      "correct": 20,
+      "incorrect": 0
+    },
+    "Bad": {
+      "correct": 19,
+      "incorrect": 0
+    }
+  },
+  "hidden_tests": {
+    "Good": {
+      "correct": 14,
+      "incorrect": 1
+    },
+    "Bad": {
+      "correct": 29,
+      "incorrect": 1
+    }
+  }
+}
+Scanner Project Grade
+    ---------------------------------
+
+    General Structure (35/35 points)
+    ----------------------------------------------
+    I would reccomend taking token_names out of main and putting it into a header. It contributes some mess to main.c
+
+    Student Tests (20/20 points)
+    ------------------------------------------
+    Excellent work writing 39 tests! It shows you have paid great attention to detail in writing your code
+
+    Hidden Tests (43/45 points)
+    ------------------------------------------
+    Looks like you missed two test cases involving C style comments, you might want to take another look at your regular expression.
+
+    Coding Style (10/10 points)
+    ------------------------------------------
+    Writing some more macros at the top of your flex file could help clean up some of the messier regular expressions
