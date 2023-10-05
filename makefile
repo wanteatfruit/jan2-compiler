@@ -14,7 +14,7 @@ parser.o: parser.c token.h
 	gcc -c parser.c -c -o parser.o
 
 parser.c: parser.bison
-	bison --defines=token.h --output=parser.c parser.bison
+	bison --defines=token.h --output=parser.c parser.bison -v
 
 scanner.c: scanner.flex
 	flex -o scanner.c scanner.flex

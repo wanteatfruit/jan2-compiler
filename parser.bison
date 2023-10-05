@@ -63,7 +63,21 @@
 
 /* Grammar Rules */
 
-program : expr TOKEN_SEMICOLON;
+program : decl TOKEN_SEMICOLON;
+
+decl : id TOKEN_COLON type TOKEN_SEMICOLON /* declare var without assigning value */
+     | id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON /* declare var with assigning value */
+
+id : TOKEN_IDENTIFIER;
+
+type: TOKEN_INTEGER
+    | TOKEN_FLOAT
+    | TOKEN_BOOLEAN
+    | TOKEN_CHARACTER
+    | TOKEN_STRING
+    | TOKEN_VOID
+    | TOKEN_CHARACTER
+    | TOKEN_ARRAY
 
 expr : expr TOKEN_ADD term
      | expr TOKEN_SUB term
