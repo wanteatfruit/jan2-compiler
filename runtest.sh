@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for testfile in test/scanner/good*.bminor
+for testfile in test/parser/good*.bminor
 do
 	if ./bminor --scan $testfile > $testfile.out
 	then
@@ -10,7 +10,7 @@ do
 	fi
 done
 
-for testfile in test/scanner/bad*.bminor
+for testfile in test/parser/bad*.bminor
 do
 	if ./bminor --scan $testfile > $testfile.out
 	then
