@@ -2,7 +2,7 @@
 
 for testfile in test/parser/good*.bminor
 do
-	if ./bminor --scan $testfile > $testfile.out
+	if ./bminor --parse $testfile > $testfile.out
 	then
 		echo "$testfile success (as expected)"
 	else
@@ -12,7 +12,7 @@ done
 
 for testfile in test/parser/bad*.bminor
 do
-	if ./bminor --scan $testfile > $testfile.out
+	if ./bminor --parse $testfile > $testfile.out
 	then
 		echo "$testfile success (INCORRECT)"
 	else

@@ -1,6 +1,12 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <math.h>
+
+    extern char *yytext;
+    extern int yylex();
+    extern int yyerror( char *str );
+	extern FILE *yyin;
 %}
 
 %token TOKEN_ARRAY
@@ -63,35 +69,25 @@
 
 /* Grammar Rules */
 
-program : decl TOKEN_SEMICOLON;
+program : expr TOKEN_SEMICOLON { return 0; }
+	;
 
-decl : id TOKEN_COLON type TOKEN_SEMICOLON /* declare var without assigning value */
-     | id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON /* declare var with assigning value */
+expr	: expr TOKEN_ADD term
+	| expr TOKEN_SUB term
+	| term
+	;
 
-id : TOKEN_IDENTIFIER;
+term	: term TOKEN_MUL factor
+	| term TOKEN_DIV factor
+	| factor
+	;
 
-type: TOKEN_INTEGER
-    | TOKEN_FLOAT
-    | TOKEN_BOOLEAN
-    | TOKEN_CHARACTER
-    | TOKEN_STRING
-    | TOKEN_VOID
-    | TOKEN_CHARACTER
-    | TOKEN_ARRAY
-
-expr : expr TOKEN_ADD term
-     | expr TOKEN_SUB term
-     | term;
-
-term : term TOKEN_MUL factor
-        | term TOKEN_DIV factor
-        | term TOKEN_MOD factor
-        | factor;
-
-factor : TOKEN_SUB factor
-       | TOKEN_L_PAREN expr TOKEN_R_PAREN
-       | TOKEN_INTEGER_LITERAL
-       ;
+factor	: TOKEN_SUB factor
+	| TOKEN_ADD factor
+	| TOKEN_L_PAREN expr TOKEN_R_PAREN
+	| TOKEN_INTEGER_LITERAL
+	| TOKEN_FLOAT_LITERAL
+	;
 
 %%
 

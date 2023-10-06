@@ -1,5 +1,5 @@
 bminor: main.o encoder.o scanner.o parser.o
-	gcc -o bminor main.o encoder.o scanner.o parser.o
+	gcc main.o encoder.o scanner.o parser.o -o bminor -lm
 
 encoder.o: encoder.c
 	gcc -c encoder.c -c -o encoder.o

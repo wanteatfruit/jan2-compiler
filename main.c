@@ -10,6 +10,7 @@
 
 extern FILE *yyin;
 extern int yylex();
+extern int yyerror(char *s);
 extern int yyparse();
 extern char *yytext;
 char *token_names[] = {
@@ -107,6 +108,7 @@ int main(int argc, char *argv[])
     else if (strcmp(argv[1], "--scan") == 0)
     {
         // scan
+        yyin = input_file;
         int status = scan_tokens(input_file);
         if (status != 0)
         {
@@ -121,14 +123,15 @@ int main(int argc, char *argv[])
         int scan_status = scan_tokens(input_file);
         if (scan_status != 0)
         {
-            //emit error
             fprintf(stderr, "Scan error\n");
+            return 1;
         }
+        rewind(input_file);
         // parse
+        yyin = input_file;
         int status = yyparse();
         if (status != 0)
         {
-            fprintf(stderr, "Parse error\n");
             return 1;
         }
     } 
@@ -147,6 +150,7 @@ int scan_tokens(FILE *input_file){
     while (1)
     {
         enum yytokentype token = yylex();
+        
         if (token == TOKEN_EOF)
         {
             break;
@@ -177,7 +181,7 @@ int scan_tokens(FILE *input_file){
             }
             else
             {
-                printf("%s %s\n", token_names[token], yytext);
+                printf("%d %s\n", token, yytext);
             }
         }
         else if (token == TOKEN_CHARACTER_LITERAL) //\'[\\0a-zA-Z]{1,4}\'
@@ -213,7 +217,7 @@ int scan_tokens(FILE *input_file){
         }
         else
         {
-            printf("%s %s\n", token_names[token], yytext);
+            printf("%s %s\n", token_names[token-258], yytext);
         }
     }
     return 0;
