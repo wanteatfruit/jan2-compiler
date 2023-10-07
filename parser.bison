@@ -76,8 +76,25 @@ decl_list : decl decl_list
 	| decl
 	;
 
-decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without value\n"); }
-	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with value\n"); }
+decl : id TOKEN_COLON type { printf("decl without value\n"); }
+	| id TOKEN_COLON type TOKEN_ASSIGN expr { printf("decl with value\n"); }
+	| id TOKEN_COLON type idx type { printf("array decl\n"); }
+	| id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list  { printf("array decl with value\n"); }
+	| decl TOKEN_SEMICOLON;
+	;
+
+brac_list : TOKEN_L_BRACE brac_list TOKEN_R_BRACE
+	| arg_list
+	;
+
+arg_list : arg TOKEN_COMMA arg_list
+	| arg
+	;
+
+arg : expr
+	;
+
+idx : TOKEN_L_BRACKET expr TOKEN_R_BRACKET
 	;
 
 type : TOKEN_INTEGER
