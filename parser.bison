@@ -83,18 +83,24 @@ decl : id TOKEN_COLON type { printf("decl without value\n"); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr { printf("decl with value\n"); }
 	| id TOKEN_COLON type idx type { printf("array decl\n"); }
 	| id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list  { printf("array decl with value\n"); }
+	| id TOKEN_COLON TOKEN_FUNCTION type arg_list { printf("function prototype decl\n"); }
 	;
 
 brac_list : TOKEN_L_BRACE brac_list TOKEN_R_BRACE
-	| arg_list
+	| expr TOKEN_COMMA brac_list
+	| expr
 	;
 
+
 arg_list : arg TOKEN_COMMA arg_list
+	| TOKEN_L_PAREN arg_list TOKEN_R_PAREN
 	| arg
 	;
 
-arg : expr
+arg : id TOKEN_COLON type
+	
 	;
+
 
 idx : TOKEN_L_BRACKET expr TOKEN_R_BRACKET
 	;
