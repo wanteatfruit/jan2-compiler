@@ -69,18 +69,20 @@
 
 /* Grammar Rules */
 
-program : decl_list { return 0; }
+program : stmt_list { return 0; }
 	;
 
-decl_list : decl decl_list
-	| decl
+stmt_list : stmt stmt_list
+	| stmt
 	;
+
+stmt : decl TOKEN_SEMICOLON { printf("stmt decl\n"); }
+	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
 
 decl : id TOKEN_COLON type { printf("decl without value\n"); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr { printf("decl with value\n"); }
 	| id TOKEN_COLON type idx type { printf("array decl\n"); }
 	| id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list  { printf("array decl with value\n"); }
-	| decl TOKEN_SEMICOLON;
 	;
 
 brac_list : TOKEN_L_BRACE brac_list TOKEN_R_BRACE
@@ -109,19 +111,55 @@ type : TOKEN_INTEGER
 
 id : TOKEN_IDENTIFIER;
 
-expr	: expr TOKEN_ADD term
-	| expr TOKEN_SUB term
-	| term
+/* arthimetic expressions, printf to check for precedence */
+
+expr : id TOKEN_ASSIGN expr
+	| expr_or
 	;
 
-term	: term TOKEN_MUL factor
-	| term TOKEN_DIV factor
+expr_or : expr_and TOKEN_OR expr_or { printf("or\n"); }
+	| expr_and
+	;
+
+expr_and : expr_comp TOKEN_AND expr_and { printf("and\n"); }
+	| expr_comp
+	;
+
+expr_comp : expr_add TOKEN_EQUAL expr_comp { printf("comparison\n"); }
+	| expr_add TOKEN_LESS expr_comp
+	| expr_add TOKEN_NEQUAL expr_comp
+	| expr_add TOKEN_LE expr_comp
+	| expr_add TOKEN_GE expr_comp
+	| expr_add TOKEN_GREATER expr_comp
+	| expr_add
+	;
+
+expr_add	: expr_mul TOKEN_ADD expr_add  { printf("add\n"); }
+	| expr_mul TOKEN_SUB expr_add
+	| expr_mul
+	;
+
+expr_mul	: expr_exp TOKEN_MUL expr_mul { printf("mul\n"); }
+	| expr_exp TOKEN_DIV expr_mul 
+	| expr_exp TOKEN_MOD expr_mul  
+	| expr_exp
+	;
+
+expr_exp	: expr_unary TOKEN_EXP expr_exp { printf("exp\n"); }
+			| expr_unary
+			;
+
+expr_unary : TOKEN_NEG expr_unary   { printf("neg\n"); }
+			| TOKEN_NOT expr_unary   { printf("not\n"); }
+			| exp_post
+			;
+
+exp_post : factor TOKEN_POSTINC { printf("postinc\n"); }
+	| factor TOKEN_POSTDEC
 	| factor
 	;
 
-factor	: TOKEN_SUB factor
-	| TOKEN_ADD factor
-	| TOKEN_L_PAREN expr TOKEN_R_PAREN
+factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
 	| literal
 	;
 

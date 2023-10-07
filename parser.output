@@ -7,20 +7,6 @@ Terminals unused in grammar
    TOKEN_RETURN
    TOKEN_WHILE
    TOKEN_AUTO
-   TOKEN_POSTINC
-   TOKEN_POSTDEC
-   TOKEN_NEG
-   TOKEN_NOT
-   TOKEN_EXP
-   TOKEN_MOD
-   TOKEN_LESS
-   TOKEN_LE
-   TOKEN_GE
-   TOKEN_GREATER
-   TOKEN_EQUAL
-   TOKEN_NEQUAL
-   TOKEN_AND
-   TOKEN_OR
    TOKEN_BACKSLASH
    TOKEN_C_COMMENT
    TOKEN_CPP_COMMENT
@@ -32,113 +18,142 @@ Grammar
 
     0 $accept: program $end
 
-    1 program: decl_list
+    1 program: stmt_list
 
-    2 decl_list: decl decl_list
-    3          | decl
+    2 stmt_list: stmt stmt_list
+    3          | stmt
 
-    4 decl: id TOKEN_COLON type
-    5     | id TOKEN_COLON type TOKEN_ASSIGN expr
-    6     | id TOKEN_COLON type idx type
-    7     | id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list
-    8     | decl TOKEN_SEMICOLON
+    4 stmt: decl TOKEN_SEMICOLON
+    5     | expr TOKEN_SEMICOLON
 
-    9 brac_list: TOKEN_L_BRACE brac_list TOKEN_R_BRACE
-   10          | arg_list
+    6 decl: id TOKEN_COLON type
+    7     | id TOKEN_COLON type TOKEN_ASSIGN expr
+    8     | id TOKEN_COLON type idx type
+    9     | id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list
 
-   11 arg_list: arg TOKEN_COMMA arg_list
-   12         | arg
+   10 brac_list: TOKEN_L_BRACE brac_list TOKEN_R_BRACE
+   11          | arg_list
 
-   13 arg: expr
+   12 arg_list: arg TOKEN_COMMA arg_list
+   13         | arg
 
-   14 idx: TOKEN_L_BRACKET expr TOKEN_R_BRACKET
+   14 arg: expr
 
-   15 type: TOKEN_INTEGER
-   16     | TOKEN_FLOAT
-   17     | TOKEN_BOOLEAN
-   18     | TOKEN_CHARACTER
-   19     | TOKEN_STRING
-   20     | TOKEN_VOID
-   21     | TOKEN_ARRAY
-   22     | TOKEN_FUNCTION
+   15 idx: TOKEN_L_BRACKET expr TOKEN_R_BRACKET
 
-   23 id: TOKEN_IDENTIFIER
+   16 type: TOKEN_INTEGER
+   17     | TOKEN_FLOAT
+   18     | TOKEN_BOOLEAN
+   19     | TOKEN_CHARACTER
+   20     | TOKEN_STRING
+   21     | TOKEN_VOID
+   22     | TOKEN_ARRAY
+   23     | TOKEN_FUNCTION
 
-   24 expr: expr TOKEN_ADD term
-   25     | expr TOKEN_SUB term
-   26     | term
+   24 id: TOKEN_IDENTIFIER
 
-   27 term: term TOKEN_MUL factor
-   28     | term TOKEN_DIV factor
-   29     | factor
+   25 expr: id TOKEN_ASSIGN expr
+   26     | expr_or
 
-   30 factor: TOKEN_SUB factor
-   31       | TOKEN_ADD factor
-   32       | TOKEN_L_PAREN expr TOKEN_R_PAREN
-   33       | literal
+   27 expr_or: expr_and TOKEN_OR expr_or
+   28        | expr_and
 
-   34 literal: TOKEN_INTEGER_LITERAL
-   35        | TOKEN_FLOAT_LITERAL
-   36        | TOKEN_CHARACTER_LITERAL
-   37        | TOKEN_STRING_LITERAL
-   38        | TOKEN_TRUE
-   39        | TOKEN_FALSE
+   29 expr_and: expr_comp TOKEN_AND expr_and
+   30         | expr_comp
+
+   31 expr_comp: expr_add TOKEN_EQUAL expr_comp
+   32          | expr_add TOKEN_LESS expr_comp
+   33          | expr_add TOKEN_NEQUAL expr_comp
+   34          | expr_add TOKEN_LE expr_comp
+   35          | expr_add TOKEN_GE expr_comp
+   36          | expr_add TOKEN_GREATER expr_comp
+   37          | expr_add
+
+   38 expr_add: expr_mul TOKEN_ADD expr_add
+   39         | expr_mul TOKEN_SUB expr_add
+   40         | expr_mul
+
+   41 expr_mul: expr_exp TOKEN_MUL expr_mul
+   42         | expr_exp TOKEN_DIV expr_mul
+   43         | expr_exp TOKEN_MOD expr_mul
+   44         | expr_exp
+
+   45 expr_exp: expr_unary TOKEN_EXP expr_exp
+   46         | expr_unary
+
+   47 expr_unary: TOKEN_NEG expr_unary
+   48           | TOKEN_NOT expr_unary
+   49           | exp_post
+
+   50 exp_post: factor TOKEN_POSTINC
+   51         | factor TOKEN_POSTDEC
+   52         | factor
+
+   53 factor: TOKEN_L_PAREN expr TOKEN_R_PAREN
+   54       | literal
+
+   55 literal: TOKEN_INTEGER_LITERAL
+   56        | TOKEN_FLOAT_LITERAL
+   57        | TOKEN_CHARACTER_LITERAL
+   58        | TOKEN_STRING_LITERAL
+   59        | TOKEN_TRUE
+   60        | TOKEN_FALSE
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-TOKEN_ARRAY (258) 21
-TOKEN_BOOLEAN (259) 17
-TOKEN_CHARACTER (260) 18
-TOKEN_FLOAT (261) 16
-TOKEN_FUNCTION (262) 22
-TOKEN_INTEGER (263) 15
-TOKEN_STRING (264) 19
-TOKEN_VOID (265) 20
-TOKEN_INTEGER_LITERAL (266) 34
-TOKEN_CHARACTER_LITERAL (267) 36
-TOKEN_STRING_LITERAL (268) 37
-TOKEN_FLOAT_LITERAL (269) 35
+TOKEN_ARRAY (258) 22
+TOKEN_BOOLEAN (259) 18
+TOKEN_CHARACTER (260) 19
+TOKEN_FLOAT (261) 17
+TOKEN_FUNCTION (262) 23
+TOKEN_INTEGER (263) 16
+TOKEN_STRING (264) 20
+TOKEN_VOID (265) 21
+TOKEN_INTEGER_LITERAL (266) 55
+TOKEN_CHARACTER_LITERAL (267) 57
+TOKEN_STRING_LITERAL (268) 58
+TOKEN_FLOAT_LITERAL (269) 56
 TOKEN_ELSE (270)
-TOKEN_FALSE (271) 39
+TOKEN_FALSE (271) 60
 TOKEN_FOR (272)
 TOKEN_IF (273)
 TOKEN_PRINT (274)
 TOKEN_RETURN (275)
-TOKEN_TRUE (276) 38
+TOKEN_TRUE (276) 59
 TOKEN_WHILE (277)
 TOKEN_AUTO (278)
-TOKEN_IDENTIFIER (279) 23
-TOKEN_L_PAREN (280) 32
-TOKEN_R_PAREN (281) 32
-TOKEN_L_BRACKET (282) 14
-TOKEN_R_BRACKET (283) 14
-TOKEN_L_BRACE (284) 9
-TOKEN_R_BRACE (285) 9
-TOKEN_POSTINC (286)
-TOKEN_POSTDEC (287)
-TOKEN_NEG (288)
-TOKEN_NOT (289)
-TOKEN_EXP (290)
-TOKEN_MUL (291) 27
-TOKEN_DIV (292) 28
-TOKEN_MOD (293)
-TOKEN_ADD (294) 24 31
-TOKEN_SUB (295) 25 30
-TOKEN_LESS (296)
-TOKEN_LE (297)
-TOKEN_GE (298)
-TOKEN_GREATER (299)
-TOKEN_EQUAL (300)
-TOKEN_NEQUAL (301)
-TOKEN_AND (302)
-TOKEN_OR (303)
-TOKEN_ASSIGN (304) 5 7
-TOKEN_SEMICOLON (305) 8
-TOKEN_COLON (306) 4 5 6 7
-TOKEN_COMMA (307) 11
+TOKEN_IDENTIFIER (279) 24
+TOKEN_L_PAREN (280) 53
+TOKEN_R_PAREN (281) 53
+TOKEN_L_BRACKET (282) 15
+TOKEN_R_BRACKET (283) 15
+TOKEN_L_BRACE (284) 10
+TOKEN_R_BRACE (285) 10
+TOKEN_POSTINC (286) 50
+TOKEN_POSTDEC (287) 51
+TOKEN_NEG (288) 47
+TOKEN_NOT (289) 48
+TOKEN_EXP (290) 45
+TOKEN_MUL (291) 41
+TOKEN_DIV (292) 42
+TOKEN_MOD (293) 43
+TOKEN_ADD (294) 38
+TOKEN_SUB (295) 39
+TOKEN_LESS (296) 32
+TOKEN_LE (297) 34
+TOKEN_GE (298) 35
+TOKEN_GREATER (299) 36
+TOKEN_EQUAL (300) 31
+TOKEN_NEQUAL (301) 33
+TOKEN_AND (302) 29
+TOKEN_OR (303) 27
+TOKEN_ASSIGN (304) 7 9 25
+TOKEN_SEMICOLON (305) 4 5
+TOKEN_COLON (306) 6 7 8 9
+TOKEN_COMMA (307) 12
 TOKEN_BACKSLASH (308)
 TOKEN_C_COMMENT (309)
 TOKEN_CPP_COMMENT (310)
@@ -152,689 +167,1262 @@ $accept (58)
     on left: 0
 program (59)
     on left: 1, on right: 0
-decl_list (60)
+stmt_list (60)
     on left: 2 3, on right: 1 2
-decl (61)
-    on left: 4 5 6 7 8, on right: 2 3 8
-brac_list (62)
-    on left: 9 10, on right: 7 9
-arg_list (63)
-    on left: 11 12, on right: 10 11
-arg (64)
-    on left: 13, on right: 11 12
-idx (65)
-    on left: 14, on right: 6 7
-type (66)
-    on left: 15 16 17 18 19 20 21 22, on right: 4 5 6 7
-id (67)
-    on left: 23, on right: 4 5 6 7
-expr (68)
-    on left: 24 25 26, on right: 5 13 14 24 25 32
-term (69)
-    on left: 27 28 29, on right: 24 25 26 27 28
-factor (70)
-    on left: 30 31 32 33, on right: 27 28 29 30 31
-literal (71)
-    on left: 34 35 36 37 38 39, on right: 33
+stmt (61)
+    on left: 4 5, on right: 2 3
+decl (62)
+    on left: 6 7 8 9, on right: 4
+brac_list (63)
+    on left: 10 11, on right: 9 10
+arg_list (64)
+    on left: 12 13, on right: 11 12
+arg (65)
+    on left: 14, on right: 12 13
+idx (66)
+    on left: 15, on right: 8 9
+type (67)
+    on left: 16 17 18 19 20 21 22 23, on right: 6 7 8 9
+id (68)
+    on left: 24, on right: 6 7 8 9 25
+expr (69)
+    on left: 25 26, on right: 5 7 14 15 25 53
+expr_or (70)
+    on left: 27 28, on right: 26 27
+expr_and (71)
+    on left: 29 30, on right: 27 28 29
+expr_comp (72)
+    on left: 31 32 33 34 35 36 37, on right: 29 30 31 32 33 34 35 36
+expr_add (73)
+    on left: 38 39 40, on right: 31 32 33 34 35 36 37 38 39
+expr_mul (74)
+    on left: 41 42 43 44, on right: 38 39 40 41 42 43
+expr_exp (75)
+    on left: 45 46, on right: 41 42 43 44 45
+expr_unary (76)
+    on left: 47 48 49, on right: 45 46 47 48
+exp_post (77)
+    on left: 50 51 52, on right: 49
+factor (78)
+    on left: 53 54, on right: 50 51 52
+literal (79)
+    on left: 55 56 57 58 59 60, on right: 54
 
 
 State 0
 
     0 $accept: . program $end
 
-    TOKEN_IDENTIFIER  shift, and go to state 1
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    program    go to state 2
-    decl_list  go to state 3
-    decl       go to state 4
-    id         go to state 5
+    program     go to state 11
+    stmt_list   go to state 12
+    stmt        go to state 13
+    decl        go to state 14
+    id          go to state 15
+    expr        go to state 16
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 1
 
-   23 id: TOKEN_IDENTIFIER .
+   55 literal: TOKEN_INTEGER_LITERAL .
 
-    $default  reduce using rule 23 (id)
+    $default  reduce using rule 55 (literal)
 
 
 State 2
 
-    0 $accept: program . $end
+   57 literal: TOKEN_CHARACTER_LITERAL .
 
-    $end  shift, and go to state 6
+    $default  reduce using rule 57 (literal)
 
 
 State 3
 
-    1 program: decl_list .
+   58 literal: TOKEN_STRING_LITERAL .
 
-    $default  reduce using rule 1 (program)
+    $default  reduce using rule 58 (literal)
 
 
 State 4
 
-    2 decl_list: decl . decl_list
-    3          | decl .
-    8 decl: decl . TOKEN_SEMICOLON
+   56 literal: TOKEN_FLOAT_LITERAL .
 
-    TOKEN_IDENTIFIER  shift, and go to state 1
-    TOKEN_SEMICOLON   shift, and go to state 7
-
-    $default  reduce using rule 3 (decl_list)
-
-    decl_list  go to state 8
-    decl       go to state 4
-    id         go to state 5
+    $default  reduce using rule 56 (literal)
 
 
 State 5
 
-    4 decl: id . TOKEN_COLON type
-    5     | id . TOKEN_COLON type TOKEN_ASSIGN expr
-    6     | id . TOKEN_COLON type idx type
-    7     | id . TOKEN_COLON type idx type TOKEN_ASSIGN brac_list
+   60 literal: TOKEN_FALSE .
 
-    TOKEN_COLON  shift, and go to state 9
+    $default  reduce using rule 60 (literal)
 
 
 State 6
+
+   59 literal: TOKEN_TRUE .
+
+    $default  reduce using rule 59 (literal)
+
+
+State 7
+
+   24 id: TOKEN_IDENTIFIER .
+
+    $default  reduce using rule 24 (id)
+
+
+State 8
+
+   53 factor: TOKEN_L_PAREN . expr TOKEN_R_PAREN
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    id          go to state 27
+    expr        go to state 28
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 9
+
+   47 expr_unary: TOKEN_NEG . expr_unary
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_unary  go to state 29
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 10
+
+   48 expr_unary: TOKEN_NOT . expr_unary
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_unary  go to state 30
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 11
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 31
+
+
+State 12
+
+    1 program: stmt_list .
+
+    $default  reduce using rule 1 (program)
+
+
+State 13
+
+    2 stmt_list: stmt . stmt_list
+    3          | stmt .
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    $default  reduce using rule 3 (stmt_list)
+
+    stmt_list   go to state 32
+    stmt        go to state 13
+    decl        go to state 14
+    id          go to state 15
+    expr        go to state 16
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 14
+
+    4 stmt: decl . TOKEN_SEMICOLON
+
+    TOKEN_SEMICOLON  shift, and go to state 33
+
+
+State 15
+
+    6 decl: id . TOKEN_COLON type
+    7     | id . TOKEN_COLON type TOKEN_ASSIGN expr
+    8     | id . TOKEN_COLON type idx type
+    9     | id . TOKEN_COLON type idx type TOKEN_ASSIGN brac_list
+   25 expr: id . TOKEN_ASSIGN expr
+
+    TOKEN_ASSIGN  shift, and go to state 34
+    TOKEN_COLON   shift, and go to state 35
+
+
+State 16
+
+    5 stmt: expr . TOKEN_SEMICOLON
+
+    TOKEN_SEMICOLON  shift, and go to state 36
+
+
+State 17
+
+   26 expr: expr_or .
+
+    $default  reduce using rule 26 (expr)
+
+
+State 18
+
+   27 expr_or: expr_and . TOKEN_OR expr_or
+   28        | expr_and .
+
+    TOKEN_OR  shift, and go to state 37
+
+    $default  reduce using rule 28 (expr_or)
+
+
+State 19
+
+   29 expr_and: expr_comp . TOKEN_AND expr_and
+   30         | expr_comp .
+
+    TOKEN_AND  shift, and go to state 38
+
+    $default  reduce using rule 30 (expr_and)
+
+
+State 20
+
+   31 expr_comp: expr_add . TOKEN_EQUAL expr_comp
+   32          | expr_add . TOKEN_LESS expr_comp
+   33          | expr_add . TOKEN_NEQUAL expr_comp
+   34          | expr_add . TOKEN_LE expr_comp
+   35          | expr_add . TOKEN_GE expr_comp
+   36          | expr_add . TOKEN_GREATER expr_comp
+   37          | expr_add .
+
+    TOKEN_LESS     shift, and go to state 39
+    TOKEN_LE       shift, and go to state 40
+    TOKEN_GE       shift, and go to state 41
+    TOKEN_GREATER  shift, and go to state 42
+    TOKEN_EQUAL    shift, and go to state 43
+    TOKEN_NEQUAL   shift, and go to state 44
+
+    $default  reduce using rule 37 (expr_comp)
+
+
+State 21
+
+   38 expr_add: expr_mul . TOKEN_ADD expr_add
+   39         | expr_mul . TOKEN_SUB expr_add
+   40         | expr_mul .
+
+    TOKEN_ADD  shift, and go to state 45
+    TOKEN_SUB  shift, and go to state 46
+
+    $default  reduce using rule 40 (expr_add)
+
+
+State 22
+
+   41 expr_mul: expr_exp . TOKEN_MUL expr_mul
+   42         | expr_exp . TOKEN_DIV expr_mul
+   43         | expr_exp . TOKEN_MOD expr_mul
+   44         | expr_exp .
+
+    TOKEN_MUL  shift, and go to state 47
+    TOKEN_DIV  shift, and go to state 48
+    TOKEN_MOD  shift, and go to state 49
+
+    $default  reduce using rule 44 (expr_mul)
+
+
+State 23
+
+   45 expr_exp: expr_unary . TOKEN_EXP expr_exp
+   46         | expr_unary .
+
+    TOKEN_EXP  shift, and go to state 50
+
+    $default  reduce using rule 46 (expr_exp)
+
+
+State 24
+
+   49 expr_unary: exp_post .
+
+    $default  reduce using rule 49 (expr_unary)
+
+
+State 25
+
+   50 exp_post: factor . TOKEN_POSTINC
+   51         | factor . TOKEN_POSTDEC
+   52         | factor .
+
+    TOKEN_POSTINC  shift, and go to state 51
+    TOKEN_POSTDEC  shift, and go to state 52
+
+    $default  reduce using rule 52 (exp_post)
+
+
+State 26
+
+   54 factor: literal .
+
+    $default  reduce using rule 54 (factor)
+
+
+State 27
+
+   25 expr: id . TOKEN_ASSIGN expr
+
+    TOKEN_ASSIGN  shift, and go to state 34
+
+
+State 28
+
+   53 factor: TOKEN_L_PAREN expr . TOKEN_R_PAREN
+
+    TOKEN_R_PAREN  shift, and go to state 53
+
+
+State 29
+
+   47 expr_unary: TOKEN_NEG expr_unary .
+
+    $default  reduce using rule 47 (expr_unary)
+
+
+State 30
+
+   48 expr_unary: TOKEN_NOT expr_unary .
+
+    $default  reduce using rule 48 (expr_unary)
+
+
+State 31
 
     0 $accept: program $end .
 
     $default  accept
 
 
-State 7
-
-    8 decl: decl TOKEN_SEMICOLON .
-
-    $default  reduce using rule 8 (decl)
-
-
-State 8
-
-    2 decl_list: decl decl_list .
-
-    $default  reduce using rule 2 (decl_list)
-
-
-State 9
-
-    4 decl: id TOKEN_COLON . type
-    5     | id TOKEN_COLON . type TOKEN_ASSIGN expr
-    6     | id TOKEN_COLON . type idx type
-    7     | id TOKEN_COLON . type idx type TOKEN_ASSIGN brac_list
-
-    TOKEN_ARRAY      shift, and go to state 10
-    TOKEN_BOOLEAN    shift, and go to state 11
-    TOKEN_CHARACTER  shift, and go to state 12
-    TOKEN_FLOAT      shift, and go to state 13
-    TOKEN_FUNCTION   shift, and go to state 14
-    TOKEN_INTEGER    shift, and go to state 15
-    TOKEN_STRING     shift, and go to state 16
-    TOKEN_VOID       shift, and go to state 17
-
-    type  go to state 18
-
-
-State 10
-
-   21 type: TOKEN_ARRAY .
-
-    $default  reduce using rule 21 (type)
-
-
-State 11
-
-   17 type: TOKEN_BOOLEAN .
-
-    $default  reduce using rule 17 (type)
-
-
-State 12
-
-   18 type: TOKEN_CHARACTER .
-
-    $default  reduce using rule 18 (type)
-
-
-State 13
-
-   16 type: TOKEN_FLOAT .
-
-    $default  reduce using rule 16 (type)
-
-
-State 14
-
-   22 type: TOKEN_FUNCTION .
-
-    $default  reduce using rule 22 (type)
-
-
-State 15
-
-   15 type: TOKEN_INTEGER .
-
-    $default  reduce using rule 15 (type)
-
-
-State 16
-
-   19 type: TOKEN_STRING .
-
-    $default  reduce using rule 19 (type)
-
-
-State 17
-
-   20 type: TOKEN_VOID .
-
-    $default  reduce using rule 20 (type)
-
-
-State 18
-
-    4 decl: id TOKEN_COLON type .
-    5     | id TOKEN_COLON type . TOKEN_ASSIGN expr
-    6     | id TOKEN_COLON type . idx type
-    7     | id TOKEN_COLON type . idx type TOKEN_ASSIGN brac_list
-
-    TOKEN_L_BRACKET  shift, and go to state 19
-    TOKEN_ASSIGN     shift, and go to state 20
-
-    $default  reduce using rule 4 (decl)
-
-    idx  go to state 21
-
-
-State 19
-
-   14 idx: TOKEN_L_BRACKET . expr TOKEN_R_BRACKET
-
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    expr     go to state 31
-    term     go to state 32
-    factor   go to state 33
-    literal  go to state 34
-
-
-State 20
-
-    5 decl: id TOKEN_COLON type TOKEN_ASSIGN . expr
-
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    expr     go to state 35
-    term     go to state 32
-    factor   go to state 33
-    literal  go to state 34
-
-
-State 21
-
-    6 decl: id TOKEN_COLON type idx . type
-    7     | id TOKEN_COLON type idx . type TOKEN_ASSIGN brac_list
-
-    TOKEN_ARRAY      shift, and go to state 10
-    TOKEN_BOOLEAN    shift, and go to state 11
-    TOKEN_CHARACTER  shift, and go to state 12
-    TOKEN_FLOAT      shift, and go to state 13
-    TOKEN_FUNCTION   shift, and go to state 14
-    TOKEN_INTEGER    shift, and go to state 15
-    TOKEN_STRING     shift, and go to state 16
-    TOKEN_VOID       shift, and go to state 17
-
-    type  go to state 36
-
-
-State 22
-
-   34 literal: TOKEN_INTEGER_LITERAL .
-
-    $default  reduce using rule 34 (literal)
-
-
-State 23
-
-   36 literal: TOKEN_CHARACTER_LITERAL .
-
-    $default  reduce using rule 36 (literal)
-
-
-State 24
-
-   37 literal: TOKEN_STRING_LITERAL .
-
-    $default  reduce using rule 37 (literal)
-
-
-State 25
-
-   35 literal: TOKEN_FLOAT_LITERAL .
-
-    $default  reduce using rule 35 (literal)
-
-
-State 26
-
-   39 literal: TOKEN_FALSE .
-
-    $default  reduce using rule 39 (literal)
-
-
-State 27
-
-   38 literal: TOKEN_TRUE .
-
-    $default  reduce using rule 38 (literal)
-
-
-State 28
-
-   32 factor: TOKEN_L_PAREN . expr TOKEN_R_PAREN
-
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    expr     go to state 37
-    term     go to state 32
-    factor   go to state 33
-    literal  go to state 34
-
-
-State 29
-
-   31 factor: TOKEN_ADD . factor
-
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    factor   go to state 38
-    literal  go to state 34
-
-
-State 30
-
-   30 factor: TOKEN_SUB . factor
-
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    factor   go to state 39
-    literal  go to state 34
-
-
-State 31
-
-   14 idx: TOKEN_L_BRACKET expr . TOKEN_R_BRACKET
-   24 expr: expr . TOKEN_ADD term
-   25     | expr . TOKEN_SUB term
-
-    TOKEN_R_BRACKET  shift, and go to state 40
-    TOKEN_ADD        shift, and go to state 41
-    TOKEN_SUB        shift, and go to state 42
-
-
 State 32
 
-   26 expr: term .
-   27 term: term . TOKEN_MUL factor
-   28     | term . TOKEN_DIV factor
+    2 stmt_list: stmt stmt_list .
 
-    TOKEN_MUL  shift, and go to state 43
-    TOKEN_DIV  shift, and go to state 44
-
-    $default  reduce using rule 26 (expr)
+    $default  reduce using rule 2 (stmt_list)
 
 
 State 33
 
-   29 term: factor .
+    4 stmt: decl TOKEN_SEMICOLON .
 
-    $default  reduce using rule 29 (term)
+    $default  reduce using rule 4 (stmt)
 
 
 State 34
 
-   33 factor: literal .
+   25 expr: id TOKEN_ASSIGN . expr
 
-    $default  reduce using rule 33 (factor)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    id          go to state 27
+    expr        go to state 54
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 35
 
-    5 decl: id TOKEN_COLON type TOKEN_ASSIGN expr .
-   24 expr: expr . TOKEN_ADD term
-   25     | expr . TOKEN_SUB term
+    6 decl: id TOKEN_COLON . type
+    7     | id TOKEN_COLON . type TOKEN_ASSIGN expr
+    8     | id TOKEN_COLON . type idx type
+    9     | id TOKEN_COLON . type idx type TOKEN_ASSIGN brac_list
 
-    TOKEN_ADD  shift, and go to state 41
-    TOKEN_SUB  shift, and go to state 42
+    TOKEN_ARRAY      shift, and go to state 55
+    TOKEN_BOOLEAN    shift, and go to state 56
+    TOKEN_CHARACTER  shift, and go to state 57
+    TOKEN_FLOAT      shift, and go to state 58
+    TOKEN_FUNCTION   shift, and go to state 59
+    TOKEN_INTEGER    shift, and go to state 60
+    TOKEN_STRING     shift, and go to state 61
+    TOKEN_VOID       shift, and go to state 62
 
-    $default  reduce using rule 5 (decl)
+    type  go to state 63
 
 
 State 36
 
-    6 decl: id TOKEN_COLON type idx type .
-    7     | id TOKEN_COLON type idx type . TOKEN_ASSIGN brac_list
+    5 stmt: expr TOKEN_SEMICOLON .
 
-    TOKEN_ASSIGN  shift, and go to state 45
-
-    $default  reduce using rule 6 (decl)
+    $default  reduce using rule 5 (stmt)
 
 
 State 37
 
-   24 expr: expr . TOKEN_ADD term
-   25     | expr . TOKEN_SUB term
-   32 factor: TOKEN_L_PAREN expr . TOKEN_R_PAREN
+   27 expr_or: expr_and TOKEN_OR . expr_or
 
-    TOKEN_R_PAREN  shift, and go to state 46
-    TOKEN_ADD      shift, and go to state 41
-    TOKEN_SUB      shift, and go to state 42
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_or     go to state 64
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 38
 
-   31 factor: TOKEN_ADD factor .
+   29 expr_and: expr_comp TOKEN_AND . expr_and
 
-    $default  reduce using rule 31 (factor)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_and    go to state 65
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 39
 
-   30 factor: TOKEN_SUB factor .
+   32 expr_comp: expr_add TOKEN_LESS . expr_comp
 
-    $default  reduce using rule 30 (factor)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_comp   go to state 66
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 40
 
-   14 idx: TOKEN_L_BRACKET expr TOKEN_R_BRACKET .
+   34 expr_comp: expr_add TOKEN_LE . expr_comp
 
-    $default  reduce using rule 14 (idx)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_comp   go to state 67
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 41
 
-   24 expr: expr TOKEN_ADD . term
+   35 expr_comp: expr_add TOKEN_GE . expr_comp
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    term     go to state 47
-    factor   go to state 33
-    literal  go to state 34
+    expr_comp   go to state 68
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 42
 
-   25 expr: expr TOKEN_SUB . term
+   36 expr_comp: expr_add TOKEN_GREATER . expr_comp
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    term     go to state 48
-    factor   go to state 33
-    literal  go to state 34
+    expr_comp   go to state 69
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 43
 
-   27 term: term TOKEN_MUL . factor
+   31 expr_comp: expr_add TOKEN_EQUAL . expr_comp
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    factor   go to state 49
-    literal  go to state 34
+    expr_comp   go to state 70
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 44
 
-   28 term: term TOKEN_DIV . factor
+   33 expr_comp: expr_add TOKEN_NEQUAL . expr_comp
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    factor   go to state 50
-    literal  go to state 34
+    expr_comp   go to state 71
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 45
 
-    7 decl: id TOKEN_COLON type idx type TOKEN_ASSIGN . brac_list
+   38 expr_add: expr_mul TOKEN_ADD . expr_add
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_L_BRACE            shift, and go to state 51
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    brac_list  go to state 52
-    arg_list   go to state 53
-    arg        go to state 54
-    expr       go to state 55
-    term       go to state 32
-    factor     go to state 33
-    literal    go to state 34
+    expr_add    go to state 72
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 46
 
-   32 factor: TOKEN_L_PAREN expr TOKEN_R_PAREN .
+   39 expr_add: expr_mul TOKEN_SUB . expr_add
 
-    $default  reduce using rule 32 (factor)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_add    go to state 73
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 47
 
-   24 expr: expr TOKEN_ADD term .
-   27 term: term . TOKEN_MUL factor
-   28     | term . TOKEN_DIV factor
+   41 expr_mul: expr_exp TOKEN_MUL . expr_mul
 
-    TOKEN_MUL  shift, and go to state 43
-    TOKEN_DIV  shift, and go to state 44
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    $default  reduce using rule 24 (expr)
+    expr_mul    go to state 74
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 48
 
-   25 expr: expr TOKEN_SUB term .
-   27 term: term . TOKEN_MUL factor
-   28     | term . TOKEN_DIV factor
+   42 expr_mul: expr_exp TOKEN_DIV . expr_mul
 
-    TOKEN_MUL  shift, and go to state 43
-    TOKEN_DIV  shift, and go to state 44
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
 
-    $default  reduce using rule 25 (expr)
+    expr_mul    go to state 75
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 49
 
-   27 term: term TOKEN_MUL factor .
+   43 expr_mul: expr_exp TOKEN_MOD . expr_mul
 
-    $default  reduce using rule 27 (term)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_mul    go to state 76
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 50
 
-   28 term: term TOKEN_DIV factor .
+   45 expr_exp: expr_unary TOKEN_EXP . expr_exp
 
-    $default  reduce using rule 28 (term)
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    expr_exp    go to state 77
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
 
 
 State 51
 
-    9 brac_list: TOKEN_L_BRACE . brac_list TOKEN_R_BRACE
+   50 exp_post: factor TOKEN_POSTINC .
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_L_BRACE            shift, and go to state 51
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    brac_list  go to state 56
-    arg_list   go to state 53
-    arg        go to state 54
-    expr       go to state 55
-    term       go to state 32
-    factor     go to state 33
-    literal    go to state 34
+    $default  reduce using rule 50 (exp_post)
 
 
 State 52
 
-    7 decl: id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list .
+   51 exp_post: factor TOKEN_POSTDEC .
 
-    $default  reduce using rule 7 (decl)
+    $default  reduce using rule 51 (exp_post)
 
 
 State 53
 
-   10 brac_list: arg_list .
+   53 factor: TOKEN_L_PAREN expr TOKEN_R_PAREN .
 
-    $default  reduce using rule 10 (brac_list)
+    $default  reduce using rule 53 (factor)
 
 
 State 54
 
-   11 arg_list: arg . TOKEN_COMMA arg_list
-   12         | arg .
+   25 expr: id TOKEN_ASSIGN expr .
 
-    TOKEN_COMMA  shift, and go to state 57
-
-    $default  reduce using rule 12 (arg_list)
+    $default  reduce using rule 25 (expr)
 
 
 State 55
 
-   13 arg: expr .
-   24 expr: expr . TOKEN_ADD term
-   25     | expr . TOKEN_SUB term
+   22 type: TOKEN_ARRAY .
 
-    TOKEN_ADD  shift, and go to state 41
-    TOKEN_SUB  shift, and go to state 42
-
-    $default  reduce using rule 13 (arg)
+    $default  reduce using rule 22 (type)
 
 
 State 56
 
-    9 brac_list: TOKEN_L_BRACE brac_list . TOKEN_R_BRACE
+   18 type: TOKEN_BOOLEAN .
 
-    TOKEN_R_BRACE  shift, and go to state 58
+    $default  reduce using rule 18 (type)
 
 
 State 57
 
-   11 arg_list: arg TOKEN_COMMA . arg_list
+   19 type: TOKEN_CHARACTER .
 
-    TOKEN_INTEGER_LITERAL    shift, and go to state 22
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 23
-    TOKEN_STRING_LITERAL     shift, and go to state 24
-    TOKEN_FLOAT_LITERAL      shift, and go to state 25
-    TOKEN_FALSE              shift, and go to state 26
-    TOKEN_TRUE               shift, and go to state 27
-    TOKEN_L_PAREN            shift, and go to state 28
-    TOKEN_ADD                shift, and go to state 29
-    TOKEN_SUB                shift, and go to state 30
-
-    arg_list  go to state 59
-    arg       go to state 54
-    expr      go to state 55
-    term      go to state 32
-    factor    go to state 33
-    literal   go to state 34
+    $default  reduce using rule 19 (type)
 
 
 State 58
 
-    9 brac_list: TOKEN_L_BRACE brac_list TOKEN_R_BRACE .
+   17 type: TOKEN_FLOAT .
 
-    $default  reduce using rule 9 (brac_list)
+    $default  reduce using rule 17 (type)
 
 
 State 59
 
-   11 arg_list: arg TOKEN_COMMA arg_list .
+   23 type: TOKEN_FUNCTION .
 
-    $default  reduce using rule 11 (arg_list)
+    $default  reduce using rule 23 (type)
+
+
+State 60
+
+   16 type: TOKEN_INTEGER .
+
+    $default  reduce using rule 16 (type)
+
+
+State 61
+
+   20 type: TOKEN_STRING .
+
+    $default  reduce using rule 20 (type)
+
+
+State 62
+
+   21 type: TOKEN_VOID .
+
+    $default  reduce using rule 21 (type)
+
+
+State 63
+
+    6 decl: id TOKEN_COLON type .
+    7     | id TOKEN_COLON type . TOKEN_ASSIGN expr
+    8     | id TOKEN_COLON type . idx type
+    9     | id TOKEN_COLON type . idx type TOKEN_ASSIGN brac_list
+
+    TOKEN_L_BRACKET  shift, and go to state 78
+    TOKEN_ASSIGN     shift, and go to state 79
+
+    $default  reduce using rule 6 (decl)
+
+    idx  go to state 80
+
+
+State 64
+
+   27 expr_or: expr_and TOKEN_OR expr_or .
+
+    $default  reduce using rule 27 (expr_or)
+
+
+State 65
+
+   29 expr_and: expr_comp TOKEN_AND expr_and .
+
+    $default  reduce using rule 29 (expr_and)
+
+
+State 66
+
+   32 expr_comp: expr_add TOKEN_LESS expr_comp .
+
+    $default  reduce using rule 32 (expr_comp)
+
+
+State 67
+
+   34 expr_comp: expr_add TOKEN_LE expr_comp .
+
+    $default  reduce using rule 34 (expr_comp)
+
+
+State 68
+
+   35 expr_comp: expr_add TOKEN_GE expr_comp .
+
+    $default  reduce using rule 35 (expr_comp)
+
+
+State 69
+
+   36 expr_comp: expr_add TOKEN_GREATER expr_comp .
+
+    $default  reduce using rule 36 (expr_comp)
+
+
+State 70
+
+   31 expr_comp: expr_add TOKEN_EQUAL expr_comp .
+
+    $default  reduce using rule 31 (expr_comp)
+
+
+State 71
+
+   33 expr_comp: expr_add TOKEN_NEQUAL expr_comp .
+
+    $default  reduce using rule 33 (expr_comp)
+
+
+State 72
+
+   38 expr_add: expr_mul TOKEN_ADD expr_add .
+
+    $default  reduce using rule 38 (expr_add)
+
+
+State 73
+
+   39 expr_add: expr_mul TOKEN_SUB expr_add .
+
+    $default  reduce using rule 39 (expr_add)
+
+
+State 74
+
+   41 expr_mul: expr_exp TOKEN_MUL expr_mul .
+
+    $default  reduce using rule 41 (expr_mul)
+
+
+State 75
+
+   42 expr_mul: expr_exp TOKEN_DIV expr_mul .
+
+    $default  reduce using rule 42 (expr_mul)
+
+
+State 76
+
+   43 expr_mul: expr_exp TOKEN_MOD expr_mul .
+
+    $default  reduce using rule 43 (expr_mul)
+
+
+State 77
+
+   45 expr_exp: expr_unary TOKEN_EXP expr_exp .
+
+    $default  reduce using rule 45 (expr_exp)
+
+
+State 78
+
+   15 idx: TOKEN_L_BRACKET . expr TOKEN_R_BRACKET
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    id          go to state 27
+    expr        go to state 81
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 79
+
+    7 decl: id TOKEN_COLON type TOKEN_ASSIGN . expr
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    id          go to state 27
+    expr        go to state 82
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 80
+
+    8 decl: id TOKEN_COLON type idx . type
+    9     | id TOKEN_COLON type idx . type TOKEN_ASSIGN brac_list
+
+    TOKEN_ARRAY      shift, and go to state 55
+    TOKEN_BOOLEAN    shift, and go to state 56
+    TOKEN_CHARACTER  shift, and go to state 57
+    TOKEN_FLOAT      shift, and go to state 58
+    TOKEN_FUNCTION   shift, and go to state 59
+    TOKEN_INTEGER    shift, and go to state 60
+    TOKEN_STRING     shift, and go to state 61
+    TOKEN_VOID       shift, and go to state 62
+
+    type  go to state 83
+
+
+State 81
+
+   15 idx: TOKEN_L_BRACKET expr . TOKEN_R_BRACKET
+
+    TOKEN_R_BRACKET  shift, and go to state 84
+
+
+State 82
+
+    7 decl: id TOKEN_COLON type TOKEN_ASSIGN expr .
+
+    $default  reduce using rule 7 (decl)
+
+
+State 83
+
+    8 decl: id TOKEN_COLON type idx type .
+    9     | id TOKEN_COLON type idx type . TOKEN_ASSIGN brac_list
+
+    TOKEN_ASSIGN  shift, and go to state 85
+
+    $default  reduce using rule 8 (decl)
+
+
+State 84
+
+   15 idx: TOKEN_L_BRACKET expr TOKEN_R_BRACKET .
+
+    $default  reduce using rule 15 (idx)
+
+
+State 85
+
+    9 decl: id TOKEN_COLON type idx type TOKEN_ASSIGN . brac_list
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_L_BRACE            shift, and go to state 86
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    brac_list   go to state 87
+    arg_list    go to state 88
+    arg         go to state 89
+    id          go to state 27
+    expr        go to state 90
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 86
+
+   10 brac_list: TOKEN_L_BRACE . brac_list TOKEN_R_BRACE
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_L_BRACE            shift, and go to state 86
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    brac_list   go to state 91
+    arg_list    go to state 88
+    arg         go to state 89
+    id          go to state 27
+    expr        go to state 90
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 87
+
+    9 decl: id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list .
+
+    $default  reduce using rule 9 (decl)
+
+
+State 88
+
+   11 brac_list: arg_list .
+
+    $default  reduce using rule 11 (brac_list)
+
+
+State 89
+
+   12 arg_list: arg . TOKEN_COMMA arg_list
+   13         | arg .
+
+    TOKEN_COMMA  shift, and go to state 92
+
+    $default  reduce using rule 13 (arg_list)
+
+
+State 90
+
+   14 arg: expr .
+
+    $default  reduce using rule 14 (arg)
+
+
+State 91
+
+   10 brac_list: TOKEN_L_BRACE brac_list . TOKEN_R_BRACE
+
+    TOKEN_R_BRACE  shift, and go to state 93
+
+
+State 92
+
+   12 arg_list: arg TOKEN_COMMA . arg_list
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 6
+    TOKEN_IDENTIFIER         shift, and go to state 7
+    TOKEN_L_PAREN            shift, and go to state 8
+    TOKEN_NEG                shift, and go to state 9
+    TOKEN_NOT                shift, and go to state 10
+
+    arg_list    go to state 94
+    arg         go to state 89
+    id          go to state 27
+    expr        go to state 90
+    expr_or     go to state 17
+    expr_and    go to state 18
+    expr_comp   go to state 19
+    expr_add    go to state 20
+    expr_mul    go to state 21
+    expr_exp    go to state 22
+    expr_unary  go to state 23
+    exp_post    go to state 24
+    factor      go to state 25
+    literal     go to state 26
+
+
+State 93
+
+   10 brac_list: TOKEN_L_BRACE brac_list TOKEN_R_BRACE .
+
+    $default  reduce using rule 10 (brac_list)
+
+
+State 94
+
+   12 arg_list: arg TOKEN_COMMA arg_list .
+
+    $default  reduce using rule 12 (arg_list)
