@@ -69,8 +69,28 @@
 
 /* Grammar Rules */
 
-program : expr TOKEN_SEMICOLON { return 0; }
+program : decl_list { return 0; }
 	;
+
+decl_list : decl decl_list
+	| decl
+	;
+
+decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without value\n"); }
+	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with value\n"); }
+	;
+
+type : TOKEN_INTEGER
+	| TOKEN_FLOAT
+	| TOKEN_BOOLEAN
+	| TOKEN_CHARACTER
+	| TOKEN_STRING
+	| TOKEN_VOID
+	| TOKEN_ARRAY
+	| TOKEN_FUNCTION
+	;
+
+id : TOKEN_IDENTIFIER;
 
 expr	: expr TOKEN_ADD term
 	| expr TOKEN_SUB term
@@ -85,9 +105,17 @@ term	: term TOKEN_MUL factor
 factor	: TOKEN_SUB factor
 	| TOKEN_ADD factor
 	| TOKEN_L_PAREN expr TOKEN_R_PAREN
-	| TOKEN_INTEGER_LITERAL
-	| TOKEN_FLOAT_LITERAL
+	| literal
 	;
+
+literal : TOKEN_INTEGER_LITERAL
+	| TOKEN_FLOAT_LITERAL
+	| TOKEN_CHARACTER_LITERAL
+	| TOKEN_STRING_LITERAL
+	| TOKEN_TRUE
+	| TOKEN_FALSE
+	;
+
 
 %%
 

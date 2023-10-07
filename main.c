@@ -153,6 +153,7 @@ int scan_tokens(FILE *input_file){
         
         if (token == TOKEN_EOF)
         {
+            printf("%s %s\n", token_names[token-258], yytext);
             break;
         }
         else if (token == TOKEN_ERROR)

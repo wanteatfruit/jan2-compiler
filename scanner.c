@@ -1132,287 +1132,287 @@ YY_RULE_SETUP
 #line 7 "scanner.flex"
 /* skip whitespace */
 	YY_BREAK
+case YY_STATE_EOF(INITIAL):
+#line 8 "scanner.flex"
+{ return TOKEN_EOF; }
+	YY_BREAK
 case 2:
 *yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 8 "scanner.flex"
+#line 9 "scanner.flex"
 { return TOKEN_CPP_COMMENT; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 9 "scanner.flex"
+#line 10 "scanner.flex"
 {return TOKEN_C_COMMENT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 10 "scanner.flex"
+#line 11 "scanner.flex"
 { return TOKEN_ARRAY; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 11 "scanner.flex"
+#line 12 "scanner.flex"
 { return TOKEN_BOOLEAN; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 12 "scanner.flex"
+#line 13 "scanner.flex"
 { return TOKEN_CHARACTER; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 13 "scanner.flex"
+#line 14 "scanner.flex"
 { return TOKEN_FLOAT; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 14 "scanner.flex"
+#line 15 "scanner.flex"
 { return TOKEN_INTEGER; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 15 "scanner.flex"
+#line 16 "scanner.flex"
 { return TOKEN_STRING; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 16 "scanner.flex"
+#line 17 "scanner.flex"
 { return TOKEN_FUNCTION; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 17 "scanner.flex"
+#line 18 "scanner.flex"
 { return TOKEN_VOID; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 18 "scanner.flex"
+#line 19 "scanner.flex"
 { return TOKEN_AUTO; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 19 "scanner.flex"
+#line 20 "scanner.flex"
 { return TOKEN_ELSE; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 20 "scanner.flex"
+#line 21 "scanner.flex"
 { return TOKEN_FALSE; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 21 "scanner.flex"
+#line 22 "scanner.flex"
 { return TOKEN_FOR; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 22 "scanner.flex"
+#line 23 "scanner.flex"
 { return TOKEN_IF; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 23 "scanner.flex"
+#line 24 "scanner.flex"
 { return TOKEN_PRINT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 24 "scanner.flex"
+#line 25 "scanner.flex"
 { return TOKEN_RETURN; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 25 "scanner.flex"
+#line 26 "scanner.flex"
 { return TOKEN_TRUE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 26 "scanner.flex"
+#line 27 "scanner.flex"
 { return TOKEN_WHILE; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 27 "scanner.flex"
+#line 28 "scanner.flex"
 { return TOKEN_L_PAREN; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 28 "scanner.flex"
+#line 29 "scanner.flex"
 { return TOKEN_R_PAREN; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 29 "scanner.flex"
+#line 30 "scanner.flex"
 { return TOKEN_L_BRACE; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 30 "scanner.flex"
+#line 31 "scanner.flex"
 { return TOKEN_R_BRACE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 31 "scanner.flex"
+#line 32 "scanner.flex"
 { return TOKEN_L_BRACKET; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 32 "scanner.flex"
+#line 33 "scanner.flex"
 { return TOKEN_R_BRACKET; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 33 "scanner.flex"
+#line 34 "scanner.flex"
 { return TOKEN_POSTINC; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 34 "scanner.flex"
+#line 35 "scanner.flex"
 { return TOKEN_POSTDEC; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 35 "scanner.flex"
+#line 36 "scanner.flex"
 { return TOKEN_EXP; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 36 "scanner.flex"
+#line 37 "scanner.flex"
 { return TOKEN_MUL; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 37 "scanner.flex"
+#line 38 "scanner.flex"
 { return TOKEN_DIV; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 38 "scanner.flex"
+#line 39 "scanner.flex"
 { return TOKEN_MOD; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 39 "scanner.flex"
+#line 40 "scanner.flex"
 { return TOKEN_ADD; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 40 "scanner.flex"
+#line 41 "scanner.flex"
 { return TOKEN_SUB; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 41 "scanner.flex"
+#line 42 "scanner.flex"
 { return TOKEN_LE; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 42 "scanner.flex"
+#line 43 "scanner.flex"
 { return TOKEN_GE; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 43 "scanner.flex"
+#line 44 "scanner.flex"
 { return TOKEN_EQUAL; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 44 "scanner.flex"
+#line 45 "scanner.flex"
 { return TOKEN_NEQUAL; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 45 "scanner.flex"
+#line 46 "scanner.flex"
 { return TOKEN_LESS; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 46 "scanner.flex"
+#line 47 "scanner.flex"
 { return TOKEN_GREATER; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 47 "scanner.flex"
+#line 48 "scanner.flex"
 { return TOKEN_AND; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 48 "scanner.flex"
+#line 49 "scanner.flex"
 { return TOKEN_OR; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 49 "scanner.flex"
+#line 50 "scanner.flex"
 { return TOKEN_ASSIGN; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 50 "scanner.flex"
+#line 51 "scanner.flex"
 { return TOKEN_NOT; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 52 "scanner.flex"
+#line 53 "scanner.flex"
 { return TOKEN_SEMICOLON; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 53 "scanner.flex"
+#line 54 "scanner.flex"
 { return TOKEN_COMMA; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 54 "scanner.flex"
+#line 55 "scanner.flex"
 { return TOKEN_COLON; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 55 "scanner.flex"
+#line 56 "scanner.flex"
 { return TOKEN_BACKSLASH; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 58 "scanner.flex"
+#line 59 "scanner.flex"
 { return TOKEN_IDENTIFIER; }
 	YY_BREAK
 case 50:
 /* rule 50 can match eol */
 YY_RULE_SETUP
-#line 60 "scanner.flex"
+#line 61 "scanner.flex"
 { return TOKEN_STRING_LITERAL; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 61 "scanner.flex"
+#line 62 "scanner.flex"
 { return TOKEN_CHARACTER_LITERAL; } /* need post-processing */
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 63 "scanner.flex"
+#line 64 "scanner.flex"
 { return TOKEN_FLOAT_LITERAL; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 64 "scanner.flex"
+#line 65 "scanner.flex"
 { return TOKEN_FLOAT_LITERAL; } /* may match integer section, flex need match int first */
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 66 "scanner.flex"
+#line 67 "scanner.flex"
 { return TOKEN_INTEGER_LITERAL; }
-	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-#line 70 "scanner.flex"
-{ return TOKEN_EOF; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 71 "scanner.flex"
+#line 70 "scanner.flex"
 { return TOKEN_ERROR; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 74 "scanner.flex"
+#line 73 "scanner.flex"
 ECHO;
 	YY_BREAK
 #line 1419 "scanner.c"
@@ -2414,7 +2414,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 74 "scanner.flex"
+#line 73 "scanner.flex"
 
 
 int yywrap() {return 1;}
