@@ -78,6 +78,16 @@ stmt_list : stmt stmt_list
 
 stmt : decl TOKEN_SEMICOLON { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
+	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
+	;
+
+if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest { printf("if nest\n"); }
+		| decl TOKEN_SEMICOLON
+		| expr TOKEN_SEMICOLON
+		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE
+		;
 
 decl : id TOKEN_COLON type { printf("decl without value\n"); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr { printf("decl with value\n"); }
@@ -167,6 +177,7 @@ exp_post : factor TOKEN_POSTINC { printf("postinc\n"); }
 
 factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
 	| literal
+	| id
 	;
 
 literal : TOKEN_INTEGER_LITERAL
