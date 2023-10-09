@@ -78,6 +78,7 @@ stmt_list : stmt stmt_list
 
 stmt : decl TOKEN_SEMICOLON { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
+	| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
@@ -108,9 +109,12 @@ arg_list : arg TOKEN_COMMA arg_list
 	;
 
 arg : id TOKEN_COLON type
-	
 	;
 
+print_list : expr TOKEN_COMMA print_list
+	| expr
+	|
+	;
 
 idx : TOKEN_L_BRACKET expr TOKEN_R_BRACKET
 	;
