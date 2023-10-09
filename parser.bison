@@ -79,6 +79,7 @@ stmt_list : stmt stmt_list
 stmt : decl TOKEN_SEMICOLON { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
 	| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+	| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }

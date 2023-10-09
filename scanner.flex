@@ -64,7 +64,7 @@ while           { return TOKEN_WHILE; }
 [+-]?{DIGIT}*\.{DIGIT}+  { return TOKEN_FLOAT_LITERAL; }
 {DIGIT}*\.?{DIGIT}[eE][-]?{DIGIT}+ { return TOKEN_FLOAT_LITERAL; } /* may match integer section, flex need match int first */
 
-([+-]?){DIGIT}+       { return TOKEN_INTEGER_LITERAL; }
+{DIGIT}+       { return TOKEN_INTEGER_LITERAL; }
 
 
 .               { return TOKEN_ERROR; }
