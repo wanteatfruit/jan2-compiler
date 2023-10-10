@@ -1,3 +1,5 @@
+/* declaration */
+
 x: integer;
 y: integer = 123;
 f: float = 45.67;

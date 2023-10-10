@@ -1,3 +1,5 @@
+/* basic expressions */
+
 if( temp>100 ) {
     print "It's really hot!\n";
 } else if( temp>70 ) {

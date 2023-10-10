@@ -184,7 +184,7 @@ expr_exp	: expr_unary TOKEN_EXP expr_exp { printf("exp\n"); }
 			| expr_unary
 			;
 
-expr_unary : TOKEN_NEG expr_unary   { printf("neg\n"); }
+expr_unary : TOKEN_SUB expr_unary   { printf("neg\n"); }
 			| TOKEN_NOT expr_unary   { printf("not\n"); }
 			| exp_post
 			;

@@ -2,6 +2,7 @@ Terminals unused in grammar
 
    TOKEN_WHILE
    TOKEN_AUTO
+   TOKEN_NEG
    TOKEN_BACKSLASH
    TOKEN_ERROR
 
@@ -103,7 +104,7 @@ Grammar
    72 expr_exp: expr_unary TOKEN_EXP expr_exp
    73         | expr_unary
 
-   74 expr_unary: TOKEN_NEG expr_unary
+   74 expr_unary: TOKEN_SUB expr_unary
    75           | TOKEN_NOT expr_unary
    76           | exp_post
 
@@ -159,14 +160,14 @@ TOKEN_L_BRACE (284) 11 17 25 26
 TOKEN_R_BRACE (285) 11 17 25 26
 TOKEN_POSTINC (286) 77
 TOKEN_POSTDEC (287) 78
-TOKEN_NEG (288) 74
+TOKEN_NEG (288)
 TOKEN_NOT (289) 75
 TOKEN_EXP (290) 72
 TOKEN_MUL (291) 68
 TOKEN_DIV (292) 69
 TOKEN_MOD (293) 70
 TOKEN_ADD (294) 65
-TOKEN_SUB (295) 66
+TOKEN_SUB (295) 66 74
 TOKEN_LESS (296) 59
 TOKEN_LE (297) 61
 TOKEN_GE (298) 62
@@ -259,8 +260,8 @@ State 0
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -344,8 +345,8 @@ State 8
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 39 (print_list)
 
@@ -376,8 +377,8 @@ State 9
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 39
@@ -419,8 +420,8 @@ State 12
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 40
@@ -453,8 +454,8 @@ State 13
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -477,28 +478,6 @@ State 13
 
 State 14
 
-   74 expr_unary: TOKEN_NEG . expr_unary
-
-    TOKEN_INTEGER_LITERAL    shift, and go to state 1
-    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
-    TOKEN_STRING_LITERAL     shift, and go to state 3
-    TOKEN_FLOAT_LITERAL      shift, and go to state 4
-    TOKEN_FALSE              shift, and go to state 5
-    TOKEN_TRUE               shift, and go to state 10
-    TOKEN_IDENTIFIER         shift, and go to state 11
-    TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
-
-    id          go to state 42
-    expr_unary  go to state 43
-    exp_post    go to state 31
-    factor      go to state 32
-    literal     go to state 33
-
-
-State 15
-
    75 expr_unary: TOKEN_NOT . expr_unary
 
     TOKEN_INTEGER_LITERAL    shift, and go to state 1
@@ -509,8 +488,30 @@ State 15
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
+
+    id          go to state 42
+    expr_unary  go to state 43
+    exp_post    go to state 31
+    factor      go to state 32
+    literal     go to state 33
+
+
+State 15
+
+   74 expr_unary: TOKEN_SUB . expr_unary
+
+    TOKEN_INTEGER_LITERAL    shift, and go to state 1
+    TOKEN_CHARACTER_LITERAL  shift, and go to state 2
+    TOKEN_STRING_LITERAL     shift, and go to state 3
+    TOKEN_FLOAT_LITERAL      shift, and go to state 4
+    TOKEN_FALSE              shift, and go to state 5
+    TOKEN_TRUE               shift, and go to state 10
+    TOKEN_IDENTIFIER         shift, and go to state 11
+    TOKEN_L_PAREN            shift, and go to state 12
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_unary  go to state 44
@@ -565,8 +566,8 @@ State 20
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -743,8 +744,8 @@ State 34
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 41 (for_expr)
 
@@ -776,8 +777,8 @@ State 35
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 71
@@ -855,16 +856,16 @@ State 42
 
 State 43
 
-   74 expr_unary: TOKEN_NEG expr_unary .
+   75 expr_unary: TOKEN_NOT expr_unary .
 
-    $default  reduce using rule 74 (expr_unary)
+    $default  reduce using rule 75 (expr_unary)
 
 
 State 44
 
-   75 expr_unary: TOKEN_NOT expr_unary .
+   74 expr_unary: TOKEN_SUB expr_unary .
 
-    $default  reduce using rule 75 (expr_unary)
+    $default  reduce using rule 74 (expr_unary)
 
 
 State 45
@@ -900,8 +901,8 @@ State 48
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 36 (arg_list)
 
@@ -932,8 +933,8 @@ State 49
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 79
@@ -987,8 +988,8 @@ State 52
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_or     go to state 89
@@ -1015,8 +1016,8 @@ State 53
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_and    go to state 90
@@ -1042,8 +1043,8 @@ State 54
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_comp   go to state 91
@@ -1068,8 +1069,8 @@ State 55
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_comp   go to state 92
@@ -1094,8 +1095,8 @@ State 56
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_comp   go to state 93
@@ -1120,8 +1121,8 @@ State 57
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_comp   go to state 94
@@ -1146,8 +1147,8 @@ State 58
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_comp   go to state 95
@@ -1172,8 +1173,8 @@ State 59
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_comp   go to state 96
@@ -1198,8 +1199,8 @@ State 60
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_add    go to state 97
@@ -1223,8 +1224,8 @@ State 61
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_add    go to state 98
@@ -1248,8 +1249,8 @@ State 62
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_mul    go to state 99
@@ -1272,8 +1273,8 @@ State 63
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_mul    go to state 100
@@ -1296,8 +1297,8 @@ State 64
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_mul    go to state 101
@@ -1320,8 +1321,8 @@ State 65
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 42
     expr_exp    go to state 102
@@ -1343,8 +1344,8 @@ State 66
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 103
@@ -1415,8 +1416,8 @@ State 73
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 39 (print_list)
 
@@ -1674,8 +1675,8 @@ State 104
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 41 (for_expr)
 
@@ -1712,8 +1713,8 @@ State 105
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 119
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 120
     TOKEN_CPP_COMMENT        shift, and go to state 121
 
@@ -1760,8 +1761,8 @@ State 108
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 36 (arg_list)
 
@@ -1794,8 +1795,8 @@ State 109
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_R_BRACKET          shift, and go to state 127
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 128
@@ -1833,8 +1834,8 @@ State 111
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 130
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 131
@@ -1901,8 +1902,8 @@ State 117
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 39 (print_list)
 
@@ -1934,8 +1935,8 @@ State 118
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 136
@@ -1969,8 +1970,8 @@ State 119
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -2102,8 +2103,8 @@ State 130
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -2146,8 +2147,8 @@ State 132
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 41 (for_expr)
 
@@ -2179,8 +2180,8 @@ State 133
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 41 (for_expr)
 
@@ -2213,8 +2214,8 @@ State 134
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     id          go to state 37
     expr        go to state 152
@@ -2271,8 +2272,8 @@ State 138
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -2515,8 +2516,8 @@ State 163
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 29 (brace)
 
@@ -2552,8 +2553,8 @@ State 164
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 13
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
@@ -2586,8 +2587,8 @@ State 165
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 41 (for_expr)
 
@@ -2625,8 +2626,8 @@ State 166
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 119
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 120
     TOKEN_CPP_COMMENT        shift, and go to state 121
 
@@ -2721,8 +2722,8 @@ State 175
     TOKEN_TRUE               shift, and go to state 10
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
 
     $default  reduce using rule 41 (for_expr)
 
@@ -2759,8 +2760,8 @@ State 176
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 119
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 120
     TOKEN_CPP_COMMENT        shift, and go to state 121
 
@@ -2814,8 +2815,8 @@ State 179
     TOKEN_IDENTIFIER         shift, and go to state 11
     TOKEN_L_PAREN            shift, and go to state 12
     TOKEN_L_BRACE            shift, and go to state 119
-    TOKEN_NEG                shift, and go to state 14
-    TOKEN_NOT                shift, and go to state 15
+    TOKEN_NOT                shift, and go to state 14
+    TOKEN_SUB                shift, and go to state 15
     TOKEN_C_COMMENT          shift, and go to state 120
     TOKEN_CPP_COMMENT        shift, and go to state 121
 
