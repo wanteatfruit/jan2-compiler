@@ -89,7 +89,7 @@ stmt : decl  { printf("stmt decl\n"); }
 	;
 
 if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest { printf("if nest\n"); }
-		| decl TOKEN_SEMICOLON
+		| decl 
 		| expr TOKEN_SEMICOLON
 		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE
 		| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }

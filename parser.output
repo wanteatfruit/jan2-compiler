@@ -28,7 +28,7 @@ Grammar
    13     | TOKEN_CPP_COMMENT
 
    14 if_nest: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest
-   15        | decl TOKEN_SEMICOLON
+   15        | decl
    16        | expr TOKEN_SEMICOLON
    17        | TOKEN_L_BRACE stmt_list TOKEN_R_BRACE
    18        | TOKEN_PRINT print_list TOKEN_SEMICOLON
@@ -186,7 +186,7 @@ TOKEN_NEQUAL (301) 64
 TOKEN_AND (302) 60
 TOKEN_OR (303) 58
 TOKEN_ASSIGN (304) 24 25 26 55 56
-TOKEN_SEMICOLON (305) 5 6 7 8 15 16 18 19 20 23 24 25
+TOKEN_SEMICOLON (305) 5 6 7 8 16 18 19 20 23 24 25
 TOKEN_COLON (306) 23 24 25 26 33 34
 TOKEN_COMMA (307) 29 34 37 41
 TOKEN_BACKSLASH (308)
@@ -2147,11 +2147,10 @@ State 129
 State 130
 
     4 stmt: decl .
-   15 if_nest: decl . TOKEN_SEMICOLON
+   15 if_nest: decl .
 
-    TOKEN_SEMICOLON  shift, and go to state 145
-
-    $default  reduce using rule 4 (stmt)
+    TOKEN_ELSE  reduce using rule 15 (if_nest)
+    $default    reduce using rule 4 (stmt)
 
 
 State 131
@@ -2159,7 +2158,7 @@ State 131
     5 stmt: expr . TOKEN_SEMICOLON
    16 if_nest: expr . TOKEN_SEMICOLON
 
-    TOKEN_SEMICOLON  shift, and go to state 146
+    TOKEN_SEMICOLON  shift, and go to state 145
 
 
 State 132
@@ -2182,14 +2181,14 @@ State 133
     TOKEN_STRING     shift, and go to state 91
     TOKEN_VOID       shift, and go to state 92
 
-    type  go to state 147
+    type  go to state 146
 
 
 State 134
 
    52 type: TOKEN_ARRAY TOKEN_L_BRACKET expr . TOKEN_R_BRACKET type
 
-    TOKEN_R_BRACKET  shift, and go to state 148
+    TOKEN_R_BRACKET  shift, and go to state 147
 
 
 State 135
@@ -2200,9 +2199,9 @@ State 135
 
     $default  reduce using rule 32 (param_list)
 
-    param_list  go to state 149
-    param       go to state 150
-    id          go to state 151
+    param_list  go to state 148
+    param       go to state 149
+    id          go to state 150
 
 
 State 136
@@ -2230,13 +2229,13 @@ State 136
 
     $default  reduce using rule 28 (brace_list)
 
-    stmt_list   go to state 152
+    stmt_list   go to state 151
     stmt        go to state 20
     decl        go to state 21
-    brace_list  go to state 153
-    brace       go to state 154
+    brace_list  go to state 152
+    brace       go to state 153
     id          go to state 22
-    expr        go to state 155
+    expr        go to state 154
     expr_or     go to state 24
     expr_and    go to state 25
     expr_comp   go to state 26
@@ -2254,7 +2253,7 @@ State 137
 
    24 decl: id TOKEN_COLON type TOKEN_ASSIGN expr . TOKEN_SEMICOLON
 
-    TOKEN_SEMICOLON  shift, and go to state 156
+    TOKEN_SEMICOLON  shift, and go to state 155
 
 
 State 138
@@ -2274,7 +2273,7 @@ State 138
 
     $default  reduce using rule 44 (for_expr)
 
-    for_expr    go to state 157
+    for_expr    go to state 156
     id          go to state 39
     expr        go to state 74
     expr_or     go to state 24
@@ -2308,7 +2307,7 @@ State 139
 
     $default  reduce using rule 44 (for_expr)
 
-    for_expr    go to state 158
+    for_expr    go to state 157
     id          go to state 39
     expr        go to state 74
     expr_or     go to state 24
@@ -2342,7 +2341,7 @@ State 140
     TOKEN_SUB                shift, and go to state 15
 
     id          go to state 39
-    expr        go to state 159
+    expr        go to state 158
     expr_or     go to state 24
     expr_and    go to state 25
     expr_comp   go to state 26
@@ -2361,7 +2360,7 @@ State 141
     6 stmt: TOKEN_PRINT print_list . TOKEN_SEMICOLON
    18 if_nest: TOKEN_PRINT print_list . TOKEN_SEMICOLON
 
-    TOKEN_SEMICOLON  shift, and go to state 160
+    TOKEN_SEMICOLON  shift, and go to state 159
 
 
 State 142
@@ -2369,7 +2368,7 @@ State 142
     7 stmt: TOKEN_RETURN expr . TOKEN_SEMICOLON
    19 if_nest: TOKEN_RETURN expr . TOKEN_SEMICOLON
 
-    TOKEN_SEMICOLON  shift, and go to state 161
+    TOKEN_SEMICOLON  shift, and go to state 160
 
 
 State 143
@@ -2377,7 +2376,7 @@ State 143
    11 stmt: TOKEN_L_BRACE stmt_list . TOKEN_R_BRACE
    17 if_nest: TOKEN_L_BRACE stmt_list . TOKEN_R_BRACE
 
-    TOKEN_R_BRACE  shift, and go to state 162
+    TOKEN_R_BRACE  shift, and go to state 161
 
 
 State 144
@@ -2402,7 +2401,7 @@ State 144
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
-    stmt        go to state 163
+    stmt        go to state 162
     decl        go to state 21
     id          go to state 22
     expr        go to state 23
@@ -2421,13 +2420,6 @@ State 144
 
 State 145
 
-   15 if_nest: decl TOKEN_SEMICOLON .
-
-    $default  reduce using rule 15 (if_nest)
-
-
-State 146
-
     5 stmt: expr TOKEN_SEMICOLON .
    16 if_nest: expr TOKEN_SEMICOLON .
 
@@ -2435,14 +2427,14 @@ State 146
     $default    reduce using rule 5 (stmt)
 
 
-State 147
+State 146
 
    51 type: TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type .
 
     $default  reduce using rule 51 (type)
 
 
-State 148
+State 147
 
    52 type: TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET . type
 
@@ -2455,96 +2447,96 @@ State 148
     TOKEN_STRING     shift, and go to state 91
     TOKEN_VOID       shift, and go to state 92
 
-    type  go to state 164
+    type  go to state 163
 
 
-State 149
+State 148
 
    53 type: TOKEN_FUNCTION type TOKEN_L_PAREN param_list . TOKEN_R_PAREN
 
-    TOKEN_R_PAREN  shift, and go to state 165
+    TOKEN_R_PAREN  shift, and go to state 164
 
 
-State 150
+State 149
 
    31 param_list: param .
 
     $default  reduce using rule 31 (param_list)
 
 
-State 151
+State 150
 
    33 param: id . TOKEN_COLON type
    34      | id . TOKEN_COLON type TOKEN_COMMA param
 
-    TOKEN_COLON  shift, and go to state 166
+    TOKEN_COLON  shift, and go to state 165
+
+
+State 151
+
+   26 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list . TOKEN_R_BRACE
+
+    TOKEN_R_BRACE  shift, and go to state 166
 
 
 State 152
 
-   26 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list . TOKEN_R_BRACE
+   25 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list . TOKEN_R_BRACE TOKEN_SEMICOLON
 
     TOKEN_R_BRACE  shift, and go to state 167
 
 
 State 153
 
-   25 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list . TOKEN_R_BRACE TOKEN_SEMICOLON
-
-    TOKEN_R_BRACE  shift, and go to state 168
-
-
-State 154
-
    27 brace_list: brace .
 
     $default  reduce using rule 27 (brace_list)
 
 
-State 155
+State 154
 
     5 stmt: expr . TOKEN_SEMICOLON
    29 brace: expr . TOKEN_COMMA brace
    30      | expr .
 
     TOKEN_SEMICOLON  shift, and go to state 54
-    TOKEN_COMMA      shift, and go to state 169
+    TOKEN_COMMA      shift, and go to state 168
 
     $default  reduce using rule 30 (brace)
 
 
-State 156
+State 155
 
    24 decl: id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON .
 
     $default  reduce using rule 24 (decl)
 
 
-State 157
+State 156
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr . TOKEN_R_PAREN stmt
 
-    TOKEN_R_PAREN  shift, and go to state 170
+    TOKEN_R_PAREN  shift, and go to state 169
 
 
-State 158
+State 157
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr . TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr . TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest
 
-    TOKEN_SEMICOLON  shift, and go to state 171
+    TOKEN_SEMICOLON  shift, and go to state 170
 
 
-State 159
+State 158
 
     9 stmt: TOKEN_IF TOKEN_L_PAREN expr . TOKEN_R_PAREN stmt
    10     | TOKEN_IF TOKEN_L_PAREN expr . TOKEN_R_PAREN if_nest TOKEN_ELSE stmt
    14 if_nest: TOKEN_IF TOKEN_L_PAREN expr . TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest
 
-    TOKEN_R_PAREN  shift, and go to state 172
+    TOKEN_R_PAREN  shift, and go to state 171
 
 
-State 160
+State 159
 
     6 stmt: TOKEN_PRINT print_list TOKEN_SEMICOLON .
    18 if_nest: TOKEN_PRINT print_list TOKEN_SEMICOLON .
@@ -2553,7 +2545,7 @@ State 160
     $default    reduce using rule 6 (stmt)
 
 
-State 161
+State 160
 
     7 stmt: TOKEN_RETURN expr TOKEN_SEMICOLON .
    19 if_nest: TOKEN_RETURN expr TOKEN_SEMICOLON .
@@ -2562,7 +2554,7 @@ State 161
     $default    reduce using rule 7 (stmt)
 
 
-State 162
+State 161
 
    11 stmt: TOKEN_L_BRACE stmt_list TOKEN_R_BRACE .
    17 if_nest: TOKEN_L_BRACE stmt_list TOKEN_R_BRACE .
@@ -2571,28 +2563,28 @@ State 162
     $default    reduce using rule 11 (stmt)
 
 
-State 163
+State 162
 
    10 stmt: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt .
 
     $default  reduce using rule 10 (stmt)
 
 
-State 164
+State 163
 
    52 type: TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type .
 
     $default  reduce using rule 52 (type)
 
 
-State 165
+State 164
 
    53 type: TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN .
 
     $default  reduce using rule 53 (type)
 
 
-State 166
+State 165
 
    33 param: id TOKEN_COLON . type
    34      | id TOKEN_COLON . type TOKEN_COMMA param
@@ -2606,24 +2598,24 @@ State 166
     TOKEN_STRING     shift, and go to state 91
     TOKEN_VOID       shift, and go to state 92
 
-    type  go to state 173
+    type  go to state 172
 
 
-State 167
+State 166
 
    26 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE .
 
     $default  reduce using rule 26 (decl)
 
 
-State 168
+State 167
 
    25 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE . TOKEN_SEMICOLON
 
-    TOKEN_SEMICOLON  shift, and go to state 174
+    TOKEN_SEMICOLON  shift, and go to state 173
 
 
-State 169
+State 168
 
    29 brace: expr TOKEN_COMMA . brace
 
@@ -2638,9 +2630,9 @@ State 169
     TOKEN_NOT                shift, and go to state 14
     TOKEN_SUB                shift, and go to state 15
 
-    brace       go to state 175
+    brace       go to state 174
     id          go to state 39
-    expr        go to state 176
+    expr        go to state 175
     expr_or     go to state 24
     expr_and    go to state 25
     expr_comp   go to state 26
@@ -2654,7 +2646,7 @@ State 169
     literal     go to state 34
 
 
-State 170
+State 169
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN . stmt
 
@@ -2676,7 +2668,7 @@ State 170
     TOKEN_C_COMMENT          shift, and go to state 16
     TOKEN_CPP_COMMENT        shift, and go to state 17
 
-    stmt        go to state 177
+    stmt        go to state 176
     decl        go to state 21
     id          go to state 22
     expr        go to state 23
@@ -2693,7 +2685,7 @@ State 170
     literal     go to state 34
 
 
-State 171
+State 170
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON . for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON . for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest
@@ -2711,7 +2703,7 @@ State 171
 
     $default  reduce using rule 44 (for_expr)
 
-    for_expr    go to state 178
+    for_expr    go to state 177
     id          go to state 39
     expr        go to state 74
     expr_or     go to state 24
@@ -2727,7 +2719,7 @@ State 171
     literal     go to state 34
 
 
-State 172
+State 171
 
     9 stmt: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN . stmt
    10     | TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN . if_nest TOKEN_ELSE stmt
@@ -2752,7 +2744,7 @@ State 172
     TOKEN_CPP_COMMENT        shift, and go to state 127
 
     stmt        go to state 128
-    if_nest     go to state 179
+    if_nest     go to state 178
     decl        go to state 130
     id          go to state 22
     expr        go to state 131
@@ -2769,74 +2761,74 @@ State 172
     literal     go to state 34
 
 
-State 173
+State 172
 
    33 param: id TOKEN_COLON type .
    34      | id TOKEN_COLON type . TOKEN_COMMA param
 
-    TOKEN_COMMA  shift, and go to state 180
+    TOKEN_COMMA  shift, and go to state 179
 
     $default  reduce using rule 33 (param)
 
 
-State 174
+State 173
 
    25 decl: id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON .
 
     $default  reduce using rule 25 (decl)
 
 
-State 175
+State 174
 
    29 brace: expr TOKEN_COMMA brace .
 
     $default  reduce using rule 29 (brace)
 
 
-State 176
+State 175
 
    29 brace: expr . TOKEN_COMMA brace
    30      | expr .
 
-    TOKEN_COMMA  shift, and go to state 169
+    TOKEN_COMMA  shift, and go to state 168
 
     $default  reduce using rule 30 (brace)
 
 
-State 177
+State 176
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt .
 
     $default  reduce using rule 8 (stmt)
 
 
-State 178
+State 177
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr . TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr . TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest
 
-    TOKEN_SEMICOLON  shift, and go to state 181
+    TOKEN_SEMICOLON  shift, and go to state 180
 
 
-State 179
+State 178
 
    10 stmt: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest . TOKEN_ELSE stmt
    14 if_nest: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest . TOKEN_ELSE if_nest
 
-    TOKEN_ELSE  shift, and go to state 182
+    TOKEN_ELSE  shift, and go to state 181
 
 
-State 180
+State 179
 
    34 param: id TOKEN_COLON type TOKEN_COMMA . param
 
     TOKEN_IDENTIFIER  shift, and go to state 11
 
-    param  go to state 183
-    id     go to state 151
+    param  go to state 182
+    id     go to state 150
 
 
-State 181
+State 180
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON . for_expr TOKEN_R_PAREN stmt
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON . for_expr TOKEN_R_PAREN if_nest
@@ -2854,7 +2846,7 @@ State 181
 
     $default  reduce using rule 44 (for_expr)
 
-    for_expr    go to state 184
+    for_expr    go to state 183
     id          go to state 39
     expr        go to state 74
     expr_or     go to state 24
@@ -2870,7 +2862,7 @@ State 181
     literal     go to state 34
 
 
-State 182
+State 181
 
    10 stmt: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE . stmt
    14 if_nest: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE . if_nest
@@ -2893,8 +2885,8 @@ State 182
     TOKEN_C_COMMENT          shift, and go to state 126
     TOKEN_CPP_COMMENT        shift, and go to state 127
 
-    stmt        go to state 163
-    if_nest     go to state 185
+    stmt        go to state 162
+    if_nest     go to state 184
     decl        go to state 130
     id          go to state 22
     expr        go to state 131
@@ -2911,29 +2903,29 @@ State 182
     literal     go to state 34
 
 
-State 183
+State 182
 
    34 param: id TOKEN_COLON type TOKEN_COMMA param .
 
     $default  reduce using rule 34 (param)
 
 
-State 184
+State 183
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr . TOKEN_R_PAREN stmt
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr . TOKEN_R_PAREN if_nest
 
-    TOKEN_R_PAREN  shift, and go to state 186
+    TOKEN_R_PAREN  shift, and go to state 185
 
 
-State 185
+State 184
 
    14 if_nest: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest .
 
     $default  reduce using rule 14 (if_nest)
 
 
-State 186
+State 185
 
     8 stmt: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN . stmt
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN . if_nest
@@ -2956,8 +2948,8 @@ State 186
     TOKEN_C_COMMENT          shift, and go to state 126
     TOKEN_CPP_COMMENT        shift, and go to state 127
 
-    stmt        go to state 177
-    if_nest     go to state 187
+    stmt        go to state 176
+    if_nest     go to state 186
     decl        go to state 130
     id          go to state 22
     expr        go to state 131
@@ -2974,7 +2966,7 @@ State 186
     literal     go to state 34
 
 
-State 187
+State 186
 
    20 if_nest: TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest .
 
