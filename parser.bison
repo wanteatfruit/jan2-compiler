@@ -70,6 +70,7 @@
 /* Grammar Rules */
 
 program : stmt_list TOKEN_EOF { return 0; }
+	| TOKEN_EOF { return 0; }
 	;
 
 stmt_list : stmt stmt_list
