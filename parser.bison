@@ -69,7 +69,7 @@
 
 /* Grammar Rules */
 
-program : stmt_list { return 0; }
+program : stmt_list TOKEN_EOF { return 0; }
 	;
 
 stmt_list : stmt stmt_list
@@ -80,6 +80,7 @@ stmt : decl TOKEN_SEMICOLON { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
 	| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
 	| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
+	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt { printf("stmt for\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
@@ -89,22 +90,18 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 		| decl TOKEN_SEMICOLON
 		| expr TOKEN_SEMICOLON
 		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE
+		| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+		| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
+		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest { printf("stmt for\n"); }
 		;
 
 decl : id TOKEN_COLON type { printf("decl without value\n"); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr { printf("decl with value\n"); }
-	| id TOKEN_COLON type idx type { printf("array decl\n"); }
-	| id TOKEN_COLON type idx type TOKEN_ASSIGN brac_list  { printf("array decl with value\n"); }
 	| id TOKEN_COLON TOKEN_FUNCTION type arg_list { printf("function prototype decl\n"); }
+	| id TOKEN_COLON TOKEN_FUNCTION type arg_list TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("function decl\n"); }
 	;
 
-brac_list : TOKEN_L_BRACE brac_list TOKEN_R_BRACE
-	| expr TOKEN_COMMA brac_list
-	| expr
-	;
-
-
-arg_list : arg TOKEN_COMMA arg_list
+arg_list : arg TOKEN_COMMA arg_list /* function */
 	| TOKEN_L_PAREN arg_list TOKEN_R_PAREN
 	| arg
 	;
@@ -117,8 +114,10 @@ print_list : expr TOKEN_COMMA print_list
 	|
 	;
 
-idx : TOKEN_L_BRACKET expr TOKEN_R_BRACKET
+for_expr: expr 
+	|
 	;
+
 
 type : TOKEN_INTEGER
 	| TOKEN_FLOAT
@@ -181,6 +180,8 @@ exp_post : factor TOKEN_POSTINC { printf("postinc\n"); }
 	;
 
 factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
+	| factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* array */
+	| TOKEN_IDENTIFIER TOKEN_L_PAREN arg_list TOKEN_R_PAREN { printf("function call\n"); }
 	| literal
 	| id
 	;
