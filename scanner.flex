@@ -6,7 +6,7 @@ LETTER [a-zA-Z]
 %%
 (" "|\t|\n|\r) /* skip whitespace */
 <<EOF>>         { return TOKEN_EOF; }
-\/\/.*$                   { return TOKEN_CPP_COMMENT; }
+\/\/.*$?                   { return TOKEN_CPP_COMMENT; }
 \/\*.*?\*\/                 {return TOKEN_C_COMMENT; }
 array           { return TOKEN_ARRAY; }
 boolean         { return TOKEN_BOOLEAN; }

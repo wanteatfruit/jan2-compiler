@@ -84,6 +84,8 @@ stmt : decl  { printf("stmt decl\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
+	| TOKEN_C_COMMENT
+	| TOKEN_CPP_COMMENT
 	;
 
 if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest { printf("if nest\n"); }
@@ -93,6 +95,8 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 		| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
 		| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
 		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest { printf("stmt for\n"); }
+		| TOKEN_C_COMMENT
+		| TOKEN_CPP_COMMENT
 		;
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); } /* literal, array, function without assignment  */
@@ -106,11 +110,17 @@ brace : expr TOKEN_COMMA brace
 	|
 	;
 
-arg_list : arg TOKEN_COMMA arg_list /* function */ { printf("arg list\n"); }
-	| arg  { printf("arg list\n");}
+param_list : param TOKEN_COMMA param_list /* function decl */ { printf("multiple param\n"); }
+	| param  { printf("param list\n");}
+	| /* empty */ { printf("empty param list\n");}
 	;
 
-arg : id TOKEN_COLON type { printf("arg\n");}
+param : id TOKEN_COLON type { printf("param\n");}
+	;
+
+arg_list : expr TOKEN_COMMA arg_list /* function call */ { printf("multiple arg\n"); }
+	| expr
+	| /* empty */ { printf("empty arg list\n");}
 	;
 
 print_list : expr TOKEN_COMMA print_list
@@ -131,7 +141,7 @@ type : TOKEN_INTEGER
 	| TOKEN_VOID
 	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */
 	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* [expr] */
-	| TOKEN_FUNCTION type TOKEN_L_PAREN arg_list TOKEN_R_PAREN /* function */ { printf("function\n");}
+	| TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN /* function */ { printf("function\n");}
 	;
 
 id : TOKEN_IDENTIFIER;
@@ -185,10 +195,10 @@ exp_post : factor TOKEN_POSTINC { printf("postinc\n"); }
 	;
 
 factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
-	| factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* array */
-	| TOKEN_IDENTIFIER TOKEN_L_PAREN arg_list TOKEN_R_PAREN { printf("function call\n"); }
+	| factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* array */ { printf("array subscription\n"); }
 	| literal
 	| id
+	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN /* function call */ { printf("function call\n"); }
 	;
 
 literal : TOKEN_INTEGER_LITERAL
