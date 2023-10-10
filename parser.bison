@@ -149,6 +149,7 @@ id : TOKEN_IDENTIFIER;
 /* arthimetic expressions, printf to check for precedence */
 
 expr : id TOKEN_ASSIGN expr
+	| arr_subscr TOKEN_ASSIGN expr
 	| expr_or
 	;
 
@@ -195,11 +196,14 @@ exp_post : factor TOKEN_POSTINC { printf("postinc\n"); }
 	;
 
 factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
-	| factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* array */ { printf("array subscription\n"); }
+	| arr_subscr
 	| literal
 	| id
 	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN /* function call */ { printf("function call\n"); }
 	;
+
+arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* arr[1] */ { printf("array subscription\n"); }
+		 
 
 literal : TOKEN_INTEGER_LITERAL
 	| TOKEN_FLOAT_LITERAL
