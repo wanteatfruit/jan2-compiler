@@ -101,26 +101,32 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); } /* literal, array, function without assignment  */
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); } /* literal with assignment */
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("decl function block\n"); } /* func with assignment */
 	;
 
-brace : expr TOKEN_COMMA brace
-	| expr
+brace_list : brace
 	|
 	;
 
-param_list : param TOKEN_COMMA param_list /* function decl */ { printf("multiple param\n"); }
-	| param  { printf("param list\n");}
+brace: expr TOKEN_COMMA brace
+	| expr
+	;
+
+param_list :  param  { printf("param list\n");}
 	| /* empty */ { printf("empty param list\n");}
 	;
 
-param : id TOKEN_COLON type { printf("param\n");}
+param : id TOKEN_COLON type { printf("single param\n");}
+	| id TOKEN_COLON type TOKEN_COMMA param { printf("multiple param\n");}
 	;
 
-arg_list : expr TOKEN_COMMA arg_list /* function call */ { printf("multiple arg\n"); }
-	| expr
+arg_list : arg
 	| /* empty */ { printf("empty arg list\n");}
+	;
+
+arg: expr TOKEN_COMMA arg /* function call */ { printf("multiple arg\n"); }
+	| expr
 	;
 
 print_list : expr TOKEN_COMMA print_list
