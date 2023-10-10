@@ -81,10 +81,12 @@ stmt : decl  { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
 	| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
 	| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
+	| TOKEN_RETURN TOKEN_SEMICOLON { printf("stmt empty return\n"); }
 	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt { printf("stmt for\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
+	| TOKEN_L_BRACE TOKEN_R_BRACE { printf("stmt empty block\n"); }
 	| TOKEN_C_COMMENT
 	| TOKEN_CPP_COMMENT
 	;
@@ -197,6 +199,7 @@ expr_exp	: expr_unary TOKEN_EXP expr_exp { printf("exp\n"); }
 
 expr_unary : TOKEN_SUB expr_unary   { printf("neg\n"); }
 			| TOKEN_NOT expr_unary   { printf("not\n"); }
+			| TOKEN_ADD expr_unary  { printf("plus\n"); }
 			| exp_post
 			;
 

@@ -5,6 +5,11 @@ f: function void () {
 }
 
 // empty return
-f: function void () {
-    return;
+//f: function void () {
+  //  return;
+//}
+
+//empty stmt block
+if(true){
+  return;
 }
