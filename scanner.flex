@@ -3,11 +3,16 @@
 %}
 DIGIT [0-9]
 LETTER [a-zA-Z]
+%x TOKEN_C_COMMENT
 %%
 (" "|\t|\n|\r) /* skip whitespace */
 <<EOF>>         { return TOKEN_EOF; }
 \/\/.*$?                   { return TOKEN_CPP_COMMENT; }
-\/\*.*?\*\/                 {return TOKEN_C_COMMENT; }
+"\/\*"            { BEGIN(TOKEN_C_COMMENT); }
+<TOKEN_C_COMMENT>"\*\/"    { BEGIN(INITIAL); }
+<TOKEN_C_COMMENT>\n       { /* skip */ }    
+<TOKEN_C_COMMENT>.         { /* skip */ }
+
 array           { return TOKEN_ARRAY; }
 boolean         { return TOKEN_BOOLEAN; }
 char            { return TOKEN_CHARACTER; }
