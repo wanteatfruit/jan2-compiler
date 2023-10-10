@@ -129,9 +129,12 @@ arg: expr TOKEN_COMMA arg /* function call */ { printf("multiple arg\n"); }
 	| expr
 	;
 
-print_list : expr TOKEN_COMMA print_list
-	| expr
+print_list : print
 	|
+	;
+
+print : expr TOKEN_COMMA print
+	| expr
 	;
 
 for_expr: expr 

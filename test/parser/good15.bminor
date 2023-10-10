@@ -1,0 +1,10 @@
+//empty func block
+
+f: function void () {
+
+}
+
+// empty return
+f: function void () {
+    return;
+}
