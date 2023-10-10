@@ -95,16 +95,22 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest { printf("stmt for\n"); }
 		;
 
-decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); }
-	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); }
+decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); } /* literal, array, function without assignment  */
+	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); } /* literal with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("decl function block\n"); } /* func with assignment */
 	;
 
-arg_list : arg TOKEN_COMMA arg_list /* function */
-	| TOKEN_L_PAREN arg_list TOKEN_R_PAREN
-	| arg
+brace : expr TOKEN_COMMA brace
+	| expr
+	|
 	;
 
-arg : id TOKEN_COLON type
+arg_list : arg TOKEN_COMMA arg_list /* function */ { printf("arg list\n"); }
+	| arg  { printf("arg list\n");}
+	;
+
+arg : id TOKEN_COLON type { printf("arg\n");}
 	;
 
 print_list : expr TOKEN_COMMA print_list
@@ -125,6 +131,7 @@ type : TOKEN_INTEGER
 	| TOKEN_VOID
 	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */
 	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* [expr] */
+	| TOKEN_FUNCTION type TOKEN_L_PAREN arg_list TOKEN_R_PAREN /* function */ { printf("function\n");}
 	;
 
 id : TOKEN_IDENTIFIER;

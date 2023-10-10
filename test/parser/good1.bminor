@@ -5,3 +5,6 @@ b: boolean = false;
 c: char    = 'q';
 s: string  = "hello bminor\n";
 a: array [5] integer;
+a: array [5] integer = {1, 2, 3, 4, 5};
+square: function float ( x: integer );
+square: function float ();
