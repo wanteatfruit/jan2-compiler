@@ -76,7 +76,7 @@ stmt_list : stmt stmt_list
 	| stmt
 	;
 
-stmt : decl TOKEN_SEMICOLON { printf("stmt decl\n"); }
+stmt : decl  { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
 	| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
 	| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
@@ -95,8 +95,8 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest { printf("stmt for\n"); }
 		;
 
-decl : id TOKEN_COLON type { printf("decl without value\n"); }
-	| id TOKEN_COLON type TOKEN_ASSIGN expr { printf("decl with value\n"); }
+decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); }
+	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); }
 	;
 
 arg_list : arg TOKEN_COMMA arg_list /* function */
@@ -123,8 +123,8 @@ type : TOKEN_INTEGER
 	| TOKEN_CHARACTER
 	| TOKEN_STRING
 	| TOKEN_VOID
-	| TOKEN_ARRAY
-	| TOKEN_FUNCTION
+	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */
+	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* [expr] */
 	;
 
 id : TOKEN_IDENTIFIER;
