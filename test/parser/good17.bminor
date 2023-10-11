@@ -1,0 +1,18 @@
+//list of empty things
+return;
+print;
+f: function void () = {
+
+}
+
+if(true) {
+
+} else {
+
+}
+
+for(;;) {
+
+}
+
+f();

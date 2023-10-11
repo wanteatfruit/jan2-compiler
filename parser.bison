@@ -105,7 +105,7 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); } /* literal, array, function without assignment  */
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); } /* literal with assignment */
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE arg_list TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("decl function block\n"); } /* func with assignment */
 	;
 
@@ -117,11 +117,19 @@ param : id TOKEN_COLON type { printf("single param\n");}
 	| id TOKEN_COLON type TOKEN_COMMA param { printf("multiple param\n");}
 	;
 
+brace_list : brace
+	| TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_COMMA brace_list
+	| TOKEN_L_BRACE brace_list TOKEN_R_BRACE
+
+brace: expr TOKEN_COMMA brace
+	| expr
+	;
+
 arg_list : arg { printf("empty arg list\n");}
 	;
 
 arg: expr TOKEN_COMMA arg  { printf("multiple arg\n"); }
-	| expr
+	| expr { printf("single arg\n"); }
 	;
 
 
@@ -130,14 +138,14 @@ for_expr: expr
 	;
 
 
-type : TOKEN_INTEGER
+type : TOKEN_INTEGER { printf("integer\n");}
 	| TOKEN_FLOAT
 	| TOKEN_BOOLEAN
 	| TOKEN_CHARACTER
 	| TOKEN_STRING
 	| TOKEN_VOID
 	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */
-	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* [expr] */
+	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */ { printf("array\n");}
 	| TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN /* function */ { printf("function\n");}
 	;
 
@@ -198,8 +206,8 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
 	| literal
 	| id
 	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN 
-	| id TOKEN_L_PAREN TOKEN_R_PAREN 
-	;
+	| id TOKEN_L_PAREN TOKEN_R_PAREN  { printf("function call without args\n");}
+	; 
 
 arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* arr[1] */ { printf("array subscription\n"); }
 		 
