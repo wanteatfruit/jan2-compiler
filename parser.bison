@@ -70,23 +70,22 @@
 /* Grammar Rules */
 
 program : stmt_list TOKEN_EOF { return 0; }
-	| TOKEN_EOF { return 0; }
 	;
 
 stmt_list : stmt stmt_list
-	| stmt
+	| 
 	;
 
 stmt : decl  { printf("stmt decl\n"); }
 	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
-	| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+	| TOKEN_PRINT arg_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+	| TOKEN_PRINT TOKEN_SEMICOLON
 	| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
 	| TOKEN_RETURN TOKEN_SEMICOLON { printf("stmt empty return\n"); }
 	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt { printf("stmt for\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
-	| TOKEN_L_BRACE TOKEN_R_BRACE { printf("stmt empty block\n"); }
 	| TOKEN_C_COMMENT
 	| TOKEN_CPP_COMMENT
 	;
@@ -95,8 +94,10 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 		| decl 
 		| expr TOKEN_SEMICOLON
 		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE
-		| TOKEN_PRINT print_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+		| TOKEN_PRINT arg_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+		| TOKEN_PRINT TOKEN_SEMICOLON
 		| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
+		| TOKEN_RETURN TOKEN_SEMICOLON { printf("stmt empty return\n"); }
 		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest { printf("stmt for\n"); }
 		| TOKEN_C_COMMENT
 		| TOKEN_CPP_COMMENT
@@ -104,16 +105,8 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest {
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); } /* literal, array, function without assignment  */
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); } /* literal with assignment */
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE arg_list TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("decl function block\n"); } /* func with assignment */
-	;
-
-brace_list : brace
-	|
-	;
-
-brace: expr TOKEN_COMMA brace
-	| expr
 	;
 
 param_list :  param  { printf("param list\n");}
@@ -124,21 +117,13 @@ param : id TOKEN_COLON type { printf("single param\n");}
 	| id TOKEN_COLON type TOKEN_COMMA param { printf("multiple param\n");}
 	;
 
-arg_list : arg
-	| /* empty */ { printf("empty arg list\n");}
+arg_list : arg { printf("empty arg list\n");}
 	;
 
-arg: expr TOKEN_COMMA arg /* function call */ { printf("multiple arg\n"); }
+arg: expr TOKEN_COMMA arg  { printf("multiple arg\n"); }
 	| expr
 	;
 
-print_list : print
-	|
-	;
-
-print : expr TOKEN_COMMA print
-	| expr
-	;
 
 for_expr: expr 
 	|
@@ -212,7 +197,8 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
 	| arr_subscr
 	| literal
 	| id
-	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN /* function call */ { printf("function call\n"); }
+	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN 
+	| id TOKEN_L_PAREN TOKEN_R_PAREN 
 	;
 
 arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* arr[1] */ { printf("array subscription\n"); }

@@ -1,15 +1,15 @@
 //empty func block
 
-f: function void () {
-
+f: function void () = {
+  
 }
 
 // empty return
-//f: function void () {
-  //  return;
-//}
+f: function void () = {
+    return;
+}
 
 //empty stmt block
 if(true){
-  return;
+  
 }
