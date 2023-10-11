@@ -64,7 +64,7 @@ while           { return TOKEN_WHILE; }
 ({LETTER}|_)({LETTER}|{DIGIT}|_){0,255} { return TOKEN_IDENTIFIER; }
 
 \"(([^\"\\]|\\.)*)\"    { return TOKEN_STRING_LITERAL; }
-\'[\\0-9a-zA-Z]{1,4}\' { return TOKEN_CHARACTER_LITERAL; } /* need post-processing */
+\'[\\{0-9a-zA-Z}]{1,4}\' { return TOKEN_CHARACTER_LITERAL; } /* need post-processing */
 
 {DIGIT}*\.{DIGIT}+  { return TOKEN_FLOAT_LITERAL; }
 {DIGIT}*\.?{DIGIT}[eE][-]?{DIGIT}+ { return TOKEN_FLOAT_LITERAL; } /* may match integer section, flex need match int first */

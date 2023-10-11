@@ -13,62 +13,8 @@ extern int yylex();
 extern int yyerror(char *s);
 extern int yyparse();
 extern char *yytext;
-char *token_names[] = {
-    "TOKEN_ARRAY",
-    "TOKEN_BOOLEAN",
-    "TOKEN_CHARACTER",
-    "TOKEN_FLOAT",
-    "TOKEN_FUNCTION",
-    "TOKEN_INTEGER",
-    "TOKEN_STRING",
-    "TOKEN_VOID",
-    "TOKEN_INTEGER_LITERAL",
-    "TOKEN_CHARACTER_LITERAL",
-    "TOKEN_STRING_LITERAL",
-    "TOKEN_FLOAT_LITERAL",
-    "TOKEN_ELSE",
-    "TOKEN_FALSE",
-    "TOKEN_FOR",
-    "TOKEN_IF",
-    "TOKEN_PRINT",
-    "TOKEN_RETURN",
-    "TOKEN_TRUE",
-    "TOKEN_WHILE",
-    "TOKEN_AUTO",
-    "TOKEN_IDENTIFIER",
-    "TOKEN_L_PAREN",
-    "TOKEN_R_PAREN",
-    "TOKEN_L_BRACKET",
-    "TOKEN_R_BRACKET",
-    "TOKEN_L_BRACE",
-    "TOKEN_R_BRACE",
-    "TOKEN_POSTINC",
-    "TOKEN_POSTDEC",
-    "TOKEN_NEG",
-    "TOKEN_NOT",
-    "TOKEN_EXP",
-    "TOKEN_MUL",
-    "TOKEN_DIV",
-    "TOKEN_MOD",
-    "TOKEN_ADD",
-    "TOKEN_SUB",
-    "TOKEN_LESS",
-    "TOKEN_LE",
-    "TOKEN_GE",
-    "TOKEN_GREATER",
-    "TOKEN_EQUAL",
-    "TOKEN_NEQUAL",
-    "TOKEN_AND",
-    "TOKEN_OR",
-    "TOKEN_ASSIGN",
-    "TOKEN_SEMICOLON",
-    "TOKEN_COLON",
-    "TOKEN_COMMA",
-    "TOKEN_BACKSLASH",
-    "TOKEN_C_COMMENT",
-    "TOKEN_CPP_COMMENT",
-    "TOKEN_ERROR",
-    "TOKEN_EOF"};
+extern char *token_names[];
+
 
 int main(int argc, char *argv[])
 {
@@ -123,7 +69,6 @@ int main(int argc, char *argv[])
         int scan_status = scan_tokens(input_file);
         if (scan_status != 0)
         {
-            fprintf(stderr, "Scan error\n");
             return 1;
         }
         rewind(input_file);
@@ -132,10 +77,12 @@ int main(int argc, char *argv[])
         int status = yyparse();
         if (status != 0)
         {
+            //error message already printed in yyerror
             return 1;
+        }else{
+            printf("Parse successful\n");
         }
     } 
-    
     else
     {
         fprintf(stderr, "Invalid argument\n");
@@ -158,26 +105,26 @@ int scan_tokens(FILE *input_file){
         }
         else if (token == TOKEN_ERROR)
         {
-            fprintf(stderr, "Scan error, invalid token: %s\n", yytext);
+            printf("Scan error, invalid token: %s\n", yytext);
             return 1;
         }
         else if (token == TOKEN_INTEGER_LITERAL)
         {
             if (is_overflow_int(yytext))
             {
-                fprintf(stderr, "Scan error, invalid integer: %s\n", yytext);
+                printf("Scan error, invalid integer: %s\n", yytext);
                 return 1;
             }
             else
             {
-                printf("%s %s\n", token_names[token], yytext);
+                printf("%s %s\n", token_names[token-258], yytext);
             }
         }
         else if (token == TOKEN_FLOAT_LITERAL)
         {
             if (is_overflow_float(yytext))
             {
-                fprintf(stderr, "Scan error, invalid float: %s\n", yytext);
+                printf("Scan error, invalid float: %s\n", yytext);
                 return 1;
             }
             else
@@ -193,12 +140,12 @@ int scan_tokens(FILE *input_file){
             int status = is_valid_char(yytext, decoded);
             if (status != 0)
             {
-                fprintf(stderr, "Error encoding character\n");
+                printf("Error encoding character\n");
                 return 1;
             }
             else
             {
-                printf("%s %s\n", token_names[token], yytext);
+                printf("%s %s\n", token_names[token-258], yytext);
             }
         }
         else if (token == TOKEN_STRING_LITERAL)
@@ -208,12 +155,12 @@ int scan_tokens(FILE *input_file){
             int status = is_valid_string(yytext, decoded);
             if (status != 0)
             {
-                fprintf(stderr, "Error encoding string\n");
+                printf("Error encoding string\n");
                 return 1;
             }
             else
             {
-                printf("%s %s\n", token_names[token], decoded);
+                printf("%s %s\n", token_names[token-258], decoded);
             }
         }
         else

@@ -457,7 +457,7 @@ static yyconst YY_CHAR yy_meta[56] =
         1,    1,    1,    1,    1,    4,    4,    1,    5,    1,
         1,    6,    4,    4,    4,    4,    4,    4,    4,    4,
         4,    4,    4,    4,    4,    4,    4,    4,    4,    4,
-        4,    4,    1,    1,    1
+        4,    4,    5,    1,    5
     } ;
 
 static yyconst flex_uint16_t yy_base[663] =
