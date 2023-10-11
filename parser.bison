@@ -76,45 +76,45 @@ stmt_list : stmt stmt_list
 	| 
 	;
 
-stmt : decl  { printf("stmt decl\n"); }
-	| expr TOKEN_SEMICOLON { printf("stmt expr\n"); }
-	| TOKEN_PRINT arg_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+stmt : decl  /* stmt decl */
+	| expr TOKEN_SEMICOLON /* stmt expr */
+	| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */
 	| TOKEN_PRINT TOKEN_SEMICOLON
-	| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
-	| TOKEN_RETURN TOKEN_SEMICOLON { printf("stmt empty return\n"); }
-	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt { printf("stmt for\n"); }
-	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt { printf("stmt if\n"); }
-	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt { printf("stmt if else\n"); }
-	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("stmt block\n"); }
+	| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */
+	| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */
+	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt /* stmt for */
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt /* stmt if */
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt /* stmt if else */
+	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE /* stmt block */
 	| TOKEN_C_COMMENT
 	| TOKEN_CPP_COMMENT
 	;
 
-if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest { printf("if nest\n"); }
+if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /* if nest */
 		| decl 
 		| expr TOKEN_SEMICOLON
 		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE
-		| TOKEN_PRINT arg_list TOKEN_SEMICOLON { printf("stmt print\n"); }
+		| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */
 		| TOKEN_PRINT TOKEN_SEMICOLON
-		| TOKEN_RETURN expr TOKEN_SEMICOLON { printf("stmt return\n"); }
-		| TOKEN_RETURN TOKEN_SEMICOLON { printf("stmt empty return\n"); }
-		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest { printf("stmt for\n"); }
+		| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */
+		| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */
+		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest /* stmt for */
 		| TOKEN_C_COMMENT
 		| TOKEN_CPP_COMMENT
 		;
 
-decl : id TOKEN_COLON type TOKEN_SEMICOLON { printf("decl without assignment\n"); } /* literal, array, function without assignment  */
-	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { printf("decl with assignment\n"); } /* literal with assignment */
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON { printf("decl with array assignment\n"); } /* array with assignment */
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { printf("decl function block\n"); } /* func with assignment */
+decl : id TOKEN_COLON type TOKEN_SEMICOLON /* literal, array, function without assignment  */
+	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON /* literal with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  /* array with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE  /* func with assignment */
 	;
 
-param_list :  param  { printf("param list\n");}
-	| /* empty */ { printf("empty param list\n");}
+param_list :  param  
+	| 
 	;
 
-param : id TOKEN_COLON type { printf("single param\n");}
-	| id TOKEN_COLON type TOKEN_COMMA param { printf("multiple param\n");}
+param : id TOKEN_COLON type /* single param */
+	| id TOKEN_COLON type TOKEN_COMMA param /* multiple param */
 	;
 
 brace_list : brace
@@ -125,11 +125,11 @@ brace: expr TOKEN_COMMA brace
 	| expr
 	;
 
-arg_list : arg { printf("empty arg list\n");}
+arg_list : arg 
 	;
 
-arg: expr TOKEN_COMMA arg  { printf("multiple arg\n"); }
-	| expr { printf("single arg\n"); }
+arg: expr TOKEN_COMMA arg  /* multiple arg */
+	| expr /* single arg */
 	;
 
 
@@ -138,15 +138,15 @@ for_expr: expr
 	;
 
 
-type : TOKEN_INTEGER { printf("integer\n");}
+type : TOKEN_INTEGER 
 	| TOKEN_FLOAT
 	| TOKEN_BOOLEAN
 	| TOKEN_CHARACTER
 	| TOKEN_STRING
 	| TOKEN_VOID
 	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */
-	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */ { printf("array\n");}
-	| TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN /* function */ { printf("function\n");}
+	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */ 
+	| TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN /* function */ 
 	;
 
 id : TOKEN_IDENTIFIER;
@@ -158,15 +158,15 @@ expr : id TOKEN_ASSIGN expr
 	| expr_or
 	;
 
-expr_or : expr_and TOKEN_OR expr_or { printf("or\n"); }
+expr_or : expr_and TOKEN_OR expr_or /* or */
 	| expr_and
 	;
 
-expr_and : expr_comp TOKEN_AND expr_and { printf("and\n"); }
+expr_and : expr_comp TOKEN_AND expr_and /* and */
 	| expr_comp
 	;
 
-expr_comp : expr_add TOKEN_EQUAL expr_comp { printf("comparison\n"); }
+expr_comp : expr_add TOKEN_EQUAL expr_comp /* comparison */
 	| expr_add TOKEN_LESS expr_comp
 	| expr_add TOKEN_NEQUAL expr_comp
 	| expr_add TOKEN_LE expr_comp
@@ -175,28 +175,28 @@ expr_comp : expr_add TOKEN_EQUAL expr_comp { printf("comparison\n"); }
 	| expr_add
 	;
 
-expr_add	: expr_mul TOKEN_ADD expr_add  { printf("add\n"); }
+expr_add	: expr_mul TOKEN_ADD expr_add  /* add */
 	| expr_mul TOKEN_SUB expr_add
 	| expr_mul
 	;
 
-expr_mul	: expr_exp TOKEN_MUL expr_mul { printf("mul\n"); }
+expr_mul	: expr_exp TOKEN_MUL expr_mul /* mul */
 	| expr_exp TOKEN_DIV expr_mul 
 	| expr_exp TOKEN_MOD expr_mul  
 	| expr_exp
 	;
 
-expr_exp	: expr_unary TOKEN_EXP expr_exp { printf("exp\n"); }
+expr_exp	: expr_unary TOKEN_EXP expr_exp /* exp */
 			| expr_unary
 			;
 
-expr_unary : TOKEN_SUB expr_unary   { printf("neg\n"); }
-			| TOKEN_NOT expr_unary   { printf("not\n"); }
-			| TOKEN_ADD expr_unary  { printf("plus\n"); }
+expr_unary : TOKEN_SUB expr_unary   /* neg */
+			| TOKEN_NOT expr_unary   /* not */
+			| TOKEN_ADD expr_unary  /* plus */
 			| exp_post
 			;
 
-exp_post : factor TOKEN_POSTINC { printf("postinc\n"); }
+exp_post : factor TOKEN_POSTINC /* postinc */
 	| factor TOKEN_POSTDEC
 	| factor
 	;
@@ -206,10 +206,10 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN
 	| literal
 	| id
 	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN 
-	| id TOKEN_L_PAREN TOKEN_R_PAREN  { printf("function call without args\n");}
+	| id TOKEN_L_PAREN TOKEN_R_PAREN  /* function call without args */
 	; 
 
-arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET /* arr[1] */ { printf("array subscription\n"); }
+arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET; /* array subscription */
 		 
 
 literal : TOKEN_INTEGER_LITERAL
