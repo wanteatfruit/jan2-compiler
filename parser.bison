@@ -12,6 +12,7 @@
     extern int yylex();
     extern int yyerror( char *str );
 	extern FILE *yyin;
+	extern struct decl *program_result;
 %}
 
 %token TOKEN_ARRAY
@@ -107,7 +108,7 @@ stmt : decl  /* stmt decl */ { $$ = stmt_create(STMT_DECL, $1, NULL, NULL, NULL,
 	| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */ { $$ = stmt_create(STMT_RETURN, NULL, NULL, $2, NULL, NULL, NULL, NULL); }
 	| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */ { $$ = stmt_create(STMT_RETURN, NULL, NULL, NULL, NULL, NULL, NULL, NULL); }
 	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt /* stmt for */ { $$ = stmt_create(STMT_FOR, NULL, $3, $5, $7, $9, NULL, NULL); }
-	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt /* stmt if */ { $$ = stmt_create(STMT_IF, NULL, NULL, $3, NULL, $5, NULL, NULL); }
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt /* stmt if */ { $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, NULL, NULL); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt /* stmt if else */ { $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, $7, NULL); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE /* stmt block */ { $$ = $2; }
 	;
@@ -123,17 +124,17 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /
 		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest /* stmt for */ { $$ = stmt_create(STMT_FOR, NULL, $3, $5, $7, $9, NULL, NULL); }
 		;
 
-decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create($1->name, $3, NULL, NULL); }
-	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create($1->name, $3, $5, NULL); }
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create($1->name, $3, NULL, $6); }
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create($1->name, $3, NULL, $6); }
+decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create($1->name, $3, NULL, NULL, NULL); }
+	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create($1->name, $3, $5, NULL, NULL); }
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create($1->name, $3, NULL, $6, NULL); }
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create($1->name, $3, NULL, $6, NULL); }
 	;
 
 param_list :  param   { $$ = $1; }
 	| { $$ = NULL;}
 	;
 
-param : id TOKEN_COLON type { $$ = param_list_create($1->name, $3);}
+param : id TOKEN_COLON type { $$ = param_list_create($1->name, $3, NULL);}
 	| id TOKEN_COLON type TOKEN_COMMA param { $$ = param_list_create($1->name, $3, $5);}
 	;
 

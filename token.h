@@ -108,7 +108,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 73 "parser.bison" /* yacc.c:1909  */
+#line 74 "parser.bison" /* yacc.c:1909  */
 
 	struct decl *decl;
 	struct stmt *stmt;

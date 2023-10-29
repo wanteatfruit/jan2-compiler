@@ -1,4 +1,4 @@
-bminor: main.o encoder.o scanner.o parser.o
+bminor: main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o
 	gcc main.o encoder.o scanner.o parser.o -o bminor -lm
 
 encoder.o: encoder.c
@@ -18,6 +18,21 @@ parser.c: parser.bison
 
 scanner.c: scanner.flex
 	flex -o scanner.c scanner.flex
+
+stmt.o: stmt.c
+	gcc -c stmt.c -c -o stmt.o
+
+decl.o: decl.c
+	gcc -c decl.c -c -o decl.o
+
+expr.o: expr.c
+	gcc -c expr.c -c -o expr.o
+
+type.o: type.c
+	gcc -c type.c -c -o type.o
+
+param_list.o: param_list.c
+	gcc -c param_list.c -c -o param_list.o
 
 
 clean:

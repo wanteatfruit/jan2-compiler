@@ -1,6 +1,7 @@
 #include "encoder.h"
 #include "token.h"
 #include "main.h"
+#include "decl.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -14,6 +15,8 @@ extern int yyerror(char *s);
 extern int yyparse();
 extern char *yytext;
 extern char *token_names[];
+
+struct decl *program_result = 0;
 
 
 int main(int argc, char *argv[])
@@ -83,6 +86,25 @@ int main(int argc, char *argv[])
             printf("Parse successful\n");
         }
     } 
+    else if( strcmp(argv[1], "--print") == 0){
+         int scan_status = scan_tokens(input_file);
+        if (scan_status != 0)
+        {
+            return 1;
+        }
+        rewind(input_file);
+        // parse
+        yyin = input_file;
+        int status = yyparse();
+        if (status != 0)
+        {
+            //error message already printed in yyerror
+            return 1;
+        }
+        //print
+        decl_print(program_result, 0);
+
+    }
     else
     {
         fprintf(stderr, "Invalid argument\n");
