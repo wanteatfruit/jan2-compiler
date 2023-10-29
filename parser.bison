@@ -2,6 +2,11 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <math.h>
+	#include "decl.h"
+	#include "stmt.h"
+	#include "expr.h"
+	#include "type.h"
+	#include "param_list.h"
 
     extern char *yytext;
     extern int yylex();
@@ -65,11 +70,16 @@
 %token TOKEN_ERROR
 %token TOKEN_EOF
 
+
 %%
 
 /* Grammar Rules */
 
-program : stmt_list TOKEN_EOF { return 0; }
+program : decl_list TOKEN_EOF {  return 0; }
+	;
+
+decl_list : decl decl_list
+	| 
 	;
 
 stmt_list : stmt stmt_list
@@ -106,7 +116,7 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /
 decl : id TOKEN_COLON type TOKEN_SEMICOLON /* literal, array, function without assignment  */
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON /* literal with assignment */
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  /* array with assignment */
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE  /* func with assignment */
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE {printf("main");}  /* func with assignment */
 	;
 
 param_list :  param  

@@ -100,12 +100,12 @@ int scan_tokens(FILE *input_file){
         
         if (token == TOKEN_EOF)
         {
-            printf("%s %s\n", token_names[token-258], yytext);
+            // printf("%s %s\n", token_names[token-258], yytext);
             break;
         }
         else if (token == TOKEN_ERROR)
         {
-            printf("Scan error, invalid token: %s\n", yytext);
+            // printf("Scan error, invalid token: %s\n", yytext);
             return 1;
         }
         else if (token == TOKEN_INTEGER_LITERAL)
@@ -117,7 +117,7 @@ int scan_tokens(FILE *input_file){
             }
             else
             {
-                printf("%s %s\n", token_names[token-258], yytext);
+                // printf("%s %s\n", token_names[token-258], yytext);
             }
         }
         else if (token == TOKEN_FLOAT_LITERAL)
@@ -145,7 +145,7 @@ int scan_tokens(FILE *input_file){
             }
             else
             {
-                printf("%s %s\n", token_names[token-258], yytext);
+                // printf("%s %s\n", token_names[token-258], yytext);
             }
         }
         else if (token == TOKEN_STRING_LITERAL)
@@ -160,12 +160,12 @@ int scan_tokens(FILE *input_file){
             }
             else
             {
-                printf("%s %s\n", token_names[token-258], decoded);
+                // printf("%s %s\n", token_names[token-258], decoded);
             }
         }
         else
         {
-            printf("%s %s\n", token_names[token-258], yytext);
+            // printf("%s %s\n", token_names[token-258], yytext);
         }
     }
     return 0;

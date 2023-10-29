@@ -8,8 +8,3 @@ f: function void () = {
 f: function void () = {
     return;
 }
-
-//empty stmt block
-if(true){
-  
-}
