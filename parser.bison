@@ -175,50 +175,50 @@ id : TOKEN_IDENTIFIER { $$ = expr_create_name(yytext); }
 
 /* arthimetic expressions, printf to check for precedence */
 
-expr : id TOKEN_ASSIGN expr { $$ = expr_create(EXPR_ASSIGN, $1, $3, NULL); }
-	| arr_subscr TOKEN_ASSIGN expr { $$ = expr_create(EXPR_ASSIGN, $1, $3, NULL); }
+expr : id TOKEN_ASSIGN expr { $$ = expr_create(EXPR_ASSIGN, $1, $3); }
+	| arr_subscr TOKEN_ASSIGN expr { $$ = expr_create(EXPR_ASSIGN, $1, $3); }
 	| expr_or { $$ = $1; }
 	;
 
-expr_or : expr_and TOKEN_OR expr_or { $$ = expr_create(EXPR_OR, $1, $3, NULL);}
+expr_or : expr_and TOKEN_OR expr_or { $$ = expr_create(EXPR_OR, $1, $3);}
 	| expr_and { $$ = $1; }
 	;
 
-expr_and : expr_comp TOKEN_AND expr_and { $$ = expr_create(EXPR_AND, $1, $3, NULL);}
+expr_and : expr_comp TOKEN_AND expr_and { $$ = expr_create(EXPR_AND, $1, $3);}
 	| expr_comp { $$ = $1; }
 	;
 
-expr_comp : expr_add TOKEN_EQUAL expr_comp  { $$ = expr_create(EXPR_EQUAL, $1, $3, NULL);}
-	| expr_add TOKEN_LESS expr_comp { $$ = expr_create(EXPR_LESS, $1, $3, NULL);}
-	| expr_add TOKEN_NEQUAL expr_comp { $$ = expr_create(EXPR_NEQUAL, $1, $3, NULL);}
-	| expr_add TOKEN_LE expr_comp { $$ = expr_create(EXPR_LE, $1, $3, NULL);}
-	| expr_add TOKEN_GE expr_comp { $$ = expr_create(EXPR_GE, $1, $3, NULL);}
-	| expr_add TOKEN_GREATER expr_comp { $$ = expr_create(EXPR_GREATER, $1, $3, NULL);}
+expr_comp : expr_add TOKEN_EQUAL expr_comp  { $$ = expr_create(EXPR_EQUAL, $1, $3);}
+	| expr_add TOKEN_LESS expr_comp { $$ = expr_create(EXPR_LESS, $1, $3);}
+	| expr_add TOKEN_NEQUAL expr_comp { $$ = expr_create(EXPR_NEQUAL, $1, $3);}
+	| expr_add TOKEN_LE expr_comp { $$ = expr_create(EXPR_LE, $1, $3);}
+	| expr_add TOKEN_GE expr_comp { $$ = expr_create(EXPR_GE, $1, $3);}
+	| expr_add TOKEN_GREATER expr_comp { $$ = expr_create(EXPR_GREATER, $1, $3);}
 	| expr_add { $$ = $1; }
 	;
 
-expr_add	: expr_mul TOKEN_ADD expr_add  { $$ = expr_create(EXPR_ADD, $1, $3, NULL);}
-	| expr_mul TOKEN_SUB expr_add { $$ = expr_create(EXPR_SUB, $1, $3, NULL);}
+expr_add	: expr_mul TOKEN_ADD expr_add  { $$ = expr_create(EXPR_ADD, $1, $3);}
+	| expr_mul TOKEN_SUB expr_add { $$ = expr_create(EXPR_SUB, $1, $3);}
 	| expr_mul { $$ = $1; }
 	;
 
-expr_mul	: expr_exp TOKEN_MUL expr_mul { $$ = expr_create(EXPR_MUL, $1, $3, NULL);}
-	| expr_exp TOKEN_DIV expr_mul  { $$ = expr_create(EXPR_DIV, $1, $3, NULL);}
-	| expr_exp TOKEN_MOD expr_mul   { $$ = expr_create(EXPR_MOD, $1, $3, NULL);}
+expr_mul	: expr_exp TOKEN_MUL expr_mul { $$ = expr_create(EXPR_MUL, $1, $3);}
+	| expr_exp TOKEN_DIV expr_mul  { $$ = expr_create(EXPR_DIV, $1, $3);}
+	| expr_exp TOKEN_MOD expr_mul   { $$ = expr_create(EXPR_MOD, $1, $3);}
 	| expr_exp { $$ = $1; }
 	;
 
-expr_exp	: expr_unary TOKEN_EXP expr_exp { $$ = expr_create(EXPR_EXP, $1, $3, NULL);}
+expr_exp	: expr_unary TOKEN_EXP expr_exp { $$ = expr_create(EXPR_EXP, $1, $3);}
 			| expr_unary { $$ = $1; }
 			;
 
-expr_unary : TOKEN_SUB expr_unary  { $$ = expr_create(EXPR_NEG, NULL, $2, NULL);}
-			| TOKEN_NOT expr_unary   { $$ = expr_create(EXPR_NOT, NULL, $2, NULL);}
+expr_unary : TOKEN_SUB expr_unary  { $$ = expr_create(EXPR_NEG, NULL, $2);}
+			| TOKEN_NOT expr_unary   { $$ = expr_create(EXPR_NOT, NULL, $2);}
 			| exp_post { $$ = $1; }
 			;
 
-exp_post : factor TOKEN_POSTINC { $$ = expr_create(EXPR_POSTINC, $1, NULL, NULL);}
-	| factor TOKEN_POSTDEC { $$ = expr_create(EXPR_POSTDEC, $1, NULL, NULL);}
+exp_post : factor TOKEN_POSTINC { $$ = expr_create(EXPR_POSTINC, $1, NULL);}
+	| factor TOKEN_POSTDEC { $$ = expr_create(EXPR_POSTDEC, $1, NULL);}
 	| factor { $$ = $1; }
 	;
 
@@ -226,11 +226,11 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN { $$ = $2; }
 	| arr_subscr { $$ = $1; }
 	| literal { $$ = $1; }
 	| id { $$ = $1;}
-	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, $3, NULL);}
-	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, NULL, NULL); }  /* function call without args */
+	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, $3);}
+	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, NULL); }  /* function call without args */
 	; 
 
-arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR_ARRAY, $1, $3, NULL);}
+arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR_ARRAY, $1, $3);}
 	;
 		 
 
