@@ -19,7 +19,6 @@ void type_print( struct type *t ){
         printf("(");
         // param_list_print(t->params);
         printf(")");
-    
     }
 }
 
