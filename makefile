@@ -22,9 +22,6 @@ scanner.c: scanner.flex
 stmt.o: stmt.c
 	gcc -c stmt.c -c -o stmt.o
 
-decl.o: decl.c
-	gcc -c decl.c -c -o decl.o
-
 expr.o: expr.c
 	gcc -c expr.c -c -o expr.o
 
