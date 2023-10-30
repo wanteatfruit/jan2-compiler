@@ -7,7 +7,6 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
     e->kind = kind;
     e->left = left;
     e->right = right;
-    // e->next = next; //chaining exprs in comma separated lists
     return e;
 }
 
@@ -35,10 +34,11 @@ struct expr *expr_create_boolean_literal(int c)
     return e;
 }
 
-struct expr *expr_create_char_literal(char c)
+struct expr *expr_create_char_literal(char c, int type)
 {
     struct expr *e = malloc(sizeof(*e));
-    e->literal_value = c;
+    e->literal_value = c; //'a'
+    e->char_type = type;
     e->kind = EXPR_CHARACTER_LITERAL;
     return e;
 }
@@ -51,9 +51,10 @@ struct expr *expr_create_string_literal(const char *str)
     return e;
 }
 
-struct expr *expr_create_float_literal(float f){
+struct expr *expr_create_float_literal(const char *float_str, double float_val){
     struct expr *e = malloc(sizeof(*e));
-    e->literal_value = f;
+    e->string_literal = strdup(float_str); //use string to print 
+    e->float_value = float_val;
     e->kind = EXPR_FLOAT_LITERAL;
     return e;
 }
@@ -142,7 +143,10 @@ void expr_print(struct expr *e)
         printf("%s", e->name);
     }else if(e->kind == EXPR_INTEGER_LITERAL){
         printf("%d", e->literal_value);
-    }else if(e->kind == EXPR_BOOLEAN_LITERAL){
+    }else if(e->kind == EXPR_FLOAT_LITERAL){
+        printf("%s", e->string_literal);
+    }
+    else if(e->kind == EXPR_BOOLEAN_LITERAL){
         if(e->literal_value == 0){
             printf("false");
         }else{
@@ -150,7 +154,10 @@ void expr_print(struct expr *e)
         }
     }else if(e->kind == EXPR_CHARACTER_LITERAL){
         printf("\'");
-        printf("%c",  e->literal_value);
+        if(e->char_type == 1){ //escaped char
+            printf("\\");
+        }
+        printf("%c", e->literal_value);
         printf("\'");
     }else if(e->kind == EXPR_STRING_LITERAL){
         printf("%s", e->string_literal);

@@ -153,7 +153,7 @@ int scan_tokens(FILE *input_file){
             }
             else
             {
-                printf("%d %s\n", token, yytext);
+                // printf("%d %s\n", token, yytext);
             }
         }
         else if (token == TOKEN_CHARACTER_LITERAL) //\'[\\0a-zA-Z]{1,4}\'

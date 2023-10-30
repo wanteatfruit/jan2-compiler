@@ -47,6 +47,8 @@ struct expr {
 
 	/* used by various leaf exprs */
 	const char *name;
+	double float_value;
+	int char_type;
 	int literal_value;
 	const char * string_literal;
 	struct symbol *symbol;
@@ -58,9 +60,9 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right );
 struct expr * expr_create_name( const char *n );
 struct expr * expr_create_integer_literal( int c );
 struct expr * expr_create_boolean_literal( int c );
-struct expr * expr_create_char_literal( char c );
+struct expr * expr_create_char_literal( char c, int type );
 struct expr * expr_create_string_literal( const char *str );
-struct expr * expr_create_float_literal( float f );
+struct expr * expr_create_float_literal( const char *float_str, double float_val );
 void expr_print( struct expr *e );
 
 #endif

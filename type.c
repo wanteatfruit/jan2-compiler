@@ -55,5 +55,7 @@ char* type_string(type_t kind){
             return "function";
         case TYPE_VOID:
             return "void";
+        case TYPE_FLOAT:
+            return "float";
     }
 }

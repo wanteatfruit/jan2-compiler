@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+	#include <string.h>
     #include <math.h>
 	#include "decl.h"
 	#include "stmt.h"
@@ -227,8 +228,14 @@ arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR
 		 
 
 literal : TOKEN_INTEGER_LITERAL { $$ = expr_create_integer_literal(atoi(yytext)); }
-	| TOKEN_FLOAT_LITERAL { $$ = expr_create_float_literal(atof(yytext)); }
-	| TOKEN_CHARACTER_LITERAL { $$ = expr_create_char_literal(yytext[1]); } /* only one character */
+	| TOKEN_FLOAT_LITERAL { $$ = expr_create_float_literal(yytext, atof(yytext)); }
+	| TOKEN_CHARACTER_LITERAL {
+			if(strlen(yytext) == 3){ // 'a'
+ 				$$ = expr_create_char_literal(yytext[1], 0); 
+			}else if(strlen(yytext) == 4){ // '\n'
+				$$ = expr_create_char_literal(yytext[2], 1);
+			}
+		 } /* only one character */
 	| TOKEN_STRING_LITERAL { $$ = expr_create_string_literal(yytext); }
 	| TOKEN_TRUE { $$ = expr_create_boolean_literal(1); }
 	| TOKEN_FALSE { $$ = expr_create_boolean_literal(0); }
