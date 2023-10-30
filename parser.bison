@@ -158,8 +158,7 @@ type : TOKEN_INTEGER { $$ = type_create(TYPE_INTEGER, 0, 0); }
 	| TOKEN_STRING { $$ = type_create(TYPE_STRING, 0, 0); }
 	| TOKEN_VOID { $$ = type_create(TYPE_VOID, 0, 0); }
 	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */ { $$ = type_create(TYPE_ARRAY, $4, 0); }
-	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */  { $$ = type_create(TYPE_ARRAY, $5, 0); } 
-	/* TODO: HANDLE ARRAY LENGTH */
+	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */  { $$ = type_create_with_length(TYPE_ARRAY, $5, 0, $3); } 
 	| TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN /* function */  { $$ = type_create(TYPE_FUNCTION, $2, $4);}
 	;
 

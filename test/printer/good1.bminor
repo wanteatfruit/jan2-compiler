@@ -8,3 +8,5 @@ s: string;
 t: string = "hello\n";
 d: char;
 e: char = 'a';
+
+arr: array [5] integer;

@@ -9,17 +9,29 @@ struct type * type_create( type_t kind, struct type *subtype, struct param_list 
     return t;
 }
 
+struct type * type_create_with_length( type_t kind, struct type *subtype, struct param_list *params, struct expr *length ){
+    struct type *t = malloc(sizeof(struct type));
+    t->kind = kind;
+    t->subtype = subtype;
+    t->params = params;
+    t->length = length;
+    return t;
+}
+
 void type_print( struct type *t ){
     if(!t) return;
     // printf("printing type\n");
-    printf("%s", type_string(t->kind));
+    printf("%s ", type_string(t->kind));
     if(t->kind == TYPE_ARRAY){
         printf("[");
+        if(t->length){
+            expr_print(t->length);
+        }
         printf("] ");
         type_print(t->subtype);
     }else if(t->kind == TYPE_FUNCTION){
         type_print(t->subtype);
-        printf("(");
+        printf("( ");
         param_list_print(t->params);
         printf(")");
     }

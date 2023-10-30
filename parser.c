@@ -509,12 +509,12 @@ static const yytype_uint8 yyrline[] =
      107,   108,   109,   110,   111,   112,   113,   116,   117,   118,
      119,   120,   121,   122,   123,   124,   127,   128,   129,   130,
      133,   134,   137,   138,   141,   144,   145,   149,   150,   154,
-     155,   156,   157,   158,   159,   160,   161,   163,   166,   171,
-     172,   173,   176,   177,   180,   181,   184,   185,   186,   187,
-     188,   189,   190,   193,   194,   195,   198,   199,   200,   201,
-     204,   205,   208,   209,   210,   213,   214,   215,   218,   219,
-     220,   221,   222,   223,   226,   230,   231,   232,   233,   234,
-     235
+     155,   156,   157,   158,   159,   160,   161,   162,   165,   170,
+     171,   172,   175,   176,   179,   180,   183,   184,   185,   186,
+     187,   188,   189,   192,   193,   194,   197,   198,   199,   200,
+     203,   204,   207,   208,   209,   212,   213,   214,   217,   218,
+     219,   220,   221,   222,   225,   229,   230,   231,   232,   233,
+     234
 };
 #endif
 
@@ -1720,270 +1720,270 @@ yyreduce:
 
   case 46:
 #line 161 "parser.bison" /* yacc.c:1646  */
-    { (yyval.type) = type_create(TYPE_ARRAY, (yyvsp[0].type), 0); }
+    { (yyval.type) = type_create_with_length(TYPE_ARRAY, (yyvsp[0].type), 0, (yyvsp[-2].expr)); }
 #line 1725 "parser.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 163 "parser.bison" /* yacc.c:1646  */
+#line 162 "parser.bison" /* yacc.c:1646  */
     { (yyval.type) = type_create(TYPE_FUNCTION, (yyvsp[-3].type), (yyvsp[-1].param_list));}
 #line 1731 "parser.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 166 "parser.bison" /* yacc.c:1646  */
+#line 165 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_name(yytext); }
 #line 1737 "parser.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 171 "parser.bison" /* yacc.c:1646  */
+#line 170 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_ASSIGN, (yyvsp[-2].expr), (yyvsp[0].expr)); }
 #line 1743 "parser.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 172 "parser.bison" /* yacc.c:1646  */
+#line 171 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_ASSIGN, (yyvsp[-2].expr), (yyvsp[0].expr)); }
 #line 1749 "parser.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 173 "parser.bison" /* yacc.c:1646  */
+#line 172 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1755 "parser.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 176 "parser.bison" /* yacc.c:1646  */
+#line 175 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_OR, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1761 "parser.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 177 "parser.bison" /* yacc.c:1646  */
+#line 176 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1767 "parser.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 180 "parser.bison" /* yacc.c:1646  */
+#line 179 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_AND, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1773 "parser.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 181 "parser.bison" /* yacc.c:1646  */
+#line 180 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1779 "parser.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 184 "parser.bison" /* yacc.c:1646  */
+#line 183 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_EQUAL, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1785 "parser.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 185 "parser.bison" /* yacc.c:1646  */
+#line 184 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_LESS, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1791 "parser.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 186 "parser.bison" /* yacc.c:1646  */
+#line 185 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_NEQUAL, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1797 "parser.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 187 "parser.bison" /* yacc.c:1646  */
+#line 186 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_LE, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1803 "parser.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 188 "parser.bison" /* yacc.c:1646  */
+#line 187 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_GE, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1809 "parser.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 189 "parser.bison" /* yacc.c:1646  */
+#line 188 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_GREATER, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1815 "parser.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 190 "parser.bison" /* yacc.c:1646  */
+#line 189 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1821 "parser.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 193 "parser.bison" /* yacc.c:1646  */
+#line 192 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_ADD, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1827 "parser.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 194 "parser.bison" /* yacc.c:1646  */
+#line 193 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_SUB, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1833 "parser.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 195 "parser.bison" /* yacc.c:1646  */
+#line 194 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1839 "parser.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 198 "parser.bison" /* yacc.c:1646  */
+#line 197 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_MUL, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1845 "parser.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 199 "parser.bison" /* yacc.c:1646  */
+#line 198 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_DIV, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1851 "parser.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 200 "parser.bison" /* yacc.c:1646  */
+#line 199 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_MOD, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1857 "parser.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 201 "parser.bison" /* yacc.c:1646  */
+#line 200 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1863 "parser.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 204 "parser.bison" /* yacc.c:1646  */
+#line 203 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_EXP, (yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1869 "parser.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 205 "parser.bison" /* yacc.c:1646  */
+#line 204 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1875 "parser.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 208 "parser.bison" /* yacc.c:1646  */
+#line 207 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_NEG, 0, (yyvsp[0].expr));}
 #line 1881 "parser.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 209 "parser.bison" /* yacc.c:1646  */
+#line 208 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_NOT, 0, (yyvsp[0].expr));}
 #line 1887 "parser.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 210 "parser.bison" /* yacc.c:1646  */
+#line 209 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1893 "parser.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 213 "parser.bison" /* yacc.c:1646  */
+#line 212 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_POSTINC, (yyvsp[-1].expr), 0);}
 #line 1899 "parser.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 214 "parser.bison" /* yacc.c:1646  */
+#line 213 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_POSTDEC, (yyvsp[-1].expr), 0);}
 #line 1905 "parser.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 215 "parser.bison" /* yacc.c:1646  */
+#line 214 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1911 "parser.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 218 "parser.bison" /* yacc.c:1646  */
+#line 217 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[-1].expr); }
 #line 1917 "parser.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 219 "parser.bison" /* yacc.c:1646  */
+#line 218 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1923 "parser.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 220 "parser.bison" /* yacc.c:1646  */
+#line 219 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr); }
 #line 1929 "parser.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 221 "parser.bison" /* yacc.c:1646  */
+#line 220 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = (yyvsp[0].expr);}
 #line 1935 "parser.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 222 "parser.bison" /* yacc.c:1646  */
+#line 221 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_FUNC, (yyvsp[-3].expr), (yyvsp[-1].expr));}
 #line 1941 "parser.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 223 "parser.bison" /* yacc.c:1646  */
+#line 222 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_FUNC, (yyvsp[-2].expr), 0); }
 #line 1947 "parser.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 226 "parser.bison" /* yacc.c:1646  */
+#line 225 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create(EXPR_ARRAY, (yyvsp[-3].expr), (yyvsp[-1].expr));}
 #line 1953 "parser.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 230 "parser.bison" /* yacc.c:1646  */
+#line 229 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_integer_literal(atoi(yytext)); }
 #line 1959 "parser.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 231 "parser.bison" /* yacc.c:1646  */
+#line 230 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_float_literal(atof(yytext)); }
 #line 1965 "parser.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 232 "parser.bison" /* yacc.c:1646  */
+#line 231 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_char_literal(yytext[1]); }
 #line 1971 "parser.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 233 "parser.bison" /* yacc.c:1646  */
+#line 232 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_string_literal(yytext); }
 #line 1977 "parser.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 234 "parser.bison" /* yacc.c:1646  */
+#line 233 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_boolean_literal(1); }
 #line 1983 "parser.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 235 "parser.bison" /* yacc.c:1646  */
+#line 234 "parser.bison" /* yacc.c:1646  */
     { (yyval.expr) = expr_create_boolean_literal(0); }
 #line 1989 "parser.c" /* yacc.c:1646  */
     break;
@@ -2217,7 +2217,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 239 "parser.bison" /* yacc.c:1906  */
+#line 238 "parser.bison" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {
