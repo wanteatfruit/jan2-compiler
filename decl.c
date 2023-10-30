@@ -27,7 +27,7 @@ void decl_print( struct decl *d, int indent ){
     }else if(d->code){
         printf(" = {\n");
         stmt_print(d->code, indent+1);
-        printf("}");
+        printf("}\n");
     }else{
         printf(";\n");
     }
