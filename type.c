@@ -1,4 +1,5 @@
 #include "type.h"
+#include <stdlib.h>
 
 struct type * type_create( type_t kind, struct type *subtype, struct param_list *params ){
     struct type *t = malloc(sizeof(struct type));
@@ -10,14 +11,15 @@ struct type * type_create( type_t kind, struct type *subtype, struct param_list 
 
 void type_print( struct type *t ){
     if(!t) return;
-    printf("%s", type_string(t));
+    printf("%s", type_string(t->kind));
     if(t->kind == TYPE_ARRAY){
         printf("[");
-        // type_print(t->subtype);
-        printf("]");
-    }else if(t=>kind == TYPE_FUNCTION){
+        printf("] ");
+        type_print(t->subtype);
+    }else if(t->kind == TYPE_FUNCTION){
+        type_print(t->subtype);
         printf("(");
-        // param_list_print(t->params);
+        param_list_print(t->params);
         printf(")");
     }
 }

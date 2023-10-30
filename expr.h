@@ -29,7 +29,8 @@ typedef enum {
 	EXPR_INTEGER_LITERAL,
 	EXPR_CHARACTER_LITERAL,
 	EXPR_STRING_LITERAL,
-	EXPR_BOOLEAN_LITERAL
+	EXPR_BOOLEAN_LITERAL,
+	EXPR_FLOAT_LITERAL
 
 
 
@@ -56,6 +57,7 @@ struct expr * expr_create_integer_literal( int c );
 struct expr * expr_create_boolean_literal( int c );
 struct expr * expr_create_char_literal( char c );
 struct expr * expr_create_string_literal( const char *str );
+struct expr * expr_create_float_literal( float f );
 
 void expr_print( struct expr *e );
 

@@ -1,5 +1,5 @@
 bminor: main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o
-	gcc main.o encoder.o scanner.o parser.o -o bminor -lm
+	gcc main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o -o bminor -lm
 
 encoder.o: encoder.c
 	gcc -c encoder.c -c -o encoder.o

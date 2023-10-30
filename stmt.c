@@ -1,6 +1,7 @@
 #include "stmt.h"
+#include <stdlib.h>
 
-stmt *stmt_create(stmt_t kind, decl *decl, expr *init_expr, expr *expr, expr *next_expr, stmt *body, stmt *else_body, stmt *next)
+struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_expr, struct expr *expr, struct expr *next_expr, struct stmt *body, struct stmt *else_body, struct stmt *next )
 {
     struct stmt *s = malloc(sizeof(*s));
     s->kind = kind;
@@ -14,7 +15,7 @@ stmt *stmt_create(stmt_t kind, decl *decl, expr *init_expr, expr *expr, expr *ne
     return s;
 }
 
-void stmt_print(stmt *s, int indent)
+void stmt_print(struct stmt *s, int indent)
 {
     if(!s) return;
     // print according to kind
