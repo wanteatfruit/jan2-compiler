@@ -24,7 +24,7 @@ void stmt_print(struct stmt *s, int indent)
     }else if(s->kind == STMT_EXPR){
         print_indent(indent);
         expr_print(s->expr);
-        // printf(";\n");
+        printf(";\n");
     }else if(s->kind == STMT_IF_ELSE){
         print_indent(indent);
         printf("if(");
@@ -53,7 +53,16 @@ void stmt_print(struct stmt *s, int indent)
     }else if(s->kind == STMT_PRINT){
         print_indent(indent);
         printf("print ");
-        expr_print(s->expr);
+        if(s->expr){
+            struct expr *print = s->expr;
+            while(print){
+                expr_print(print);
+                if(print->next){
+                    printf(", ");
+                }
+                print = print->next;
+            }
+        }
         printf(";\n");
     }else if(s->kind == STMT_RETURN){
         print_indent(indent);
