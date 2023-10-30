@@ -1918,7 +1918,7 @@ yyreduce:
 
   case 77:
 #line 217 "parser.bison" /* yacc.c:1646  */
-    { (yyval.expr) = (yyvsp[-1].expr); }
+    { (yyval.expr) = expr_create(EXPR_PARENTHESES, (yyvsp[-1].expr), 0); }
 #line 1923 "parser.c" /* yacc.c:1646  */
     break;
 

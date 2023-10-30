@@ -134,6 +134,10 @@ void expr_print(struct expr *e)
     }else if(e->kind == EXPR_POSTINC){
         expr_print(e->left);
         printf("++");
+    }else if(e->kind == EXPR_PARENTHESES){
+        printf("(");
+        expr_print(e->left);
+        printf(")");
     }else if(e->kind == EXPR_IDENTIFIER){
         printf("%s", e->name);
     }else if(e->kind == EXPR_INTEGER_LITERAL){

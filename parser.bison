@@ -214,7 +214,7 @@ exp_post : factor TOKEN_POSTINC { $$ = expr_create(EXPR_POSTINC, $1, 0);}
 	| factor { $$ = $1; }
 	;
 
-factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN { $$ = $2; }
+factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN { $$ = expr_create(EXPR_PARENTHESES, $2, 0); }
 	| arr_subscr { $$ = $1; }
 	| literal { $$ = $1; }
 	| id { $$ = $1;}
