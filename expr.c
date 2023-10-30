@@ -13,7 +13,7 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
 struct expr *expr_create_name(const char *n)
 {
     struct expr *e = malloc(sizeof(*e));
-    e->name = strdup(n);
+    e->name = strdup(n); //avoid memory leak
     e->kind = EXPR_IDENTIFIER;
     return e;
 }
@@ -145,6 +145,7 @@ void expr_print(struct expr *e)
         printf("%d", e->literal_value);
     }else if(e->kind == EXPR_FLOAT_LITERAL){
         printf("%s", e->string_literal);
+        // printf(" (%f)", e->float_value);
     }
     else if(e->kind == EXPR_BOOLEAN_LITERAL){
         if(e->literal_value == 0){
