@@ -135,7 +135,6 @@ void expr_print(struct expr *e)
         expr_print(e->left);
         printf("++");
     }else if(e->kind == EXPR_IDENTIFIER){
-        // printf("printing identifier\n");
         printf("%s", e->name);
     }else if(e->kind == EXPR_INTEGER_LITERAL){
         printf("%d", e->literal_value);
@@ -162,7 +161,6 @@ void expr_print(struct expr *e)
                 expr_print(e->next);
                 e = e->next;
             }
-            
         }
         printf("}");
     }

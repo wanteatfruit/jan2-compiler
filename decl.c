@@ -15,12 +15,10 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
 void decl_print( struct decl *d, int indent ){
     if(!d) return;
     // print indent
-    // printf("indent num is %d\n", indent);
     for(int i = 0; i < indent; i++){
         printf("\t");
     }
     printf("%s: ", d->name);
-    // return;
     type_print(d->type);
     if(d->value){ // decl with value
         printf(" = ");

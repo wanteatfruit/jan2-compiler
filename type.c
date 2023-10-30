@@ -20,8 +20,7 @@ struct type * type_create_with_length( type_t kind, struct type *subtype, struct
 
 void type_print( struct type *t ){
     if(!t) return;
-    // printf("printing type\n");
-    printf("%s ", type_string(t->kind));
+    printf("%s", type_string(t->kind));
     if(t->kind == TYPE_ARRAY){
         printf("[");
         if(t->length){
