@@ -31,11 +31,13 @@ void stmt_print(struct stmt *s, int indent)
         expr_print(s->expr);
         printf(") {\n");
         stmt_print(s->body, indent+1); //if body
+        print_indent(indent);
         printf("}");
         if(s->else_body){
             printf(" else {\n");
             print_indent(indent);
             stmt_print(s->else_body, indent); //else body
+            print_indent(indent);
             printf("}\n");
         }else{
             printf("\n");
