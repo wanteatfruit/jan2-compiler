@@ -11,4 +11,6 @@ main: function integer()={
 	}for(;;){
 		y++;
 	}
+
+    f(1,2);
 }

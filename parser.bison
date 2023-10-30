@@ -232,7 +232,7 @@ literal : TOKEN_INTEGER_LITERAL { $$ = expr_create_integer_literal(atoi(yytext))
 	| TOKEN_STRING_LITERAL { $$ = expr_create_string_literal(yytext); }
 	| TOKEN_TRUE { $$ = expr_create_boolean_literal(1); }
 	| TOKEN_FALSE { $$ = expr_create_boolean_literal(0); }
-	| TOKEN_L_BRACE arg_list TOKEN_R_BRACE { $$ = expr_create_paren(EXPR_ARRAY_LITERAL, $2); }
+	| TOKEN_L_BRACE arg_list TOKEN_R_BRACE { $$ = expr_create(EXPR_ARRAY_LITERAL, $2, 0); }
 	;
 
 

@@ -11,13 +11,6 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
     return e;
 }
 
-struct expr * expr_create_paren( expr_t kind, struct expr *inside){
-    struct expr *e = malloc(sizeof(*e));
-    e->kind = kind;
-    e->inside = inside;
-    return e;
-}
-
 struct expr *expr_create_name(const char *n)
 {
     struct expr *e = malloc(sizeof(*e));
@@ -160,7 +153,17 @@ void expr_print(struct expr *e)
         printf("%s", e->string_literal);
     }else if(e->kind == EXPR_ARRAY_LITERAL){
         printf("{");
-        expr_print(e->inside);
+        if(e->left){
+            expr_print(e->left);
+            e = e->left;
+            while (e->next)
+            {
+                printf(", ");
+                expr_print(e->next);
+                e = e->next;
+            }
+            
+        }
         printf("}");
     }
     else if(e->kind == EXPR_ARRAY_SUB){
@@ -173,6 +176,14 @@ void expr_print(struct expr *e)
         printf("(");
         if(e->right){
             expr_print(e->right);
+            e = e->right;
+            while (e->next)
+            {
+                printf(", ");
+                expr_print(e->next);
+                e = e->next;
+            }
+            
         }
         printf(")");
     }else if(e->next){

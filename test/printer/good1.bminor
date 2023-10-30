@@ -9,4 +9,4 @@ t: string = "hello\n";
 d: char;
 e: char = 'a';
 
-arr: array [5] integer = {1,2,3,4,5};
+arr: array [5] integer = {1,2,3,4,5}; // TODO: fix this 

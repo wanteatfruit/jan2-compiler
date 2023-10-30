@@ -1996,7 +1996,7 @@ yyreduce:
 
   case 90:
 #line 235 "parser.bison" /* yacc.c:1646  */
-    { (yyval.expr) = expr_create_paren(EXPR_ARRAY_LITERAL, (yyvsp[-1].expr)); }
+    { (yyval.expr) = expr_create(EXPR_ARRAY_LITERAL, (yyvsp[-1].expr), 0); }
 #line 2001 "parser.c" /* yacc.c:1646  */
     break;
 
