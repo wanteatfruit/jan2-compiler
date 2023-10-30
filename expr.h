@@ -48,6 +48,7 @@ struct expr {
 	int literal_value;
 	const char * string_literal;
 	struct symbol *symbol;
+	struct expr *next; //used for function arguments
 };
 
 struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right );

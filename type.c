@@ -11,6 +11,7 @@ struct type * type_create( type_t kind, struct type *subtype, struct param_list 
 
 void type_print( struct type *t ){
     if(!t) return;
+    // printf("printing type\n");
     printf("%s", type_string(t->kind));
     if(t->kind == TYPE_ARRAY){
         printf("[");

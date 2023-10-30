@@ -94,79 +94,79 @@ program : decl_list TOKEN_EOF { program_result = $1;  return 0; }
 	;
 
 decl_list : decl decl_list { $1->next = $2; $$ = $1; }
-	| { $$ = NULL; } 
+	| { $$ = 0; } 
 	;
 
 stmt_list : stmt stmt_list { $1->next = $2; $$ = $1; }
-	|  { $$ = NULL; }
+	|  { $$ = 0; }
 	;
 
-stmt : decl  /* stmt decl */ { $$ = stmt_create(STMT_DECL, $1, NULL, NULL, NULL, NULL, NULL, NULL); }
-	| expr TOKEN_SEMICOLON /* stmt expr */ { $$ = stmt_create(STMT_EXPR, NULL, NULL, $1, NULL, NULL, NULL, NULL); }
-	| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */ { $$ = stmt_create(STMT_PRINT, NULL, NULL, $2, NULL, NULL, NULL, NULL); }
-	| TOKEN_PRINT TOKEN_SEMICOLON /* stmt empty print */ { $$ = stmt_create(STMT_PRINT, NULL, NULL, NULL, NULL, NULL, NULL, NULL); }
-	| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */ { $$ = stmt_create(STMT_RETURN, NULL, NULL, $2, NULL, NULL, NULL, NULL); }
-	| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */ { $$ = stmt_create(STMT_RETURN, NULL, NULL, NULL, NULL, NULL, NULL, NULL); }
-	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt /* stmt for */ { $$ = stmt_create(STMT_FOR, NULL, $3, $5, $7, $9, NULL, NULL); }
-	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt /* stmt if */ { $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, NULL, NULL); }
-	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt /* stmt if else */ { $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, $7, NULL); }
+stmt : decl  /* stmt decl */ { $$ = stmt_create(STMT_DECL, $1, 0, 0, 0, 0, 0, 0); }
+	| expr TOKEN_SEMICOLON /* stmt expr */ { $$ = stmt_create(STMT_EXPR, 0, 0, $1, 0, 0, 0, 0); }
+	| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */ { $$ = stmt_create(STMT_PRINT, 0, 0, $2, 0, 0, 0, 0); }
+	| TOKEN_PRINT TOKEN_SEMICOLON /* stmt empty print */ { $$ = stmt_create(STMT_PRINT, 0, 0, 0, 0, 0, 0, 0); }
+	| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */ { $$ = stmt_create(STMT_RETURN, 0, 0, $2, 0, 0, 0, 0); }
+	| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */ { $$ = stmt_create(STMT_RETURN, 0, 0, 0, 0, 0, 0, 0); }
+	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt /* stmt for */ { $$ = stmt_create(STMT_FOR, 0, $3, $5, $7, $9, 0, 0); }
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt /* stmt if */ { $$ = stmt_create(STMT_IF_ELSE, 0, 0, $3, 0, $5, 0, 0); }
+	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt /* stmt if else */ { $$ = stmt_create(STMT_IF_ELSE, 0, 0, $3, 0, $5, $7, 0); }
 	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE /* stmt block */ { $$ = $2; }
 	;
 
-if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /* if nest */ { $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, $7, NULL); }
-		| decl { $$ = stmt_create(STMT_DECL, $1, NULL, NULL, NULL, NULL, NULL, NULL); }
-		| expr TOKEN_SEMICOLON { $$ = stmt_create(STMT_EXPR, NULL, NULL, $1, NULL, NULL, NULL, NULL); }
+if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /* if nest */ { $$ = stmt_create(STMT_IF_ELSE, 0, 0, $3, 0, $5, $7, 0); }
+		| decl { $$ = stmt_create(STMT_DECL, $1, 0, 0, 0, 0, 0, 0); }
+		| expr TOKEN_SEMICOLON { $$ = stmt_create(STMT_EXPR, 0, 0, $1, 0, 0, 0, 0); }
 		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = $2;}
-		| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */ { $$ = stmt_create(STMT_PRINT, NULL, NULL, $2, NULL, NULL, NULL, NULL); }
-		| TOKEN_PRINT TOKEN_SEMICOLON /* stmt empty print */ { $$ = stmt_create(STMT_PRINT, NULL, NULL, NULL, NULL, NULL, NULL, NULL); }
-		| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */ { $$ = stmt_create(STMT_RETURN, NULL, NULL, $2, NULL, NULL, NULL, NULL); }
-		| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */ { $$ = stmt_create(STMT_RETURN, NULL, NULL, NULL, NULL, NULL, NULL, NULL); }
-		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest /* stmt for */ { $$ = stmt_create(STMT_FOR, NULL, $3, $5, $7, $9, NULL, NULL); }
+		| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */ { $$ = stmt_create(STMT_PRINT, 0, 0, $2, 0, 0, 0, 0); }
+		| TOKEN_PRINT TOKEN_SEMICOLON /* stmt empty print */ { $$ = stmt_create(STMT_PRINT, 0, 0, 0, 0, 0, 0, 0); }
+		| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */ { $$ = stmt_create(STMT_RETURN, 0, 0, $2, 0, 0, 0, 0); }
+		| TOKEN_RETURN TOKEN_SEMICOLON /* stmt empty return */ { $$ = stmt_create(STMT_RETURN, 0, 0, 0, 0, 0, 0, 0); }
+		| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN if_nest /* stmt for */ { $$ = stmt_create(STMT_FOR, 0, $3, $5, $7, $9, 0, 0); }
 		;
 
-decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create($1->name, $3, NULL, NULL, NULL); }
-	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create($1->name, $3, $5, NULL, NULL); }
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create($1->name, $3, NULL, $6, NULL); }
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create($1->name, $3, NULL, $6, NULL); }
+decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, 0, 0, 0); }
+	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, $5, 0, 0); }
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create((char *)$1->name, $3, $6, 0, 0); }
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create((char *)$1->name, $3, 0, $6, 0); }
 	;
 
 param_list :  param   { $$ = $1; }
-	| { $$ = NULL;}
+	| { $$ = 0;}
 	;
 
-param : id TOKEN_COLON type { $$ = param_list_create($1->name, $3, NULL);}
-	| id TOKEN_COLON type TOKEN_COMMA param { $$ = param_list_create($1->name, $3, $5);}
+param : id TOKEN_COLON type { $$ = param_list_create((char *)$1->name, $3, 0);}
+	| id TOKEN_COLON type TOKEN_COMMA param { $$ = param_list_create((char *)$1->name, $3, $5);}
 	;
 
-brace_list : brace
-	| TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_COMMA brace_list
-	| TOKEN_L_BRACE brace_list TOKEN_R_BRACE
+brace_list : brace { $$ = $1;}
+	;
 
-brace: expr TOKEN_COMMA brace
+
+brace: expr TOKEN_COMMA brace { $1->next = $3; $$ = $1;}
 	| expr { $$ = $1;}
 	;
 
 arg_list : arg { $$ = $1; }
 	;
 
-arg: expr TOKEN_COMMA arg  /* multiple arg */
+arg: expr TOKEN_COMMA arg  /* multiple arg */ { $1->next = $3; $$ = $1;}
 	| expr /* single arg */  { $$ = $1; }
 	;
 
 
 for_expr: expr { $$ = $1; }
-	| { $$ = NULL; }
+	| { $$ = 0; }
 	;
 
 
-type : TOKEN_INTEGER { $$ = type_create(TYPE_INTEGER, NULL, NULL); }
-	| TOKEN_FLOAT { $$ = type_create(TYPE_FLOAT, NULL, NULL); }
-	| TOKEN_BOOLEAN { $$ = type_create(TYPE_BOOLEAN, NULL, NULL); }
-	| TOKEN_CHARACTER { $$ = type_create(TYPE_CHARACTER, NULL, NULL); }
-	| TOKEN_STRING { $$ = type_create(TYPE_STRING, NULL, NULL); }
-	| TOKEN_VOID { $$ = type_create(TYPE_VOID, NULL, NULL); }
-	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */ { $$ = type_create(TYPE_ARRAY, $4, NULL); }
-	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */  { $$ = type_create(TYPE_ARRAY, $5, NULL); } 
+type : TOKEN_INTEGER { $$ = type_create(TYPE_INTEGER, 0, 0); }
+	| TOKEN_FLOAT { $$ = type_create(TYPE_FLOAT, 0, 0); }
+	| TOKEN_BOOLEAN { $$ = type_create(TYPE_BOOLEAN, 0, 0); }
+	| TOKEN_CHARACTER { $$ = type_create(TYPE_CHARACTER, 0, 0); }
+	| TOKEN_STRING { $$ = type_create(TYPE_STRING, 0, 0); }
+	| TOKEN_VOID { $$ = type_create(TYPE_VOID, 0, 0); }
+	| TOKEN_ARRAY TOKEN_L_BRACKET TOKEN_R_BRACKET type /* [] */ { $$ = type_create(TYPE_ARRAY, $4, 0); }
+	| TOKEN_ARRAY TOKEN_L_BRACKET expr TOKEN_R_BRACKET type /* array [expr] integer */  { $$ = type_create(TYPE_ARRAY, $5, 0); } 
 	/* TODO: HANDLE ARRAY LENGTH */
 	| TOKEN_FUNCTION type TOKEN_L_PAREN param_list TOKEN_R_PAREN /* function */  { $$ = type_create(TYPE_FUNCTION, $2, $4);}
 	;
@@ -213,13 +213,13 @@ expr_exp	: expr_unary TOKEN_EXP expr_exp { $$ = expr_create(EXPR_EXP, $1, $3);}
 			| expr_unary { $$ = $1; }
 			;
 
-expr_unary : TOKEN_SUB expr_unary  { $$ = expr_create(EXPR_NEG, NULL, $2);}
-			| TOKEN_NOT expr_unary   { $$ = expr_create(EXPR_NOT, NULL, $2);}
+expr_unary : TOKEN_SUB expr_unary  { $$ = expr_create(EXPR_NEG, 0, $2);}
+			| TOKEN_NOT expr_unary   { $$ = expr_create(EXPR_NOT, 0, $2);}
 			| exp_post { $$ = $1; }
 			;
 
-exp_post : factor TOKEN_POSTINC { $$ = expr_create(EXPR_POSTINC, $1, NULL);}
-	| factor TOKEN_POSTDEC { $$ = expr_create(EXPR_POSTDEC, $1, NULL);}
+exp_post : factor TOKEN_POSTINC { $$ = expr_create(EXPR_POSTINC, $1, 0);}
+	| factor TOKEN_POSTDEC { $$ = expr_create(EXPR_POSTDEC, $1, 0);}
 	| factor { $$ = $1; }
 	;
 
@@ -228,7 +228,7 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN { $$ = $2; }
 	| literal { $$ = $1; }
 	| id { $$ = $1;}
 	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, $3);}
-	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, NULL); }  /* function call without args */
+	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, 0); }  /* function call without args */
 	; 
 
 arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR_ARRAY, $1, $3);}

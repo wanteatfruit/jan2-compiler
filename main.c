@@ -102,7 +102,9 @@ int main(int argc, char *argv[])
             return 1;
         }
         //print
-        decl_print(program_result, 0);
+        if(program_result){
+            decl_print(program_result, 0);
+        }
 
     }
     else

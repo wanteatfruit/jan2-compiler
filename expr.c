@@ -1,4 +1,5 @@
 #include "expr.h"
+#include <string.h>
 #include <stdlib.h>
 
 struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
@@ -6,13 +7,14 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
     e->kind = kind;
     e->left = left;
     e->right = right;
+    // e->next = next; //chaining exprs in comma separated lists
     return e;
 }
 
 struct expr *expr_create_name(const char *n)
 {
     struct expr *e = malloc(sizeof(*e));
-    e->name = n;
+    e->name = strdup(n);
     e->kind = EXPR_IDENTIFIER;
     return e;
 }
@@ -44,7 +46,7 @@ struct expr *expr_create_char_literal(char c)
 struct expr *expr_create_string_literal(const char *str)
 {
     struct expr *e = malloc(sizeof(*e));
-    e->string_literal = str;
+    e->string_literal = strdup(str);
     e->kind = EXPR_STRING_LITERAL;
     return e;
 }
@@ -59,6 +61,7 @@ struct expr *expr_create_float_literal(float f){
 void expr_print(struct expr *e)
 {
     if(!e) return;
+    // printf("printing expr\n");
     if(e->kind == EXPR_ADD){
         expr_print(e->left);
         printf(" + ");
@@ -126,6 +129,7 @@ void expr_print(struct expr *e)
         printf(" = ");
         expr_print(e->right);
     }else if(e->kind == EXPR_IDENTIFIER){
+        // printf("printing identifier\n");
         printf("%s", e->name);
     }else if(e->kind == EXPR_INTEGER_LITERAL){
         printf("%d", e->literal_value);
@@ -136,7 +140,9 @@ void expr_print(struct expr *e)
             printf("true");
         }
     }else if(e->kind == EXPR_CHARACTER_LITERAL){
-        printf("%c", e->literal_value);
+        printf("\'");
+        printf("%c", (char) e->literal_value);
+        printf("\'");
     }else if(e->kind == EXPR_STRING_LITERAL){
         printf("%s", e->string_literal);
     }else if(e->kind == EXPR_ARRAY){

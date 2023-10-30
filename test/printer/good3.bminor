@@ -1,7 +1,7 @@
 /* A function contains a sequence of statements */
 /* Some of those statements can be decls */
 
-simplefunc: function void () = {
+simplefunc: function void (s: string) = {
      x: integer;
      y: integer = 20;
      s: string = "hello world";

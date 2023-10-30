@@ -19,12 +19,13 @@ void stmt_print(struct stmt *s, int indent)
 {
     if(!s) return;
     // print according to kind
+    printf("printing stmt\n");
     if(s->kind == STMT_DECL){
         decl_print(s->decl, indent);
     }else if(s->kind == STMT_EXPR){
         print_indent(indent);
         expr_print(s->expr);
-        printf(";\n");
+        // printf(";\n");
     }else if(s->kind == STMT_IF_ELSE){
         print_indent(indent);
         printf("if(");
