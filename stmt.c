@@ -35,8 +35,8 @@ void stmt_print(struct stmt *s, int indent)
         printf("}");
         if(s->else_body){
             printf(" else {\n");
-            print_indent(indent);
-            stmt_print(s->else_body, indent); //else body
+            // print_indent(indent);
+            stmt_print(s->else_body, indent+1); //else body
             print_indent(indent);
             printf("}\n");
         }else{

@@ -27,7 +27,7 @@ void type_print( struct type *t ){
         if(t->length){
             expr_print(t->length);
         }
-        printf("] ");
+        printf("]");
         type_print(t->subtype);
     }else if(t->kind == TYPE_FUNCTION){
         type_print(t->subtype);
