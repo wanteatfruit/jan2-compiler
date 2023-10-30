@@ -1,10 +1,14 @@
-/* Try accesssing arrays of various sizes; */
+main: function integer()={
 
-//need to fix empty arg_list
-
-testfunc: function integer () = {
-    i: integer;
-    j: integer;
-
-    f();
+	x: integer = 5;
+	for(i<=5;;i++){
+		print "Loop", i;
+	}if(true){
+			for(x=5;x<M;){
+		y++;
+	}
+		return x-k[2];
+	}for(;;){
+		y++;
+	}
 }

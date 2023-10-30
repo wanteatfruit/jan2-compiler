@@ -135,6 +135,12 @@ void expr_print(struct expr *e)
         expr_print(e->left);
         printf(" = ");
         expr_print(e->right);
+    }else if(e->kind == EXPR_POSTDEC){
+        expr_print(e->left);
+        printf("--");
+    }else if(e->kind == EXPR_POSTINC){
+        expr_print(e->left);
+        printf("++");
     }else if(e->kind == EXPR_IDENTIFIER){
         // printf("printing identifier\n");
         printf("%s", e->name);
