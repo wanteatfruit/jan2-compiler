@@ -24,13 +24,14 @@ typedef enum {
 	EXPR_POSTINC,
 	EXPR_POSTDEC,
 	EXPR_FUNC,
-	EXPR_ARRAY,
+	EXPR_ARRAY_SUB,
 	EXPR_IDENTIFIER,
 	EXPR_INTEGER_LITERAL,
 	EXPR_CHARACTER_LITERAL,
 	EXPR_STRING_LITERAL,
 	EXPR_BOOLEAN_LITERAL,
-	EXPR_FLOAT_LITERAL
+	EXPR_FLOAT_LITERAL,
+	EXPR_ARRAY_LITERAL
 
 
 
@@ -49,6 +50,7 @@ struct expr {
 	const char * string_literal;
 	struct symbol *symbol;
 	struct expr *next; //used for function arguments
+	struct expr *inside; //used for parenthesis
 };
 
 struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right );
@@ -59,7 +61,7 @@ struct expr * expr_create_boolean_literal( int c );
 struct expr * expr_create_char_literal( char c );
 struct expr * expr_create_string_literal( const char *str );
 struct expr * expr_create_float_literal( float f );
-
+struct expr * expr_create_paren( expr_t kind, struct expr *inside);
 void expr_print( struct expr *e );
 
 #endif

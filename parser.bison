@@ -126,7 +126,7 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, 0, 0, 0); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, $5, 0, 0); }
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE arg_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create((char *)$1->name, $3, $6, 0, 0); }
+	// | id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE arg_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create((char *)$1->name, $3, $6, 0, 0); }
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create((char *)$1->name, $3, 0, $6, 0); }
 	;
 
@@ -222,7 +222,7 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN { $$ = $2; }
 	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, 0); }  /* function call without args */
 	; 
 
-arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR_ARRAY, $1, $3);}
+arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR_ARRAY_SUB, $1, $3);}
 	;
 		 
 
@@ -232,6 +232,7 @@ literal : TOKEN_INTEGER_LITERAL { $$ = expr_create_integer_literal(atoi(yytext))
 	| TOKEN_STRING_LITERAL { $$ = expr_create_string_literal(yytext); }
 	| TOKEN_TRUE { $$ = expr_create_boolean_literal(1); }
 	| TOKEN_FALSE { $$ = expr_create_boolean_literal(0); }
+	| TOKEN_L_BRACE arg_list TOKEN_R_BRACE { $$ = expr_create_paren(EXPR_ARRAY_LITERAL, $2); }
 	;
 
 

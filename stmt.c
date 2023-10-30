@@ -50,8 +50,10 @@ void stmt_print(struct stmt *s, int indent)
         expr_print(s->expr);
         printf("; ");
         expr_print(s->next_expr);
-        printf(")\n");
+        printf(") {\n");
         stmt_print(s->body, indent+1);
+        print_indent(indent);
+        printf("}\n");
     }else if(s->kind == STMT_PRINT){
         print_indent(indent);
         printf("print ");
