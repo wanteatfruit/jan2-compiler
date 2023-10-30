@@ -1,8 +1,8 @@
 #!/bin/sh
 
-for testfile in test/parser/good*.bminor
+for testfile in test/printer/good*.bminor
 do
-	if ./bminor --parse $testfile > $testfile.out
+	if ./bminor --print $testfile > $testfile.out
 	then
 		echo "$testfile success (as expected)"
 	else
@@ -10,12 +10,12 @@ do
 	fi
 done
 
-for testfile in test/parser/bad*.bminor
-do
-	if ./bminor --parse $testfile > $testfile.out
-	then
-		echo "$testfile success (INCORRECT)"
-	else
-		echo "$testfile failure (as expected)"
-	fi
-done
+# for testfile in test/printer/bad*.bminor
+# do
+# 	if ./bminor --print $testfile > $testfile.out
+# 	then
+# 		echo "$testfile success (INCORRECT)"
+# 	else
+# 		echo "$testfile failure (as expected)"
+# 	fi
+# done
