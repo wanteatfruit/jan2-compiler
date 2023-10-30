@@ -141,7 +141,7 @@ void expr_print(struct expr *e)
         }
     }else if(e->kind == EXPR_CHARACTER_LITERAL){
         printf("\'");
-        printf("%c", (char) e->literal_value);
+        printf("%c",  e->literal_value);
         printf("\'");
     }else if(e->kind == EXPR_STRING_LITERAL){
         printf("%s", e->string_literal);
@@ -155,7 +155,12 @@ void expr_print(struct expr *e)
         printf("(");
         expr_print(e->right);
         printf(")");
-    }else{
+    }else if(e->next){
+        printf("next\n");
+        printf(", ");
+        expr_print(e->next);
+    }
+    else{
         printf("Invalid expression kind\n");
     }
 

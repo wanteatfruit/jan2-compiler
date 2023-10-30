@@ -7,3 +7,4 @@ c: boolean = true;
 s: string;
 t: string = "hello\n";
 d: char;
+e: char = 'a';

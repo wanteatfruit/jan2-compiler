@@ -19,7 +19,6 @@ void stmt_print(struct stmt *s, int indent)
 {
     if(!s) return;
     // print according to kind
-    printf("printing stmt\n");
     if(s->kind == STMT_DECL){
         decl_print(s->decl, indent);
     }else if(s->kind == STMT_EXPR){
@@ -30,8 +29,9 @@ void stmt_print(struct stmt *s, int indent)
         print_indent(indent);
         printf("if(");
         expr_print(s->expr);
-        printf(")\n");
+        printf(") {\n");
         stmt_print(s->body, indent+1); //if body
+        printf("}");
         if(s->else_body){
             printf(" else {\n");
             print_indent(indent);

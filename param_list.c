@@ -16,5 +16,6 @@ void param_list_print( struct param_list *a ){
         printf(", ");
         a = a->next;
         printf("%s: ", a->name);
+        type_print(a->type);
     }
 }

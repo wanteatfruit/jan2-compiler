@@ -81,7 +81,7 @@
 
 %type <decl> program decl_list decl
 %type <stmt> stmt_list stmt if_nest
-%type <expr> expr expr_or expr_and expr_comp expr_add expr_mul expr_exp expr_unary exp_post factor arr_subscr literal arg_list arg brace_list brace for_expr id
+%type <expr> expr expr_or expr_and expr_comp expr_add expr_mul expr_exp expr_unary exp_post factor arr_subscr literal arg_list arg  for_expr id
 %type <type> type
 %type <param_list> param_list param
 
@@ -126,7 +126,7 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, 0, 0, 0); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, $5, 0, 0); }
-	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE brace_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create((char *)$1->name, $3, $6, 0, 0); }
+	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE arg_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create((char *)$1->name, $3, $6, 0, 0); }
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create((char *)$1->name, $3, 0, $6, 0); }
 	;
 
@@ -136,14 +136,6 @@ param_list :  param   { $$ = $1; }
 
 param : id TOKEN_COLON type { $$ = param_list_create((char *)$1->name, $3, 0);}
 	| id TOKEN_COLON type TOKEN_COMMA param { $$ = param_list_create((char *)$1->name, $3, $5);}
-	;
-
-brace_list : brace { $$ = $1;}
-	;
-
-
-brace: expr TOKEN_COMMA brace { $1->next = $3; $$ = $1;}
-	| expr { $$ = $1;}
 	;
 
 arg_list : arg { $$ = $1; }
@@ -237,7 +229,7 @@ arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR
 
 literal : TOKEN_INTEGER_LITERAL { $$ = expr_create_integer_literal(atoi(yytext)); }
 	| TOKEN_FLOAT_LITERAL { $$ = expr_create_float_literal(atof(yytext)); }
-	| TOKEN_CHARACTER_LITERAL { $$ = expr_create_char_literal(yytext[0]); }
+	| TOKEN_CHARACTER_LITERAL { $$ = expr_create_char_literal(yytext[1]); } /* only one character */
 	| TOKEN_STRING_LITERAL { $$ = expr_create_string_literal(yytext); }
 	| TOKEN_TRUE { $$ = expr_create_boolean_literal(1); }
 	| TOKEN_FALSE { $$ = expr_create_boolean_literal(0); }
