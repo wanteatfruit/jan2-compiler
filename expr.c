@@ -64,27 +64,27 @@ void expr_print(struct expr *e)
     // printf("printing expr\n");
     if(e->kind == EXPR_ADD){
         expr_print(e->left);
-        printf(" + ");
+        printf("+");
         expr_print(e->right);
     }else if(e->kind == EXPR_SUB){
         expr_print(e->left);
-        printf(" - ");
+        printf("-");
         expr_print(e->right);
     }else if(e->kind == EXPR_MUL){
         expr_print(e->left);
-        printf(" * ");
+        printf("*");
         expr_print(e->right);
     }else if(e->kind == EXPR_DIV){
         expr_print(e->left);
-        printf(" / ");
+        printf("/");
         expr_print(e->right);
     }else if(e->kind == EXPR_MOD){
         expr_print(e->left);
-        printf(" %% ");
+        printf("%%");
         expr_print(e->right);
     }else if(e->kind == EXPR_EXP){
         expr_print(e->left);
-        printf(" ^ ");
+        printf("^");
         expr_print(e->right);
     }else if(e->kind == EXPR_NOT){
         printf("!");
@@ -94,39 +94,39 @@ void expr_print(struct expr *e)
         expr_print(e->right);
     }else if(e->kind == EXPR_LESS){
         expr_print(e->left);
-        printf(" < ");
+        printf("<");
         expr_print(e->right);
     }else if(e->kind == EXPR_LE){
         expr_print(e->left);
-        printf(" <= ");
+        printf("<=");
         expr_print(e->right);
     }else if(e->kind == EXPR_GREATER){
         expr_print(e->left);
-        printf(" > ");
+        printf(">");
         expr_print(e->right);
     }else if(e->kind == EXPR_GE){
         expr_print(e->left);
-        printf(" >= ");
+        printf(">=");
         expr_print(e->right);
     }else if(e->kind == EXPR_EQUAL){
         expr_print(e->left);
-        printf(" == ");
+        printf("==");
         expr_print(e->right);
     }else if(e->kind == EXPR_NEQUAL){
         expr_print(e->left);
-        printf(" != ");
+        printf("!=");
         expr_print(e->right);
     }else if(e->kind == EXPR_AND){
         expr_print(e->left);
-        printf(" && ");
+        printf("&&");
         expr_print(e->right);
     }else if(e->kind == EXPR_OR){
         expr_print(e->left);
-        printf(" || ");
+        printf("||");
         expr_print(e->right);
     }else if(e->kind == EXPR_ASSIGN){
         expr_print(e->left);
-        printf(" = ");
+        printf("=");
         expr_print(e->right);
     }else if(e->kind == EXPR_POSTDEC){
         expr_print(e->left);
@@ -185,7 +185,6 @@ void expr_print(struct expr *e)
                 expr_print(e->next);
                 e = e->next;
             }
-            
         }
         printf(")");
     }else if(e->next){
