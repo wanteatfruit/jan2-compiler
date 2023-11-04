@@ -35,7 +35,7 @@ void expr_resolve(struct expr *e)
             }
             else if (e->symbol->kind == SYMBOL_LOCAL)
             {
-                printf("%s resolves to local \n", e->symbol->name);
+                printf("%s resolves to local ", e->symbol->name);
                 expr_print(e->symbol->value);
                 printf("\n");
             }
