@@ -16,7 +16,6 @@ void expr_resolve(struct expr *e)
 {
     if (!e)
         return;
-    
 
     if (e->kind == EXPR_IDENTIFIER) // for declared variables
     {
@@ -30,11 +29,15 @@ void expr_resolve(struct expr *e)
         {
             if (e->symbol->kind == SYMBOL_GLOBAL)
             {
-                printf("%s resolves to global %d\n", e->symbol->name, e->symbol->which);
+                printf("%s resolves to global ", e->symbol->name);
+                expr_print(e->symbol->value);
+                printf("\n");
             }
             else if (e->symbol->kind == SYMBOL_LOCAL)
             {
                 printf("%s resolves to local \n", e->symbol->name);
+                expr_print(e->symbol->value);
+                printf("\n");
             }
             else if (e->symbol->kind == SYMBOL_PARAM)
             {

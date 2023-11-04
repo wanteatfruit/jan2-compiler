@@ -39,6 +39,7 @@ struct symbol * scope_lookup(const char *name){
         }
         current = current->next;
     }
+    return NULL;
 }
 
 struct symbol * scope_lookup_current(const char *name){

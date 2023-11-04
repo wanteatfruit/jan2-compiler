@@ -22,6 +22,7 @@ void decl_resolve( struct decl *d ){
     if(d->value){
         expr_resolve(d->value);
         scope_bind(d->name, d->symbol);
+        d->symbol->value = d->value;
         printf("%s added to scope\n", d->name);
     }
     if(d->code){ // scope
