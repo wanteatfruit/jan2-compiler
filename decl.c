@@ -22,8 +22,10 @@ void decl_resolve( struct decl *d ){
     if(d->value){
         expr_resolve(d->value);
         scope_bind(d->name, d->symbol);
+        printf("%s added to scope\n", d->name);
     }
     if(d->code){ // scope
+        printf("func %s added to scope\n", d->name);
         scope_enter();
         param_list_resolve(d->type->params);
         stmt_resolve(d->code);

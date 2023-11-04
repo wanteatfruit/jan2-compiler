@@ -127,7 +127,6 @@ if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /
 
 decl : id TOKEN_COLON type TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, 0, 0, 0); }
 	| id TOKEN_COLON type TOKEN_ASSIGN expr TOKEN_SEMICOLON { $$ = decl_create((char *)$1->name, $3, $5, 0, 0); }
-	// | id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE arg_list TOKEN_R_BRACE TOKEN_SEMICOLON  { $$ = decl_create((char *)$1->name, $3, $6, 0, 0); }
 	| id TOKEN_COLON type TOKEN_ASSIGN TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = decl_create((char *)$1->name, $3, 0, $6, 0); }
 	;
 

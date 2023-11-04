@@ -3,7 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
+struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right)
+{
     struct expr *e = malloc(sizeof(*e));
     e->kind = kind;
     e->left = left;
@@ -11,32 +12,47 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
     return e;
 }
 
-void expr_resolve(struct expr *e){
-    if(!e) return;
-    //only need to resolve identifier, e.g. a = 1;
-    if(e->kind == EXPR_IDENTIFIER){
+void expr_resolve(struct expr *e)
+{
+    if (!e)
+        return;
+    
+
+    if (e->kind == EXPR_IDENTIFIER) // for declared variables
+    {
         e->symbol = scope_lookup(e->name);
-        if(!e->symbol){
+        if (!e->symbol)
+        {
             printf("resolve error: %s is not defined\n", e->name);
             return;
-        } else if(e->symbol->kind == SYMBOL_GLOBAL){
-            printf("%s resolves to global \n", e->symbol->name);
-        } else if( e->symbol->kind == SYMBOL_LOCAL){
-            printf("%s resolves to local \n", e->symbol->name);
-        } else if( e->symbol->kind == SYMBOL_PARAM){
-            printf("%s resolves to param \n", e->symbol->name);
         }
-    }else{
+        else
+        {
+            if (e->symbol->kind == SYMBOL_GLOBAL)
+            {
+                printf("%s resolves to global %d\n", e->symbol->name, e->symbol->which);
+            }
+            else if (e->symbol->kind == SYMBOL_LOCAL)
+            {
+                printf("%s resolves to local \n", e->symbol->name);
+            }
+            else if (e->symbol->kind == SYMBOL_PARAM)
+            {
+                printf("%s resolves to param \n", e->symbol->name);
+            }
+        }
+    }
+    else
+    {
         expr_resolve(e->left);
         expr_resolve(e->right);
     }
 }
 
-
 struct expr *expr_create_name(const char *n)
 {
     struct expr *e = malloc(sizeof(*e));
-    e->name = strdup(n); //avoid memory leak
+    e->name = strdup(n); // avoid memory leak
     e->kind = EXPR_IDENTIFIER;
     return e;
 }
@@ -74,9 +90,10 @@ struct expr *expr_create_string_literal(const char *str)
     return e;
 }
 
-struct expr *expr_create_float_literal(const char *float_str, double float_val){
+struct expr *expr_create_float_literal(const char *float_str, double float_val)
+{
     struct expr *e = malloc(sizeof(*e));
-    e->string_literal = strdup(float_str); //use string to print 
+    e->string_literal = strdup(float_str); // use string to print
     e->float_value = float_val;
     e->kind = EXPR_FLOAT_LITERAL;
     return e;
@@ -84,110 +101,168 @@ struct expr *expr_create_float_literal(const char *float_str, double float_val){
 
 void expr_print(struct expr *e)
 {
-    if(!e) return;
+    if (!e)
+        return;
     // printf("printing expr\n");
-    if(e->kind == EXPR_ADD){
+    if (e->kind == EXPR_ADD)
+    {
         expr_print(e->left);
         printf("+");
         expr_print(e->right);
-    }else if(e->kind == EXPR_SUB){
+    }
+    else if (e->kind == EXPR_SUB)
+    {
         expr_print(e->left);
         printf("-");
         expr_print(e->right);
-    }else if(e->kind == EXPR_MUL){
+    }
+    else if (e->kind == EXPR_MUL)
+    {
         expr_print(e->left);
         printf("*");
         expr_print(e->right);
-    }else if(e->kind == EXPR_DIV){
+    }
+    else if (e->kind == EXPR_DIV)
+    {
         expr_print(e->left);
         printf("/");
         expr_print(e->right);
-    }else if(e->kind == EXPR_MOD){
+    }
+    else if (e->kind == EXPR_MOD)
+    {
         expr_print(e->left);
         printf("%%");
         expr_print(e->right);
-    }else if(e->kind == EXPR_EXP){
+    }
+    else if (e->kind == EXPR_EXP)
+    {
         expr_print(e->left);
         printf("^");
         expr_print(e->right);
-    }else if(e->kind == EXPR_NOT){
+    }
+    else if (e->kind == EXPR_NOT)
+    {
         printf("!");
         expr_print(e->right);
-    }else if(e->kind == EXPR_NEG){
+    }
+    else if (e->kind == EXPR_NEG)
+    {
         printf("-");
         expr_print(e->right);
-    }else if(e->kind == EXPR_LESS){
+    }
+    else if (e->kind == EXPR_LESS)
+    {
         expr_print(e->left);
         printf("<");
         expr_print(e->right);
-    }else if(e->kind == EXPR_LE){
+    }
+    else if (e->kind == EXPR_LE)
+    {
         expr_print(e->left);
         printf("<=");
         expr_print(e->right);
-    }else if(e->kind == EXPR_GREATER){
+    }
+    else if (e->kind == EXPR_GREATER)
+    {
         expr_print(e->left);
         printf(">");
         expr_print(e->right);
-    }else if(e->kind == EXPR_GE){
+    }
+    else if (e->kind == EXPR_GE)
+    {
         expr_print(e->left);
         printf(">=");
         expr_print(e->right);
-    }else if(e->kind == EXPR_EQUAL){
+    }
+    else if (e->kind == EXPR_EQUAL)
+    {
         expr_print(e->left);
         printf("==");
         expr_print(e->right);
-    }else if(e->kind == EXPR_NEQUAL){
+    }
+    else if (e->kind == EXPR_NEQUAL)
+    {
         expr_print(e->left);
         printf("!=");
         expr_print(e->right);
-    }else if(e->kind == EXPR_AND){
+    }
+    else if (e->kind == EXPR_AND)
+    {
         expr_print(e->left);
         printf("&&");
         expr_print(e->right);
-    }else if(e->kind == EXPR_OR){
+    }
+    else if (e->kind == EXPR_OR)
+    {
         expr_print(e->left);
         printf("||");
         expr_print(e->right);
-    }else if(e->kind == EXPR_ASSIGN){
+    }
+    else if (e->kind == EXPR_ASSIGN)
+    {
         expr_print(e->left);
         printf("=");
         expr_print(e->right);
-    }else if(e->kind == EXPR_POSTDEC){
+    }
+    else if (e->kind == EXPR_POSTDEC)
+    {
         expr_print(e->left);
         printf("--");
-    }else if(e->kind == EXPR_POSTINC){
+    }
+    else if (e->kind == EXPR_POSTINC)
+    {
         expr_print(e->left);
         printf("++");
-    }else if(e->kind == EXPR_PARENTHESES){
+    }
+    else if (e->kind == EXPR_PARENTHESES)
+    {
         printf("(");
         expr_print(e->left);
         printf(")");
-    }else if(e->kind == EXPR_IDENTIFIER){
+    }
+    else if (e->kind == EXPR_IDENTIFIER)
+    {
         printf("%s", e->name);
-    }else if(e->kind == EXPR_INTEGER_LITERAL){
+    }
+    else if (e->kind == EXPR_INTEGER_LITERAL)
+    {
         printf("%d", e->literal_value);
-    }else if(e->kind == EXPR_FLOAT_LITERAL){
+    }
+    else if (e->kind == EXPR_FLOAT_LITERAL)
+    {
         printf("%s", e->string_literal);
         // printf(" (%f)", e->float_value);
     }
-    else if(e->kind == EXPR_BOOLEAN_LITERAL){
-        if(e->literal_value == 0){
+    else if (e->kind == EXPR_BOOLEAN_LITERAL)
+    {
+        if (e->literal_value == 0)
+        {
             printf("false");
-        }else{
+        }
+        else
+        {
             printf("true");
         }
-    }else if(e->kind == EXPR_CHARACTER_LITERAL){
+    }
+    else if (e->kind == EXPR_CHARACTER_LITERAL)
+    {
         printf("\'");
-        if(e->char_type == 1){ //escaped char
+        if (e->char_type == 1)
+        { // escaped char
             printf("\\");
         }
         printf("%c", e->literal_value);
         printf("\'");
-    }else if(e->kind == EXPR_STRING_LITERAL){
+    }
+    else if (e->kind == EXPR_STRING_LITERAL)
+    {
         printf("%s", e->string_literal);
-    }else if(e->kind == EXPR_ARRAY_LITERAL){
+    }
+    else if (e->kind == EXPR_ARRAY_LITERAL)
+    {
         printf("{");
-        if(e->left){
+        if (e->left)
+        {
             expr_print(e->left);
             e = e->left;
             while (e->next)
@@ -199,15 +274,19 @@ void expr_print(struct expr *e)
         }
         printf("}");
     }
-    else if(e->kind == EXPR_ARRAY_SUB){
+    else if (e->kind == EXPR_ARRAY_SUB)
+    {
         expr_print(e->left);
         printf("[");
         expr_print(e->right);
         printf("]");
-    }else if(e->kind == EXPR_FUNC){
+    }
+    else if (e->kind == EXPR_FUNC)
+    {
         expr_print(e->left);
         printf("(");
-        if(e->right){
+        if (e->right)
+        {
             expr_print(e->right);
             e = e->right;
             while (e->next)
@@ -218,14 +297,15 @@ void expr_print(struct expr *e)
             }
         }
         printf(")");
-    }else if(e->next){
+    }
+    else if (e->next)
+    {
         printf("next\n");
         printf(", ");
         expr_print(e->next);
     }
-    else{
+    else
+    {
         printf("Invalid expression kind\n");
     }
-
-
 }
