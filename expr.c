@@ -10,6 +10,12 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
     return e;
 }
 
+void expr_resolve(struct expr *e)
+{
+    if(!e) return;
+}
+
+
 struct expr *expr_create_name(const char *n)
 {
     struct expr *e = malloc(sizeof(*e));

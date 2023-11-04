@@ -64,5 +64,6 @@ struct expr * expr_create_char_literal( char c, int type );
 struct expr * expr_create_string_literal( const char *str );
 struct expr * expr_create_float_literal( const char *float_str, double float_val );
 void expr_print( struct expr *e );
+void expr_resolve( struct expr *e );
 
 #endif

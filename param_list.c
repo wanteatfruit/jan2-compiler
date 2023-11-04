@@ -20,3 +20,9 @@ void param_list_print( struct param_list *a ){
         type_print(a->type);
     }
 }
+
+void param_list_resolve( struct param_list *a ){
+    if(!a) return;
+    type_resolve(a->type);
+    param_list_resolve(a->next);
+}

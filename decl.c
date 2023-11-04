@@ -12,6 +12,23 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
     return d;
 }
 
+void decl_resolve( struct decl *d ){
+    if(!d) return;
+    // resolve type
+    type_resolve(d->type);
+    // resolve value
+    expr_resolve(d->value);
+    // resolve code
+    if(d->code){
+        scope_enter();
+        param_list_resolve(d->type->params);
+        stmt_resolve(d->code);
+        scope_exit();
+    }
+    // resolve next
+    decl_resolve(d->next);
+}
+
 void decl_print( struct decl *d, int indent ){
     if(!d) return;
     // print indent

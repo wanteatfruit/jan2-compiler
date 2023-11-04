@@ -15,6 +15,37 @@ struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_exp
     return s;
 }
 
+void stmt_resolve(struct stmt *s)
+{
+    if(!s) return;
+    // resolve according to kind
+    if(s->kind == STMT_DECL){
+        decl_resolve(s->decl);
+    }else if(s->kind == STMT_EXPR){
+        expr_resolve(s->expr);
+    }else if(s->kind == STMT_IF_ELSE){
+        expr_resolve(s->expr);
+        stmt_resolve(s->body);
+        stmt_resolve(s->else_body);
+    }else if(s->kind == STMT_FOR){
+        expr_resolve(s->init_expr);
+        expr_resolve(s->expr);
+        expr_resolve(s->next_expr);
+        stmt_resolve(s->body);
+    }else if(s->kind == STMT_PRINT){
+        expr_resolve(s->expr);
+    }else if(s->kind == STMT_RETURN){
+        expr_resolve(s->expr);
+    }else if(s->kind == STMT_BLOCK){
+        scope_enter();
+        stmt_resolve(s->body);
+        scope_exit();
+    }else{
+        printf("Invalid statement kind\n");
+    }
+    stmt_resolve(s->next);
+}
+
 void stmt_print(struct stmt *s, int indent)
 {
     if(!s) return;
