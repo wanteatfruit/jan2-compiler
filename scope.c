@@ -1,6 +1,7 @@
 #include "scope.h"
 #include "hash_table.h"
 #include "stack.h"
+#include <stdlib.h>
 
 struct stack *top = NULL; //level 0 is the top of the stack
 
@@ -30,7 +31,7 @@ void scope_bind(const char *name, struct symbol *s){
 }
 
 struct symbol * scope_lookup(const char *name){
-    struct *stack current = top;
+    struct stack *current = top;
     while(current != NULL){
         struct symbol *s = hash_table_lookup(current->table, name);
         if(s != NULL){

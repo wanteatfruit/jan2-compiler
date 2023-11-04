@@ -1,6 +1,7 @@
 #include "encoder.h"
 #include "token.h"
 #include "main.h"
+#include "scope.h"
 #include "decl.h"
 #include <stdio.h>
 #include <string.h>
@@ -17,7 +18,6 @@ extern char *yytext;
 extern char *token_names[];
 
 struct decl *program_result = 0;
-
 
 int main(int argc, char *argv[])
 {
@@ -64,11 +64,10 @@ int main(int argc, char *argv[])
             fprintf(stderr, "Scan error\n");
             return 1;
         }
-
     }
-    else if(strcmp(argv[1],"--parse") == 0)
+    else if (strcmp(argv[1], "--parse") == 0)
     {
-        //scan
+        // scan
         int scan_status = scan_tokens(input_file);
         if (scan_status != 0)
         {
@@ -80,14 +79,17 @@ int main(int argc, char *argv[])
         int status = yyparse();
         if (status != 0)
         {
-            //error message already printed in yyerror
+            // error message already printed in yyerror
             return 1;
-        }else{
+        }
+        else
+        {
             printf("Parse successful\n");
         }
-    } 
-    else if( strcmp(argv[1], "--print") == 0){
-         int scan_status = scan_tokens(input_file);
+    }
+    else if (strcmp(argv[1], "--print") == 0)
+    {
+        int scan_status = scan_tokens(input_file);
         if (scan_status != 0)
         {
             return 1;
@@ -98,14 +100,34 @@ int main(int argc, char *argv[])
         int status = yyparse();
         if (status != 0)
         {
-            //error message already printed in yyerror
+            // error message already printed in yyerror
             return 1;
         }
-        //print
-        if(program_result){
+        // print
+        if (program_result)
+        {
             decl_print(program_result, 0);
         }
-
+    }
+    else if (strcmp(argv[1], "--resolve") == 0)
+    {
+        int scan_status = scan_tokens(input_file);
+        if (scan_status != 0)
+        {
+            return 1;
+        }
+        rewind(input_file);
+        // parse
+        yyin = input_file;
+        int status = yyparse();
+        if (status != 0)
+        {
+            // error message already printed in yyerror
+            return 1;
+        }
+        // resolve
+        scope_enter(); // enter global scope
+        decl_resolve(program_result);
     }
     else
     {
@@ -116,12 +138,13 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int scan_tokens(FILE *input_file){
+int scan_tokens(FILE *input_file)
+{
     yyin = input_file;
     while (1)
     {
         enum yytokentype token = yylex();
-        
+
         if (token == TOKEN_EOF)
         {
             // printf("%s %s\n", token_names[token-258], yytext);
@@ -195,7 +218,7 @@ int scan_tokens(FILE *input_file){
     return 0;
 }
 
-//helper functions
+// helper functions
 int is_overflow_int(const char *text)
 {
     char *endptr;
@@ -208,7 +231,8 @@ int is_overflow_int(const char *text)
     return 0; // valid
 }
 
-int is_overflow_float(const char *text){
+int is_overflow_float(const char *text)
+{
     double result = atof(text);
     double pos_inf = 1.0 / 0.0;
     double neg_inf = -1.0 / 0.0;
@@ -219,7 +243,8 @@ int is_overflow_float(const char *text){
     return 0; // valid
 }
 
-int is_valid_char(const char *input, char *valid_chars){
+int is_valid_char(const char *input, char *valid_chars)
+{
     char *text = malloc(strlen(yytext) + 1);
     strcpy(text, yytext);
     text[strlen(yytext)] = '\0';
@@ -227,7 +252,8 @@ int is_valid_char(const char *input, char *valid_chars){
     return status;
 }
 
-int is_valid_string(const char *input, char *valid_chars){
+int is_valid_string(const char *input, char *valid_chars)
+{
     char *text = malloc(strlen(yytext) + 1);
     strcpy(text, yytext);
     text[strlen(yytext)] = '\0';

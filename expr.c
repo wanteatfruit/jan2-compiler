@@ -1,4 +1,5 @@
 #include "expr.h"
+#include "scope.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -10,9 +11,25 @@ struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right ){
     return e;
 }
 
-void expr_resolve(struct expr *e)
-{
+void expr_resolve(struct expr *e){
     if(!e) return;
+    //only need to resolve identifier, e.g. a = 1;
+    if(e->kind == EXPR_IDENTIFIER){
+        e->symbol = scope_lookup(e->name);
+        if(!e->symbol){
+            printf("resolve error: %s is not defined\n", e->name);
+            return;
+        } else if(e->symbol->kind == SYMBOL_GLOBAL){
+            printf("%s resolves to global \n", e->symbol->name);
+        } else if( e->symbol->kind == SYMBOL_LOCAL){
+            printf("%s resolves to local \n", e->symbol->name);
+        } else if( e->symbol->kind == SYMBOL_PARAM){
+            printf("%s resolves to param \n", e->symbol->name);
+        }
+    }else{
+        expr_resolve(e->left);
+        expr_resolve(e->right);
+    }
 }
 
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-for testfile in test/printer/good*.bminor
+for testfile in test/resolver/good*.bminor
 do
-	if ./bminor --print $testfile > $testfile.out
+	if ./bminor --resolve $testfile > $testfile.out
 	then
 		echo "$testfile success (as expected)"
 	else

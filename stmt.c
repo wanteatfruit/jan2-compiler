@@ -1,4 +1,5 @@
 #include "stmt.h"
+#include "scope.h"
 #include <stdlib.h>
 
 struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_expr, struct expr *expr, struct expr *next_expr, struct stmt *body, struct stmt *else_body, struct stmt *next )
@@ -19,31 +20,45 @@ void stmt_resolve(struct stmt *s)
 {
     if(!s) return;
     // resolve according to kind
+
     if(s->kind == STMT_DECL){
         decl_resolve(s->decl);
     }else if(s->kind == STMT_EXPR){
         expr_resolve(s->expr);
     }else if(s->kind == STMT_IF_ELSE){
-        expr_resolve(s->expr);
-        stmt_resolve(s->body);
-        stmt_resolve(s->else_body);
+        expr_resolve(s->expr); // if condition
+        scope_enter(); // if body scope
+        stmt_resolve(s->body); // if body
+        scope_exit(); // exit if body scope
+        if(s->else_body){
+            scope_enter(); // else body scope
+            stmt_resolve(s->else_body); // else body
+            scope_exit(); // exit else body scope
+        }
     }else if(s->kind == STMT_FOR){
-        expr_resolve(s->init_expr);
-        expr_resolve(s->expr);
-        expr_resolve(s->next_expr);
-        stmt_resolve(s->body);
+        expr_resolve(s->init_expr); 
+        expr_resolve(s->expr); 
+        expr_resolve(s->next_expr); 
+        scope_enter(); // for body scope
+        stmt_resolve(s->body); // for body
+        scope_exit(); // exit for body scope
     }else if(s->kind == STMT_PRINT){
-        expr_resolve(s->expr);
+        struct expr *print = s->expr;
+        while(print){
+            expr_resolve(print);
+            print = print->next;
+        }
     }else if(s->kind == STMT_RETURN){
         expr_resolve(s->expr);
     }else if(s->kind == STMT_BLOCK){
-        scope_enter();
-        stmt_resolve(s->body);
+        scope_enter(); // block scope
+        stmt_resolve(s->body); // block body
         scope_exit();
     }else{
         printf("Invalid statement kind\n");
     }
     stmt_resolve(s->next);
+
 }
 
 void stmt_print(struct stmt *s, int indent)

@@ -1,4 +1,5 @@
 #include "decl.h"
+#include "scope.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -14,19 +15,24 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
 
 void decl_resolve( struct decl *d ){
     if(!d) return;
-    // resolve type
-    type_resolve(d->type);
-    // resolve value
-    expr_resolve(d->value);
-    // resolve code
-    if(d->code){
+
+    symbol_t kind = scope_level() > 0 ? SYMBOL_LOCAL : SYMBOL_GLOBAL;
+    d->symbol = symbol_create(kind, d->type, d->name);
+
+    if(d->value){
+        expr_resolve(d->value);
+        scope_bind(d->name, d->symbol);
+    }
+    if(d->code){ // scope
         scope_enter();
         param_list_resolve(d->type->params);
         stmt_resolve(d->code);
         scope_exit();
     }
-    // resolve next
+
     decl_resolve(d->next);
+
+
 }
 
 void decl_print( struct decl *d, int indent ){
