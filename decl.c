@@ -21,8 +21,8 @@ void decl_resolve( struct decl *d ){
 
     if(d->value){
         if(existing_symbol && kind == existing_symbol->kind){
-            printf("ERROR: duplicate declaration of %s\n", d->name);
-            // exit(1);
+            printf("resolve error: duplicate declaration of %s\n", d->name);
+            exit(1);
         }
         expr_resolve(d->value);
         scope_bind(d->name, d->symbol);
@@ -35,7 +35,7 @@ void decl_resolve( struct decl *d ){
 
             
         }
-        printf("func %s added to scope\n", d->name);
+        // printf("func %s added to scope\n", d->name);
         scope_enter();
         param_list_resolve(d->type->params);
         stmt_resolve(d->code);
@@ -47,7 +47,7 @@ void decl_resolve( struct decl *d ){
             exit(1);
         }
         d->symbol->is_prototype = 1;
-        printf("func prototype %s added to scope\n", d->name);
+        // printf("func prototype %s added to scope\n", d->name);
         scope_enter();
         param_list_resolve(d->type->params);
         scope_exit();
