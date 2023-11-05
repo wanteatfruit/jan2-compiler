@@ -111,13 +111,13 @@ stmt : decl  /* stmt decl */ { $$ = stmt_create(STMT_DECL, $1, 0, 0, 0, 0, 0, 0)
 	| TOKEN_FOR TOKEN_L_PAREN for_expr TOKEN_SEMICOLON for_expr TOKEN_SEMICOLON for_expr TOKEN_R_PAREN stmt /* stmt for */ { $$ = stmt_create(STMT_FOR, 0, $3, $5, $7, $9, 0, 0); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt /* stmt if */ { $$ = stmt_create(STMT_IF_ELSE, 0, 0, $3, 0, $5, 0, 0); }
 	| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE stmt /* stmt if else */ { $$ = stmt_create(STMT_IF_ELSE, 0, 0, $3, 0, $5, $7, 0); }
-	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE /* stmt block */ { $$ = $2; }
+	| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE /* stmt block */ { $$ = stmt_create(STMT_BLOCK,0,0,0,0,$2,0,0); }
 	;
 
 if_nest : TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if_nest TOKEN_ELSE if_nest /* if nest */ { $$ = stmt_create(STMT_IF_ELSE, 0, 0, $3, 0, $5, $7, 0); }
 		| decl { $$ = stmt_create(STMT_DECL, $1, 0, 0, 0, 0, 0, 0); }
 		| expr TOKEN_SEMICOLON { $$ = stmt_create(STMT_EXPR, 0, 0, $1, 0, 0, 0, 0); }
-		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = $2;}
+		| TOKEN_L_BRACE stmt_list TOKEN_R_BRACE { $$ = stmt_create(STMT_BLOCK,0,0,0,0,$2,0,0);}
 		| TOKEN_PRINT arg_list TOKEN_SEMICOLON /* stmt print */ { $$ = stmt_create(STMT_PRINT, 0, 0, $2, 0, 0, 0, 0); }
 		| TOKEN_PRINT TOKEN_SEMICOLON /* stmt empty print */ { $$ = stmt_create(STMT_PRINT, 0, 0, 0, 0, 0, 0, 0); }
 		| TOKEN_RETURN expr TOKEN_SEMICOLON /* stmt return */ { $$ = stmt_create(STMT_RETURN, 0, 0, $2, 0, 0, 0, 0); }

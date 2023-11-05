@@ -20,6 +20,7 @@ void decl_resolve( struct decl *d ){
     d->symbol = symbol_create(kind, d->type, d->name);
 
     if(d->value){
+        printf("currect scope: %d\n", scope_level());
         if(existing_symbol && kind == existing_symbol->kind){
             printf("resolve error: duplicate declaration of %s\n", d->name);
             exit(1);
@@ -56,8 +57,6 @@ void decl_resolve( struct decl *d ){
     }
 
     decl_resolve(d->next);
-
-
 }
 
 void decl_print( struct decl *d, int indent ){
