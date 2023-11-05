@@ -16,6 +16,7 @@ struct symbol {
 	char *name;
 	int which;
 
+	int is_prototype; // for functions
 	//for literal values
 	struct expr *value;
 };
