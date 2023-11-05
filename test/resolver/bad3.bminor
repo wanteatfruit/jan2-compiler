@@ -1,0 +1,5 @@
+func1: function void (s:string);
+
+func1: function integer (s:string) = {
+    return 1;
+}

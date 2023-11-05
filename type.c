@@ -1,4 +1,5 @@
 #include "type.h"
+#include "expr.h"
 #include <stdlib.h>
 
 struct type * type_create( type_t kind, struct type *subtype, struct param_list *params ){
@@ -16,6 +17,15 @@ struct type * type_create_with_length( type_t kind, struct type *subtype, struct
     t->params = params;
     t->length = length;
     return t;
+}
+
+int type_equals(struct type *a, struct type *b){
+    if(a->kind != b->kind) return 0;
+    //check sub types
+    if(a->subtype && b->subtype){
+        if(!type_equals(a->subtype, b->subtype)) return 0;
+    }
+    return 1;
 }
 
 void type_print( struct type *t ){

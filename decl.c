@@ -27,13 +27,14 @@ void decl_resolve( struct decl *d ){
         expr_resolve(d->value);
         scope_bind(d->name, d->symbol);
         d->symbol->value = d->value;
-        printf("%s added to scope\n", d->name);
     }
 
     if(d->type->kind == TYPE_FUNCTION && d->code){ // func with code
-        if(existing_symbol && existing_symbol->is_prototype){ // func prototype exists, check for param
-
-            
+        if(existing_symbol && existing_symbol->is_prototype){ // func prototype exists, should be same type
+            if(!type_equals(d->type, existing_symbol->type)){
+                printf("resolve error: function %s does not match prototype\n", d->name);
+                exit(1);
+            }
         }
         // printf("func %s added to scope\n", d->name);
         scope_enter();
