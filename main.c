@@ -16,8 +16,8 @@ extern int yyerror(char *s);
 extern int yyparse();
 extern char *yytext;
 extern char *token_names[];
-extern int resolve_error;
-extern int type_error;
+int resolve_error;
+int type_error;
 
 struct decl *program_result = 0;
 
@@ -134,6 +134,30 @@ int main(int argc, char *argv[])
             return 1;
         }
     }
+    else if (strcmp(argv[1], "--typecheck") == 0){
+        int scan_status = scan_tokens(input_file);
+        if (scan_status != 0)
+        {
+            return 1;
+        }
+        rewind(input_file);
+        int parse_status = parse(input_file);
+        if (parse_status != 0)
+        {
+            return 1;
+        }
+        int resolve_status = resolve();
+        if (resolve_status != 0)
+        {
+            return 1;
+        }
+        // typecheck
+        decl_typecheck(program_result);
+        if(type_error){
+            return 1;
+        }
+
+    }
     else
     {
         fprintf(stderr, "Invalid argument\n");
@@ -141,6 +165,28 @@ int main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+int parse(FILE *input_file)
+{
+    yyin = input_file;
+    int status = yyparse();
+    if (status != 0)
+    {
+        // error message already printed in yyerror
+        return 1;
+    }
+    return 0;
+}
+
+int resolve(){
+    scope_enter(); // enter global scope
+    decl_resolve(program_result);
+    if(resolve_error){
+        return 1;
+    }
+    return 0;
+
 }
 
 int scan_tokens(FILE *input_file)

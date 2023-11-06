@@ -16,6 +16,33 @@ struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_exp
     return s;
 }
 
+void stmt_typecheck(struct stmt *s){
+    if(!s) return;
+    struct type *t;
+    switch (s->kind)
+    {
+    case STMT_DECL:
+        decl_typecheck(s->decl);
+        break;
+    case STMT_EXPR:
+        t = expr_typecheck(s->expr);
+        type_delete(t);
+        break;
+    case STMT_IF_ELSE:
+        t = expr_typecheck(s->expr);
+        if(t->kind != TYPE_BOOLEAN){
+            printf("type error: if condition must be boolean\n");
+            type_error = 1;
+        }
+        type_delete(t);
+        stmt_typecheck(s->body);
+        if(s->else_body){
+            stmt_typecheck(s->else_body);
+        }
+        break;
+    }
+}
+
 void stmt_resolve(struct stmt *s)
 {
     if(!s) return;

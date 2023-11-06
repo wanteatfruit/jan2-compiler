@@ -67,6 +67,7 @@ int is_valid_char(const char *text, char *valid_chars);
 int is_valid_string(const char *text, char *valid_chars);
 
 int scan_tokens(FILE *input_file);
-
+int parse(FILE *input_file);
+int resolve();
 
 #endif

@@ -4,6 +4,7 @@
 #include <string.h>
 
 
+
 struct decl * decl_create( char *name, struct type *type, struct expr *value, struct stmt *code, struct decl *next ){
     struct decl *d = malloc(sizeof(*d));
     d->name = strdup(name);
@@ -12,6 +13,23 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
     d->code = code;
     d->next = next;
     return d;
+}
+
+void decl_typecheck(struct decl *d){
+    if(!d) return;
+    
+    if(d->value) {
+        struct type *t;
+        t = expr_typecheck(d->value);
+        if(!type_equals(t,d->symbol->type)) {
+            /* display an error */
+        }
+    }
+    if(d->code) {
+        stmt_typecheck(d->code);
+    }
+
+    decl_typecheck(d->next);
 }
 
 void decl_resolve( struct decl *d ){

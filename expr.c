@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right)
 {
     struct expr *e = malloc(sizeof(*e));
@@ -10,6 +11,60 @@ struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right)
     e->left = left;
     e->right = right;
     return e;
+}
+
+struct type *expr_typecheck(struct expr *e){
+    if(!e) return 0;
+
+    struct type *lt = expr_typecheck(e->left);
+    struct type *rt = expr_typecheck(e->right);
+    struct type *result;
+
+    switch (e->kind)
+    {
+    case EXPR_INTEGER_LITERAL:
+        result = type_create(TYPE_INTEGER, 0, 0);
+        break;
+    case EXPR_BOOLEAN_LITERAL:
+        result = type_create(TYPE_BOOLEAN, 0, 0);
+        break;
+    case EXPR_CHARACTER_LITERAL:
+        result = type_create(TYPE_CHARACTER, 0, 0);
+        break;
+    case EXPR_STRING_LITERAL:
+        result = type_create(TYPE_STRING, 0, 0);
+        break;
+    case EXPR_FLOAT_LITERAL:
+        result = type_create(TYPE_FLOAT, 0, 0);
+        break;
+    case EXPR_ADD:
+        if(lt->kind!= TYPE_INTEGER || lt->kind!=TYPE_FLOAT || rt->kind!= TYPE_INTEGER || rt->kind!=TYPE_FLOAT){
+            expr_print_type_error(e->kind, e, lt, rt);
+            // type_error = 1;
+        }
+        result = type_create(TYPE_INTEGER, 0, 0);
+        break;
+    default:
+        break;
+    }
+
+    type_delete(lt);
+    type_delete(rt);
+
+    return result;
+}
+
+void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struct type *rt)
+{
+    printf("type error: cannot ");
+    type_print(lt);
+    printf("( ");
+    expr_print(e->left);
+    printf(" ) to a ");
+    type_print(rt);
+    printf("( ");
+    expr_print(e->right);
+    printf(" )\n");
 }
 
 void expr_resolve(struct expr *e)
