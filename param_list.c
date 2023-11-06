@@ -40,3 +40,19 @@ int param_list_equals( struct param_list *a, struct param_list *b ){
     if(!type_equals(a->type, b->type)) return 0;
     return param_list_equals(a->next, b->next);
 }
+
+void param_list_delete( struct param_list *a ){
+    if(!a) return;
+    type_delete(a->type);
+    param_list_delete(a->next);
+    free(a);
+}
+
+struct param_list * param_list_copy( struct param_list *a ){
+    if(!a) return 0;
+    struct param_list *copy = malloc(sizeof(struct param_list));
+    copy->name = strdup(a->name);
+    copy->type = type_copy(a->type);
+    copy->next = param_list_copy(a->next);
+    return copy;
+}

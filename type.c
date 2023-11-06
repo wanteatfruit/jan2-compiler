@@ -31,6 +31,24 @@ int type_equals(struct type *a, struct type *b){
     return 1;
 }
 
+struct type * type_copy( struct type *t ){
+    if(!t) return 0;
+    struct type *copy = malloc(sizeof(struct type));
+    copy->kind = t->kind;
+    copy->subtype = type_copy(t->subtype);
+    copy->params = param_list_copy(t->params);
+    copy->length = expr_copy(t->length);
+    return copy;
+}
+
+void type_delete( struct type *t ){
+    if(!t) return;
+    param_list_delete(t->params);
+    expr_delete(t->length);
+    type_delete(t->subtype);
+    free(t);
+}
+
 void type_print( struct type *t ){
     if(!t) return;
     if(t->subtype){

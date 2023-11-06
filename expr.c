@@ -104,6 +104,35 @@ struct expr *expr_create_float_literal(const char *float_str, double float_val)
     return e;
 }
 
+struct expr *expr_copy(struct expr *e){
+    if(!e) return 0;
+    if(e->kind==EXPR_INTEGER_LITERAL){
+        return expr_create_integer_literal(e->literal_value);
+    }else if(e->kind==EXPR_BOOLEAN_LITERAL){
+        return expr_create_boolean_literal(e->literal_value);
+    }else if(e->kind==EXPR_CHARACTER_LITERAL){
+        return expr_create_char_literal(e->literal_value, e->char_type);
+    }else if(e->kind==EXPR_STRING_LITERAL){
+        return expr_create_string_literal(e->string_literal);
+    }else if(e->kind==EXPR_FLOAT_LITERAL){
+        return expr_create_float_literal(e->string_literal, e->float_value);
+    }else if(e->kind==EXPR_IDENTIFIER){
+        return expr_create_name(e->name);
+    }else{
+        return expr_create(e->kind, expr_copy(e->left), expr_copy(e->right));
+    }
+
+}
+
+void expr_delete(struct expr *e)
+{
+    if (!e)
+        return;
+    expr_delete(e->left);
+    expr_delete(e->right);
+    free(e);
+}
+
 void expr_print(struct expr *e)
 {
     if (!e)

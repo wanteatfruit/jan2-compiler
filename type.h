@@ -26,5 +26,7 @@ struct type * type_create_with_length( type_t kind, struct type *subtype, struct
 void          type_print( struct type *t );
 char* 	   type_string( type_t kind );
 int type_equals(struct type *a, struct type *b);
+struct type * type_copy( struct type *t );
+void type_delete( struct type *t );
 
 #endif
