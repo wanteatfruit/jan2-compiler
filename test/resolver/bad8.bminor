@@ -1,0 +1,8 @@
+main: function void () =
+{
+	str: string = "hi";
+}
+main: function void () =
+{
+	str: string = "h2";
+}

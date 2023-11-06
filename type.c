@@ -25,6 +25,9 @@ int type_equals(struct type *a, struct type *b){
     if(a->subtype && b->subtype){
         if(!type_equals(a->subtype, b->subtype)) return 0;
     }
+    if(a->params && b->params){
+        if(!param_list_equals(a->params, b->params)) return 0;
+    }
     return 1;
 }
 

@@ -5,16 +5,16 @@ y: integer = 10;
 
 main: function void () =
 {
-	x: integer = 5;
-	y: integer = 10;
+	x: integer = 6;
+	y: integer = 11;
 	{
-		x: integer = 5;
-		y: integer = 10;
+		x: integer = 7;
+		y: integer = 12;
 		{
 			x: char = 'a';
-			y: integer = 10;
+			y: integer = 13;
 		}
-		y = x + y;
+		z:integer = x + y;
 	}
 }
 	

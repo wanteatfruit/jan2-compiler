@@ -43,7 +43,10 @@ void decl_resolve( struct decl *d ){
                 exit(1);
             }
         }
-        // printf("func %s added to scope\n", d->name);
+        if(existing_symbol && !existing_symbol->is_prototype){ // dup func definition
+            printf("resolve error: duplicate definition of %s\n", d->name);
+            exit(1);
+        }
         scope_enter();
         param_list_resolve(d->type->params);
         stmt_resolve(d->code);

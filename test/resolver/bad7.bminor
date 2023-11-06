@@ -1,0 +1,16 @@
+/* Function definitions must match prior prototypes. */
+
+test1: function integer (a:integer, b:integer);
+test3: function string (a:integer);
+
+main: function void () =
+{
+	str: string = "hi";
+}
+
+/* Parameter type differs from prototype. */
+
+test3: function string (a:boolean) =
+{
+	return "hello!";
+}

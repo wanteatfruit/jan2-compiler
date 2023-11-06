@@ -41,7 +41,9 @@ void expr_resolve(struct expr *e)
             }
             else if (e->symbol->kind == SYMBOL_PARAM)
             {
-                printf("%s resolves to param \n", e->symbol->name);
+                printf("%s resolves to param ", e->symbol->name);
+                expr_print(e->symbol->value);
+                printf("\n");
             }
         }
     }

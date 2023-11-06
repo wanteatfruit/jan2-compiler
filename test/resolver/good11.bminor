@@ -1,0 +1,10 @@
+test1:function integer (a:integer, b:integer)=
+{
+    x:integer = a;
+	return a + b;
+}
+
+main:function void ()=
+{
+	test1(1, 2);
+}
