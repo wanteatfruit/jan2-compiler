@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 struct decl * decl_create( char *name, struct type *type, struct expr *value, struct stmt *code, struct decl *next ){
     struct decl *d = malloc(sizeof(*d));
     d->name = strdup(name);
@@ -23,7 +24,7 @@ void decl_resolve( struct decl *d ){
         // printf("currect scope: %d\n", scope_level());
         if(existing_symbol && kind == existing_symbol->kind){
             printf("resolve error: duplicate declaration of %s\n", d->name);
-            exit(1);
+            resolve_error = 1;
         }
         expr_resolve(d->value);
         scope_bind(d->name, d->symbol);
@@ -31,7 +32,7 @@ void decl_resolve( struct decl *d ){
     }else if(!d->value && d->type->kind != TYPE_FUNCTION){ // a: integer;
         if(existing_symbol && kind == existing_symbol->kind){
             printf("resolve error: duplicate declaration of %s\n", d->name);
-            exit(1);
+            resolve_error = 1;
         }
         scope_bind(d->name, d->symbol);
     }
@@ -40,12 +41,12 @@ void decl_resolve( struct decl *d ){
         if(existing_symbol && existing_symbol->is_prototype){ // func prototype exists, should be same type
             if(!type_equals(d->type, existing_symbol->type)){
                 printf("resolve error: function %s does not match prototype\n", d->name);
-                exit(1);
+                resolve_error = 1;
             }
         }
         if(existing_symbol && !existing_symbol->is_prototype){ // dup func definition
             printf("resolve error: duplicate definition of %s\n", d->name);
-            exit(1);
+            resolve_error = 1;
         }
         scope_enter();
         param_list_resolve(d->type->params);
@@ -56,7 +57,7 @@ void decl_resolve( struct decl *d ){
     if(d->type->kind == TYPE_FUNCTION && !d->code){ // func prototype
         if(existing_symbol && existing_symbol->is_prototype){ // dup prototype
             printf("resolve error: duplicate declaration of %s\n", d->name);
-            exit(1);
+            resolve_error = 1;
         }
         d->symbol->is_prototype = 1;
         // printf("func prototype %s added to scope\n", d->name);

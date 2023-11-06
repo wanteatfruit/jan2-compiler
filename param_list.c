@@ -26,7 +26,7 @@ void param_list_resolve( struct param_list *a ){
     if(!a) return;
     if(scope_lookup_current(a->name)){
         printf("resolve error: %s is already defined in parameter list\n", a->name);
-        exit(1);
+        resolve_error = 1;
     } else{
         a->symbol = symbol_create(SYMBOL_PARAM, a->type, a->name);
         scope_bind(a->name, a->symbol);

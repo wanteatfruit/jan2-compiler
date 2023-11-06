@@ -3,6 +3,7 @@
 #define PARAM_LIST_H
 
 #include "type.h"
+#include "decl.h"
 #include <stdio.h>
 
 struct expr;

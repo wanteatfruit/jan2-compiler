@@ -16,6 +16,8 @@ extern int yyerror(char *s);
 extern int yyparse();
 extern char *yytext;
 extern char *token_names[];
+extern int resolve_error;
+extern int type_error;
 
 struct decl *program_result = 0;
 
@@ -128,6 +130,9 @@ int main(int argc, char *argv[])
         // resolve
         scope_enter(); // enter global scope
         decl_resolve(program_result);
+        if(resolve_error){
+            return 1;
+        }
     }
     else
     {
