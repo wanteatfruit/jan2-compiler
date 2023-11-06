@@ -19,8 +19,8 @@ void decl_resolve( struct decl *d ){
     symbol_t kind = scope_level() > 0 ? SYMBOL_LOCAL : SYMBOL_GLOBAL;
     d->symbol = symbol_create(kind, d->type, d->name);
 
-    if(d->value){
-        printf("currect scope: %d\n", scope_level());
+    if(d->value){ // a: integer = 1;
+        // printf("currect scope: %d\n", scope_level());
         if(existing_symbol && kind == existing_symbol->kind){
             printf("resolve error: duplicate declaration of %s\n", d->name);
             exit(1);
@@ -28,6 +28,12 @@ void decl_resolve( struct decl *d ){
         expr_resolve(d->value);
         scope_bind(d->name, d->symbol);
         d->symbol->value = d->value;
+    }else if(!d->value && d->type->kind != TYPE_FUNCTION){ // a: integer;
+        if(existing_symbol && kind == existing_symbol->kind){
+            printf("resolve error: duplicate declaration of %s\n", d->name);
+            exit(1);
+        }
+        scope_bind(d->name, d->symbol);
     }
 
     if(d->type->kind == TYPE_FUNCTION && d->code){ // func with code
@@ -42,6 +48,7 @@ void decl_resolve( struct decl *d ){
         param_list_resolve(d->type->params);
         stmt_resolve(d->code);
         scope_exit();
+        scope_bind(d->name, d->symbol);
     }
     if(d->type->kind == TYPE_FUNCTION && !d->code){ // func prototype
         if(existing_symbol && existing_symbol->is_prototype){ // dup prototype

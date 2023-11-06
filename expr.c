@@ -23,7 +23,7 @@ void expr_resolve(struct expr *e)
         if (!e->symbol)
         {
             printf("resolve error: %s is not defined\n", e->name);
-            return;
+            exit(1);
         }
         else
         {
