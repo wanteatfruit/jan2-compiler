@@ -37,12 +37,31 @@ struct type *expr_typecheck(struct expr *e){
     case EXPR_FLOAT_LITERAL:
         result = type_create(TYPE_FLOAT, 0, 0);
         break;
+    case EXPR_IDENTIFIER:
+        result = type_copy(e->symbol->type);
+        break;
     case EXPR_ADD:
+    case EXPR_SUB:
+    case EXPR_MUL:
+    case EXPR_DIV:
+    case EXPR_MOD:
+    case EXPR_EXP:
         if(lt->kind!= TYPE_INTEGER || lt->kind!=TYPE_FLOAT || rt->kind!= TYPE_INTEGER || rt->kind!=TYPE_FLOAT){
-            // expr_print_type_error(e->kind, e, lt, rt);
-            // type_error = 1;
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
         }
         result = type_create(TYPE_INTEGER, 0, 0);
+        break;
+    case EXPR_ASSIGN:
+        if(!type_equals(lt, rt)){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        if(e->left->kind != EXPR_IDENTIFIER){
+            printf("type error: cannot assign to non-lvalue\n");
+            type_error = 1;
+        }
+        result = type_copy(rt); // return right type, left type is already changed
         break;
     default:
         printf("type error: invalid expression kind\n");
@@ -60,13 +79,13 @@ void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struc
 {
     printf("type error: cannot ");
     type_print(lt);
-    printf("( ");
+    printf(" (");
     expr_print(e->left);
-    printf(" ) to a ");
+    printf(") to a ");
     type_print(rt);
-    printf("( ");
+    printf(" (");
     expr_print(e->right);
-    printf(" )\n");
+    printf(")\n");
 }
 
 void expr_resolve(struct expr *e)
