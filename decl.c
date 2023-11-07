@@ -19,7 +19,6 @@ void decl_typecheck(struct decl *d){
     if(!d) return;
     
     if(d->value) {
-        printf("decl_typecheck: %s\n", d->name);
         struct type *t;
         t = expr_typecheck(d->value);
         if(!type_equals(t,d->symbol->type)) {

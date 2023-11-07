@@ -37,6 +37,29 @@ struct type *expr_typecheck(struct expr *e){
     case EXPR_FLOAT_LITERAL:
         result = type_create(TYPE_FLOAT, 0, 0);
         break;
+    case EXPR_ARRAY_LITERAL: // array initializer {1,2,3,4,5}, each element match array subtype and length
+        if(!e->left){
+            // printf("type error: array initializer must have type\n");
+            // type_error = 1;
+            result = type_create(TYPE_ARRAY, 0, 0);
+        }else{
+            struct expr *inner = e->left; // first element
+            struct type *element_type = expr_typecheck(inner);
+            while (inner)
+            {
+                if(!type_equals(element_type, expr_typecheck(inner))){
+                    printf("type error: array element mixed\n");
+                    type_error = 1;
+                }
+                inner = inner->next;
+            }
+            result = type_create(TYPE_ARRAY, element_type, 0);
+
+        }
+        
+        
+
+        break;
     case EXPR_IDENTIFIER:
         result = type_copy(e->symbol->type);
         break;
@@ -99,7 +122,7 @@ struct type *expr_typecheck(struct expr *e){
         result = type_create(TYPE_BOOLEAN, 0, 0);
         break;
     case EXPR_NEG:
-        if(rt->kind != TYPE_INTEGER || rt->kind != TYPE_FLOAT){
+        if(rt->kind != TYPE_INTEGER && rt->kind != TYPE_FLOAT){
             expr_print_type_error(e->kind, e, lt, rt);
             type_error = 1;
         }
@@ -107,7 +130,7 @@ struct type *expr_typecheck(struct expr *e){
         break;
     case EXPR_POSTDEC:
     case EXPR_POSTINC:
-        if(lt->kind != TYPE_INTEGER || lt->kind != TYPE_FLOAT){
+        if(lt->kind != TYPE_INTEGER && lt->kind != TYPE_FLOAT){
             expr_print_type_error(e->kind, e, lt, rt);
             type_error = 1;
         }
@@ -119,24 +142,25 @@ struct type *expr_typecheck(struct expr *e){
                 printf("type error: array index must be integer\n");
                 type_error = 1;
             }
+            result = type_copy(lt->subtype);
         }else{//not array
             printf("type error: %s is not an array\n", e->left->name);
             type_error = 1;
             result = type_copy(lt);
         }
+        break;
     case EXPR_ASSIGN:
         if(!type_equals(lt, rt)){
             expr_print_type_error(e->kind, e, lt, rt);
             type_error = 1;
         }
-        if(e->left->kind != EXPR_IDENTIFIER){
+        if(e->left->kind == EXPR_INTEGER_LITERAL || e->left->kind == EXPR_BOOLEAN_LITERAL || e->left->kind == EXPR_CHARACTER_LITERAL || e->left->kind == EXPR_STRING_LITERAL || e->left->kind == EXPR_FLOAT_LITERAL){
             printf("type error: cannot assign to non-lvalue\n");
             type_error = 1;
         }
         result = type_copy(rt); // return right type, left type could be not value
         break;
-    case EXPR_ARRAY_LITERAL: // array initializer {1,2,3,4,5}, each element match array subtype
-        break;
+
     case EXPR_FUNC: // function call
         if(lt->kind != TYPE_FUNCTION){
             printf("type error: %s is not a function\n", e->left->name);
