@@ -71,5 +71,7 @@ struct type * expr_typecheck( struct expr *e );
 struct expr * expr_copy( struct expr *e );
 void expr_delete( struct expr *e );
 void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struct type *rt);
+const char *expr_type_to_str(expr_t type);
+
 
 #endif

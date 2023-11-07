@@ -46,12 +46,84 @@ struct type *expr_typecheck(struct expr *e){
     case EXPR_DIV:
     case EXPR_MOD:
     case EXPR_EXP:
-        if(lt->kind!= TYPE_INTEGER || lt->kind!=TYPE_FLOAT || rt->kind!= TYPE_INTEGER || rt->kind!=TYPE_FLOAT){
+        if(!type_equals(lt, rt)){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        if((lt->kind!=TYPE_INTEGER && lt->kind!=TYPE_FLOAT) || (rt->kind!=TYPE_INTEGER && rt->kind!=TYPE_FLOAT)){
             expr_print_type_error(e->kind, e, lt, rt);
             type_error = 1;
         }
         result = type_create(TYPE_INTEGER, 0, 0);
         break;
+    
+    case EXPR_EQUAL:
+    case EXPR_NEQUAL:
+        if(!type_equals(lt, rt)){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        if(lt->kind == TYPE_VOID || lt->kind == TYPE_ARRAY || lt->kind==TYPE_FUNCTION){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        result = type_create(TYPE_BOOLEAN, 0, 0);
+        break;
+    case EXPR_LESS:
+    case EXPR_LE:
+    case EXPR_GREATER:
+    case EXPR_GE:
+        if(!type_equals(lt, rt)){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        if(lt->kind != TYPE_INTEGER && lt->kind != TYPE_FLOAT){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        result = type_create(TYPE_BOOLEAN, 0, 0);
+        break;
+    case EXPR_AND:
+    case EXPR_OR:
+        if(lt->kind != TYPE_BOOLEAN || rt->kind != TYPE_BOOLEAN){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        result = type_create(TYPE_BOOLEAN, 0, 0);
+        break;
+    case EXPR_NOT:
+        if(rt->kind != TYPE_BOOLEAN){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        result = type_create(TYPE_BOOLEAN, 0, 0);
+        break;
+    case EXPR_NEG:
+        if(rt->kind != TYPE_INTEGER || rt->kind != TYPE_FLOAT){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        result = type_create(TYPE_INTEGER, 0, 0);
+        break;
+    case EXPR_POSTDEC:
+    case EXPR_POSTINC:
+        if(lt->kind != TYPE_INTEGER || lt->kind != TYPE_FLOAT){
+            expr_print_type_error(e->kind, e, lt, rt);
+            type_error = 1;
+        }
+        result = type_create(TYPE_INTEGER, 0, 0);
+        break;
+    case EXPR_ARRAY_SUB: //a[i]
+        if(lt->kind == TYPE_ARRAY){
+            if(rt->kind != TYPE_INTEGER){
+                printf("type error: array index must be integer\n");
+                type_error = 1;
+            }
+        }else{//not array
+            printf("type error: %s is not an array\n", e->left->name);
+            type_error = 1;
+            result = type_copy(lt);
+        }
     case EXPR_ASSIGN:
         if(!type_equals(lt, rt)){
             expr_print_type_error(e->kind, e, lt, rt);
@@ -61,8 +133,21 @@ struct type *expr_typecheck(struct expr *e){
             printf("type error: cannot assign to non-lvalue\n");
             type_error = 1;
         }
-        result = type_copy(rt); // return right type, left type is already changed
+        result = type_copy(rt); // return right type, left type could be not value
         break;
+    case EXPR_ARRAY_LITERAL: // array initializer {1,2,3,4,5}, each element match array subtype
+        break;
+    case EXPR_FUNC: // function call
+        if(lt->kind != TYPE_FUNCTION){
+            printf("type error: %s is not a function\n", e->left->name);
+            type_error = 1;
+        }
+        if(rt){ // args
+
+        }
+        result = type_copy(lt->subtype);
+        break;
+    
     default:
         printf("type error: invalid expression kind\n");
         exit(1);
@@ -78,6 +163,7 @@ struct type *expr_typecheck(struct expr *e){
 void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struct type *rt)
 {
     printf("type error: cannot ");
+    printf("%s ", expr_type_to_str(e_type));
     type_print(lt);
     printf(" (");
     expr_print(e->left);
@@ -86,6 +172,51 @@ void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struc
     printf(" (");
     expr_print(e->right);
     printf(")\n");
+}
+
+const char *expr_type_to_str(expr_t type){
+    switch (type)
+    {
+    case EXPR_ADD:
+        return "add";
+    case EXPR_SUB:
+        return "sub";
+    case EXPR_MUL:
+        return "mul";
+    case EXPR_DIV:  
+        return "div";
+    case EXPR_MOD:
+        return "mod";
+    case EXPR_EXP:
+        return "exp";
+    case EXPR_NOT:
+        return "not";
+    case EXPR_NEG:
+        return "neg";
+    case EXPR_LESS:
+        return "less";
+    case EXPR_LE:
+        return "le";
+    case EXPR_GREATER:
+        return "greater";
+    case EXPR_GE:
+        return "ge";
+    case EXPR_EQUAL:
+        return "equal";
+    case EXPR_NEQUAL:
+        return "nequal";
+    case EXPR_AND:
+        return "and";
+    case EXPR_OR:
+        return "or";
+    case EXPR_ASSIGN:
+        return "assign";
+    case EXPR_POSTDEC:
+        return "postdec";
+    case EXPR_POSTINC:
+        return "postinc";
+
+    }
 }
 
 void expr_resolve(struct expr *e)

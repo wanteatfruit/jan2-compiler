@@ -23,7 +23,13 @@ void decl_typecheck(struct decl *d){
         struct type *t;
         t = expr_typecheck(d->value);
         if(!type_equals(t,d->symbol->type)) {
-            /* display an error */
+            printf("type error: cannot assign ");
+            type_print(t);
+            printf(" %s", d->name);
+            printf(" to ");
+            type_print(d->symbol->type);
+            printf("\n");
+            type_error = 1;
         }
     }
     if(d->code) {

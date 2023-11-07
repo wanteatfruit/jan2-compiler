@@ -28,6 +28,25 @@ void stmt_typecheck(struct stmt *s){
         t = expr_typecheck(s->expr);
         type_delete(t);
         break;
+    case STMT_FOR:
+        if(s->init_expr){
+            t = expr_typecheck(s->init_expr);
+            type_delete(t);
+        }
+        if(s->expr){
+            t = expr_typecheck(s->expr);
+            if(t->kind != TYPE_BOOLEAN){
+                printf("type error: for condition must be boolean\n");
+                type_error = 1;
+            }
+            type_delete(t);
+        }
+        if(s->next_expr){
+            t = expr_typecheck(s->next_expr);
+            type_delete(t);
+        }
+        stmt_typecheck(s->body);
+        break;
     case STMT_IF_ELSE:
         t = expr_typecheck(s->expr);
         if(t->kind != TYPE_BOOLEAN){
@@ -39,6 +58,25 @@ void stmt_typecheck(struct stmt *s){
         if(s->else_body){
             stmt_typecheck(s->else_body);
         }
+        break;
+    case STMT_PRINT:
+        if(s->expr){
+            struct expr *print = s->expr;
+            while(print){
+                t = expr_typecheck(print);
+                type_delete(t);
+                print = print->next;
+            }
+        }
+        break;
+    case STMT_RETURN: // check if return type matches function type
+        if(s->expr){
+            t = expr_typecheck(s->expr); // return type
+            type_delete(t);
+        }else{//return void
+
+        }
+        
         break;
     case STMT_BLOCK:
         stmt_typecheck(s->body);
