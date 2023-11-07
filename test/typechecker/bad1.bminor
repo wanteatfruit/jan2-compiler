@@ -1,0 +1,7 @@
+a: integer = 1;
+b: char = 'a';
+c: integer;
+
+main: function void() = {
+    c = a + b;
+}

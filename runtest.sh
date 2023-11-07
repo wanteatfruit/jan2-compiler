@@ -10,9 +10,9 @@ do
 	fi
 done
 
-for testfile in test/resolver/bad*.bminor
+for testfile in test/typechecker/bad*.bminor
 do
-	if ./bminor --resolve $testfile > $testfile.out
+	if ./bminor --typecheck $testfile > $testfile.out
 	then
 		echo "$testfile success (INCORRECT)"
 	else

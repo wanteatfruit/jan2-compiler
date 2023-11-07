@@ -40,6 +40,11 @@ void stmt_typecheck(struct stmt *s){
             stmt_typecheck(s->else_body);
         }
         break;
+    case STMT_BLOCK:
+        stmt_typecheck(s->body);
+        break;
+    default:
+        break;
     }
 }
 

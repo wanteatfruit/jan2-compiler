@@ -39,12 +39,14 @@ struct type *expr_typecheck(struct expr *e){
         break;
     case EXPR_ADD:
         if(lt->kind!= TYPE_INTEGER || lt->kind!=TYPE_FLOAT || rt->kind!= TYPE_INTEGER || rt->kind!=TYPE_FLOAT){
-            expr_print_type_error(e->kind, e, lt, rt);
+            // expr_print_type_error(e->kind, e, lt, rt);
             // type_error = 1;
         }
         result = type_create(TYPE_INTEGER, 0, 0);
         break;
     default:
+        printf("type error: invalid expression kind\n");
+        exit(1);
         break;
     }
 

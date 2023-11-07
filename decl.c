@@ -19,6 +19,7 @@ void decl_typecheck(struct decl *d){
     if(!d) return;
     
     if(d->value) {
+        printf("decl_typecheck: %s\n", d->name);
         struct type *t;
         t = expr_typecheck(d->value);
         if(!type_equals(t,d->symbol->type)) {
@@ -39,7 +40,6 @@ void decl_resolve( struct decl *d ){
     d->symbol = symbol_create(kind, d->type, d->name);
 
     if(d->value){ // a: integer = 1;
-        // printf("currect scope: %d\n", scope_level());
         if(existing_symbol && kind == existing_symbol->kind){
             printf("resolve error: duplicate declaration of %s\n", d->name);
             resolve_error = 1;
@@ -78,7 +78,6 @@ void decl_resolve( struct decl *d ){
             resolve_error = 1;
         }
         d->symbol->is_prototype = 1;
-        // printf("func prototype %s added to scope\n", d->name);
         scope_enter();
         param_list_resolve(d->type->params);
         scope_exit();
