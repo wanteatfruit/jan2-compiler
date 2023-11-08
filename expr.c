@@ -254,7 +254,7 @@ void expr_resolve(struct expr *e)
         if (!e->symbol)
         {
             printf("resolve error: %s is not defined\n", e->name);
-            exit(1);
+            resolve_error = 1;
         }
         else
         {
