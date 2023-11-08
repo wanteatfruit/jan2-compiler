@@ -31,8 +31,8 @@ void decl_typecheck(struct decl *d){
             type_error = 1;
         }
     }
-    if(d->code) {
-        stmt_typecheck(d->code);
+    if(d->type->kind==TYPE_FUNCTION &&  d->code) {
+        stmt_typecheck(d->code, d->type->subtype);
     }
 
     decl_typecheck(d->next);

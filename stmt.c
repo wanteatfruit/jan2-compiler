@@ -16,7 +16,7 @@ struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_exp
     return s;
 }
 
-void stmt_typecheck(struct stmt *s){
+void stmt_typecheck(struct stmt *s, struct type *ret_type){
     if(!s) return;
     struct type *t;
     switch (s->kind)
@@ -45,7 +45,7 @@ void stmt_typecheck(struct stmt *s){
             t = expr_typecheck(s->next_expr);
             type_delete(t);
         }
-        stmt_typecheck(s->body);
+        stmt_typecheck(s->body, 0);
         break;
     case STMT_IF_ELSE:
         t = expr_typecheck(s->expr);
@@ -54,13 +54,13 @@ void stmt_typecheck(struct stmt *s){
             type_error = 1;
         }
         type_delete(t);
-        stmt_typecheck(s->body);
+        stmt_typecheck(s->body, 0);
         if(s->else_body){
-            stmt_typecheck(s->else_body);
+            stmt_typecheck(s->else_body, 0);
         }
         break;
     case STMT_PRINT:
-        if(s->expr){
+        if(s->expr){ // not empty print
             struct expr *print = s->expr;
             while(print){
                 t = expr_typecheck(print);
@@ -71,15 +71,28 @@ void stmt_typecheck(struct stmt *s){
         break;
     case STMT_RETURN: // check if return type matches function type
         if(s->expr){
-            t = expr_typecheck(s->expr); // return type
-            type_delete(t);
+           struct expr *return_expr = s->expr;
+           while(return_expr){
+                t = expr_typecheck(return_expr);
+                if(ret_type){
+                    if(!type_equals(t, ret_type)){
+                        printf("type error: print expression type does not match function return type\n");
+                        type_error = 1;
+                    }
+                }
+                type_delete(t);
+                return_expr = return_expr->next;
+           }
         }else{//return void
-
+            if(ret_type!=TYPE_VOID){
+                printf("type error: return type does not match function return type\n");
+                type_error = 1;
+            }
         }
         
         break;
     case STMT_BLOCK:
-        stmt_typecheck(s->body);
+        stmt_typecheck(s->body, 0);
         break;
     default:
         break;
