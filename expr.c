@@ -260,21 +260,15 @@ void expr_resolve(struct expr *e)
         {
             if (e->symbol->kind == SYMBOL_GLOBAL)
             {
-                printf("%s resolves to global ", e->symbol->name);
-                expr_print(e->symbol->value);
-                printf("\n");
+                printf("%s resolves to global %s\n", e->symbol->name, e->symbol->name);
             }
             else if (e->symbol->kind == SYMBOL_LOCAL)
             {
-                printf("%s resolves to local ", e->symbol->name);
-                expr_print(e->symbol->value);
-                printf("\n");
+                printf("%s resolves to local %d\n", e->symbol->name, e->symbol->which);
             }
             else if (e->symbol->kind == SYMBOL_PARAM)
             {
-                printf("%s resolves to param ", e->symbol->name);
-                expr_print(e->symbol->value);
-                printf("\n");
+                printf("%s resolves to param %d\n", e->symbol->name, e->symbol->which);
             }
         }
     }

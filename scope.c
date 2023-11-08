@@ -11,14 +11,21 @@ void scope_enter(){
     new_scope->table = hash_table_create(0, 0);
     if(outer == NULL){
         new_scope->level = 0;
+        new_scope->total = 0; // global 
     }else{
         new_scope->level = outer->level + 1;
+    }
+    if(outer && new_scope->level>0){
+        new_scope->total = outer->total; // outer is local, follow its total
     }
     new_scope->next = outer;
     outer = new_scope;
 }
 
 void scope_exit(){
+    if(outer->level>1){
+        outer->total = outer->next->total; // after exiting, inherit the total from the exited scope
+    }
     outer = outer->next;
 }
 
@@ -28,6 +35,10 @@ int scope_level(){
 
 void scope_bind(const char *name, struct symbol *s){
     hash_table_insert(outer->table, name, s);
+    if(outer->level>0){
+        s->which = outer->total+1;
+        outer->total++;
+    }
 }
 
 struct symbol * scope_lookup(const char *name){

@@ -7,6 +7,7 @@ struct stack {
     struct hash_table *table;
     struct stack *next;
     int level;
+    int total; // tracking number of local/param variables
 };
 
 #endif
