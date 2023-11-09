@@ -1,3 +1,6 @@
 func1: function void (s:string);
 func2: function void (s:string);
-func1: function void (s:string);
+
+main: function void() = {
+    func3("hello");
+}
