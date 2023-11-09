@@ -1,0 +1,3 @@
+test: function void(a:integer) = {
+    a: integer = 1; //redeclaration
+}

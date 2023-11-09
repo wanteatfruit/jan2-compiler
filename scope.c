@@ -14,6 +14,7 @@ void scope_enter(){
         new_scope->total = 0; // global 
     }else{
         new_scope->level = outer->level + 1;
+        new_scope->param_total = 0;
     }
     if(outer && new_scope->level>0){
         new_scope->total = outer->total; // outer is local, follow its total
@@ -36,8 +37,15 @@ int scope_level(){
 void scope_bind(const char *name, struct symbol *s){
     hash_table_insert(outer->table, name, s);
     if(outer->level>0){
-        s->which = outer->total+1;
-        outer->total++;
+        if(s->kind == SYMBOL_LOCAL){
+            s->which = outer->total+1;
+            outer->total++;
+        }
+        if(s->kind==SYMBOL_PARAM){
+            s->which = outer->param_total+1;
+            outer->param_total++;
+        }
+
     }
 }
 
