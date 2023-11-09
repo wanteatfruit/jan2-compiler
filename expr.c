@@ -309,6 +309,16 @@ void expr_resolve(struct expr *e)
     }
 }
 
+int expr_get_length(struct expr * e){
+    if(!e) return 0;
+    if(e->kind == EXPR_INTEGER_LITERAL){
+        return e->literal_value;
+    }else{
+        printf("type error: array length must be integer\n");
+        return 0;
+    }
+}
+
 struct expr *expr_create_name(const char *n)
 {
     struct expr *e = malloc(sizeof(*e));

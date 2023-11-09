@@ -30,6 +30,21 @@ void decl_typecheck(struct decl *d){
             printf("\n");
             type_error = 1;
         }
+        if(d->type->kind == TYPE_ARRAY){ // check array length
+            struct expr *decl_length_expr = d->type->length;
+            int decl_length = expr_get_length(decl_length_expr);
+            struct expr *array_literal = d->value->left;
+            int literal_length = 0;
+            while(array_literal){
+                literal_length++;
+                array_literal = array_literal->next;
+            }
+            if(decl_length != literal_length){
+                printf("type error: array literal %s length does not match declaration\n", d->name);
+                type_error = 1;
+            }
+
+        }
     }
     if(d->type->kind==TYPE_FUNCTION &&  d->code) {
         stmt_typecheck(d->code, d->type->subtype);
