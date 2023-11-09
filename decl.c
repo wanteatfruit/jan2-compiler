@@ -79,8 +79,10 @@ void decl_resolve( struct decl *d ){
     }
     if(d->type->kind == TYPE_FUNCTION && !d->code){ // func prototype
         if(existing_symbol && existing_symbol->is_prototype){ // dup prototype
-            printf("resolve error: duplicate declaration of %s\n", d->name);
-            resolve_error = 1;
+            if(!type_equals(d->type, existing_symbol->type)){
+                printf("resolve error: redeclared prototype %s does not match prototype\n", d->name);
+                resolve_error = 1;
+            }
         }
         d->symbol->is_prototype = 1;
         scope_enter();

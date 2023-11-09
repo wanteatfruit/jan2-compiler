@@ -55,6 +55,7 @@ struct type *expr_typecheck(struct expr *e){
             }
             result = type_create(TYPE_ARRAY, element_type, 0);
         }
+        //TODO: get array type
 
         break;
     case EXPR_IDENTIFIER:
@@ -168,32 +169,32 @@ struct type *expr_typecheck(struct expr *e){
             struct param_list *p = e->left->symbol->type->params;
             struct expr *arg = e->right;
             if(p && !arg || !p && arg){
-                printf("type error: function argument number mismatch\n");
+                printf("type error: function (%s) argument number mismatch\n", e->left->name);
                 type_error = 1;
             }
             while (p && arg)
             {
                 struct type *arg_type = expr_typecheck(arg);
                 if(arg_type->kind==TYPE_VOID){
-                    printf("type error: function argument cannot be void\n");
+                    printf("type error: function (%s) argument cannot be void\n", e->left->name);
                     type_error = 1;
                 }
                 if(arg_type->kind == TYPE_FUNCTION){
-                    printf("type error: function argument cannot be function\n");
+                    printf("type error: function (%s) argument cannot be function\n", e->left->name);
                     type_error = 1;
                 }
                 if(arg_type->kind == TYPE_ARRAY){
-                    printf("type error: function argument cannot be array\n");
+                    printf("type error: function (%s) argument cannot be array\n", e->left->name);
                     type_error = 1;
                 }
                 if(!type_equals(p->type, arg_type)){
-                    printf("type error: function argument type mismatch\n");
+                    printf("type error: function (%s) argument type mismatch\n", e->left->name);
                     type_error = 1;
                 }
                 p = p->next;
                 arg = arg->next;
                 if(p && !arg || !p && arg){
-                    printf("type error: function argument number mismatch\n");
+                    printf("type error: function (%s) argument number mismatch\n", e->left->name);
                     type_error = 1;
                 }
             }
