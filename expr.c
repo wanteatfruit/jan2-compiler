@@ -55,8 +55,6 @@ struct type *expr_typecheck(struct expr *e){
             }
             result = type_create(TYPE_ARRAY, element_type, 0);
         }
-        //TODO: get array type
-
         break;
     case EXPR_IDENTIFIER:
         result = type_copy(e->symbol->type);
