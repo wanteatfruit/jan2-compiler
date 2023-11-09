@@ -219,7 +219,7 @@ factor	: TOKEN_L_PAREN expr TOKEN_R_PAREN { $$ = expr_create(EXPR_PARENTHESES, $
 	| literal { $$ = $1; }
 	| id { $$ = $1;}
 	| id TOKEN_L_PAREN arg_list TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, $3);}
-	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, 0); }  /* function call without args */
+	| id TOKEN_L_PAREN TOKEN_R_PAREN { $$ = expr_create(EXPR_FUNC, $1, 0); printf("func call"); }  /* function call without args */
 	; 
 
 arr_subscr : factor TOKEN_L_BRACKET expr TOKEN_R_BRACKET { $$ = expr_create(EXPR_ARRAY_SUB, $1, $3);}

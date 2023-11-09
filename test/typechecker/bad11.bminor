@@ -1,0 +1,10 @@
+test: function void (a:integer) = {
+    a = 1;
+    return;
+}
+
+main: function void () = {
+    f: float = 1.0;
+    test();
+    return;
+}

@@ -54,10 +54,7 @@ struct type *expr_typecheck(struct expr *e){
                 inner = inner->next;
             }
             result = type_create(TYPE_ARRAY, element_type, 0);
-
         }
-        
-        
 
         break;
     case EXPR_IDENTIFIER:
@@ -165,11 +162,43 @@ struct type *expr_typecheck(struct expr *e){
         if(lt->kind != TYPE_FUNCTION){
             printf("type error: %s is not a function\n", e->left->name);
             type_error = 1;
+            result = type_copy(lt);
+        }else{
+            
+            struct param_list *p = e->left->symbol->type->params;
+            struct expr *arg = e->right;
+            if(p && !arg || !p && arg){
+                printf("type error: function argument number mismatch\n");
+                type_error = 1;
+            }
+            while (p && arg)
+            {
+                struct type *arg_type = expr_typecheck(arg);
+                if(arg_type->kind==TYPE_VOID){
+                    printf("type error: function argument cannot be void\n");
+                    type_error = 1;
+                }
+                if(arg_type->kind == TYPE_FUNCTION){
+                    printf("type error: function argument cannot be function\n");
+                    type_error = 1;
+                }
+                if(arg_type->kind == TYPE_ARRAY){
+                    printf("type error: function argument cannot be array\n");
+                    type_error = 1;
+                }
+                if(!type_equals(p->type, arg_type)){
+                    printf("type error: function argument type mismatch\n");
+                    type_error = 1;
+                }
+                p = p->next;
+                arg = arg->next;
+                if(p && !arg || !p && arg){
+                    printf("type error: function argument number mismatch\n");
+                    type_error = 1;
+                }
+            }
+            result = type_copy(lt->subtype);
         }
-        if(rt){ // args
-
-        }
-        result = type_copy(lt->subtype);
         break;
     
     default:
@@ -186,7 +215,7 @@ struct type *expr_typecheck(struct expr *e){
 
 void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struct type *rt)
 {
-    printf("type error: cannot ");
+    printf("type error: cannot do operation ");
     printf("%s ", expr_type_to_str(e_type));
     type_print(lt);
     printf(" (");

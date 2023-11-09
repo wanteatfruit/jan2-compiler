@@ -76,20 +76,19 @@ void stmt_typecheck(struct stmt *s, struct type *ret_type){
                 t = expr_typecheck(return_expr);
                 if(ret_type){
                     if(!type_equals(t, ret_type)){
-                        printf("type error: print expression type does not match function return type\n");
+                        printf("type error: return type does not match function return type\n");
                         type_error = 1;
                     }
                 }
                 type_delete(t);
                 return_expr = return_expr->next;
            }
-        }else{//return void
-            if(ret_type!=TYPE_VOID){
+        }else{//return;
+            if(ret_type->kind!=TYPE_VOID){
                 printf("type error: return type does not match function return type\n");
                 type_error = 1;
             }
         }
-        
         break;
     case STMT_BLOCK:
         stmt_typecheck(s->body, 0);
@@ -97,6 +96,7 @@ void stmt_typecheck(struct stmt *s, struct type *ret_type){
     default:
         break;
     }
+    stmt_typecheck(s->next, ret_type);
 }
 
 void stmt_resolve(struct stmt *s)
