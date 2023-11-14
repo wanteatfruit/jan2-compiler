@@ -140,7 +140,7 @@ struct type *expr_typecheck(struct expr *e){
             }
             result = type_copy(lt->subtype);
         }else{//not array
-            printf("type error: %s is not an array\n", e->left->name);
+            printf("type error: (%s) is not an array\n", e->left->name);
             type_error = 1;
             result = type_copy(lt);
         }
@@ -159,7 +159,7 @@ struct type *expr_typecheck(struct expr *e){
 
     case EXPR_FUNC: // function call
         if(lt->kind != TYPE_FUNCTION){
-            printf("type error: %s is not a function\n", e->left->name);
+            printf("type error: (%s) is not a function\n", e->left->name);
             type_error = 1;
             result = type_copy(lt);
         }else{

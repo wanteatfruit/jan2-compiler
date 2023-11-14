@@ -24,7 +24,7 @@ void decl_typecheck(struct decl *d){
         if(!type_equals(t,d->symbol->type)) {
             printf("type error: cannot assign ");
             type_print(t);
-            printf(" %s", d->name);
+            printf(" (%s)", d->name);
             printf(" to ");
             type_print(d->symbol->type);
             printf("\n");
@@ -40,7 +40,7 @@ void decl_typecheck(struct decl *d){
                 array_literal = array_literal->next;
             }
             if(decl_length != literal_length){
-                printf("type error: array literal %s length does not match declaration\n", d->name);
+                printf("type error: array literal (%s) length does not match declaration\n", d->name);
                 type_error = 1;
             }
 
