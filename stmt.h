@@ -32,5 +32,6 @@ void stmt_resolve( struct stmt *s );
 void stmt_typecheck( struct stmt *s, struct type *ret_type );
 struct stmt * stmt_copy( struct stmt *s );
 void print_indent	( int indent );
+void stmt_codegen( struct stmt *s, const char *end_label );
 
 #endif

@@ -1,6 +1,7 @@
 #include "stmt.h"
 #include "scope.h"
 #include <stdlib.h>
+#include "scratch.h"
 
 struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_expr, struct expr *expr, struct expr *next_expr, struct stmt *body, struct stmt *else_body, struct stmt *next )
 {
@@ -14,6 +15,28 @@ struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_exp
     s->else_body = else_body;
     s->next = next;
     return s;
+}
+
+void stmt_codegen(struct stmt *s, const char *end_label){
+    if(!s) return;
+    switch (s->kind)
+    {
+    case STMT_DECL:
+        decl_codegen_local(s->decl);
+        break;
+    case STMT_EXPR:
+        expr_codegen(s->expr);
+        scratch_free(s->expr->reg);
+        break;
+    case STMT_RETURN:
+        expr_codegen(s->expr);
+        fprintf(asm_file, "\tMOV %s, %%rax\n", scratch_name(s->expr->reg));
+        //need to get function name
+        fprintf(asm_file, "\tJMP .%s_epilogue\n", end_label);
+        scratch_free(s->expr->reg);
+        break;
+    }
+    stmt_codegen(s->next, end_label);
 }
 
 void stmt_typecheck(struct stmt *s, struct type *ret_type){

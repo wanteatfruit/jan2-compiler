@@ -8,3 +8,25 @@ struct symbol * symbol_create( symbol_t kind, struct type *type, char *name ){
     s->name = strdup(name);
     return s;
 }
+
+const char* symbol_codegen(struct symbol *s){
+    if(s->kind == SYMBOL_GLOBAL){
+        return s->name;
+    }
+    else if(s->kind == SYMBOL_LOCAL){
+        // uses abs position
+        char buffer[100];
+        sprintf(buffer, "-%d(%%rbp)", 8*s->which_reg);
+        return strdup(buffer);
+    }
+    else if(s->kind == SYMBOL_PARAM){
+        // uses abs position
+        char buffer[100];
+        sprintf(buffer, "%d(%%rbp)", 8*s->which_reg);
+        return strdup(buffer);
+    }
+    else{
+        printf("error: symbol kind not recognized\n");
+        exit(1);
+    }
+}

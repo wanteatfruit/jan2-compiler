@@ -1,4 +1,5 @@
 #include "expr.h"
+#include "scratch.h"
 #include "scope.h"
 #include <string.h>
 #include <stdlib.h>
@@ -11,6 +12,54 @@ struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right)
     e->left = left;
     e->right = right;
     return e;
+}
+
+void expr_codegen(struct expr *e){
+    if(!e) return;
+    struct expr *left = e->left;
+    struct expr *right = e->right;
+
+    switch (e->kind)
+    {
+        // Leaf node: allocate register, load value into register
+        case EXPR_IDENTIFIER:
+            e->reg = scratch_alloc();
+            fprintf(asm_file, "\tMOVQ %s, %s\n", symbol_codegen(e->symbol), scratch_name(e->reg));
+            break;
+        case EXPR_INTEGER_LITERAL:
+            e->reg = scratch_alloc();
+            fprintf(asm_file, "\tMOVQ $%d, %s\n", e->literal_value, scratch_name(e->reg));
+            break;
+        case EXPR_BOOLEAN_LITERAL:
+            e->reg = scratch_alloc();
+            fprintf(asm_file, "\tMOVQ $%d, %s\n", e->literal_value, scratch_name(e->reg));
+            break;
+        case EXPR_CHARACTER_LITERAL:
+            e->reg = scratch_alloc();
+            fprintf(asm_file, "\tMOVQ $%d, %s\n", e->literal_value, scratch_name(e->reg));
+            break;
+        case EXPR_STRING_LITERAL: //need store in data
+            break;
+
+        // Internal node: codegen children, then combine
+        case EXPR_ADD:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tADDQ %s, %s\n", scratch_name(e->left->reg), scratch_name(e->right->reg));
+            e->reg = e->right->reg;
+            scratch_free(e->left->reg);
+            break;
+        case EXPR_ASSIGN:
+            expr_codegen(e->right);
+            if(left->kind == EXPR_IDENTIFIER){
+                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(e->right->reg), symbol_codegen(e->left->symbol));
+            }else if(left->kind == EXPR_ARRAY_SUB){
+                // array subscription
+            }
+            e->reg = e->right->reg;
+            break;
+    }
+
 }
 
 struct type *expr_typecheck(struct expr *e){

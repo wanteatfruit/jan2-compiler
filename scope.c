@@ -4,6 +4,8 @@
 #include <stdlib.h>
 
 struct stack *outer = NULL; //level 0 is the top of the stack
+int local_total = 0;
+int param_total = 0;
 
 void scope_enter(){
     struct stack *new_scope = malloc(sizeof(*new_scope));
@@ -40,10 +42,14 @@ void scope_bind(const char *name, struct symbol *s){
         if(s->kind == SYMBOL_LOCAL){
             s->which = outer->total+1;
             outer->total++;
+            s->which_reg = local_total+1; //start at 1
+            local_total++;
         }
         if(s->kind==SYMBOL_PARAM){
             s->which = outer->param_total+1;
             outer->param_total++;
+            s->which_reg = param_total+1; //start at 1
+            param_total++;
         }
 
     }

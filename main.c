@@ -18,6 +18,7 @@ extern char *yytext;
 extern char *token_names[];
 int resolve_error;
 int type_error;
+FILE *asm_file;
 
 struct decl *program_result = 0;
 
@@ -157,6 +158,37 @@ int main(int argc, char *argv[])
             return 1;
         }
 
+    }
+    else if(strcmp(argv[1], "--codegen")==0){
+        int scan_status = scan_tokens(input_file);
+        if (scan_status != 0)
+        {
+            return 1;
+        }
+        rewind(input_file);
+        int parse_status = parse(input_file);
+        if (parse_status != 0)
+        {
+            return 1;
+        }
+        int resolve_status = resolve();
+        if (resolve_status != 0)
+        {
+            return 1;
+        }
+        // typecheck
+        decl_typecheck(program_result);
+        if(type_error){
+            return 1;
+        }
+        // codegen
+        if(argv[3]){
+            asm_file = fopen(argv[3], "w");
+        }
+        else{
+            asm_file = fopen("out.s", "w");
+        }
+        decl_codegen_global(program_result);
     }
     else
     {

@@ -1,5 +1,5 @@
-bminor: main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o symbol.o scope.o hash_table.o
-	gcc main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o symbol.o scope.o hash_table.o -o bminor -lm
+bminor: main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o symbol.o scope.o hash_table.o scratch.o
+	gcc main.o encoder.o scanner.o parser.o stmt.o decl.o expr.o type.o param_list.o symbol.o scope.o hash_table.o scratch.o -o bminor -lm
 
 encoder.o: encoder.c
 	gcc -c encoder.c -c -o encoder.o
@@ -39,6 +39,9 @@ scope.o: scope.c
 
 hash_table.o: hash_table.c
 	gcc -c hash_table.c -c -o hash_table.o
+
+scratch.o: scratch.c
+	gcc -c scratch.c -c -o scratch.o
 
 clean:
 	rm -f bminor

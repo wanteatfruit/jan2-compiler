@@ -15,6 +15,7 @@ struct symbol {
 	struct type *type;
 	char *name;
 	int which;
+	int which_reg;
 
 	int is_prototype; // for functions
 	//for literal values
@@ -22,5 +23,5 @@ struct symbol {
 };
 
 struct symbol * symbol_create( symbol_t kind, struct type *type, char *name );
-
+const char* symbol_codegen(struct symbol *s);
 #endif

@@ -1,5 +1,6 @@
 #include "decl.h"
 #include "scope.h"
+#include "scratch.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,6 +14,92 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
     d->code = code;
     d->next = next;
     return d;
+}
+
+void decl_codegen_local(struct decl *d){
+    if(!d) return;
+    if(d->value){
+        expr_codegen(d->value);
+        //function not allowed
+        switch(d->type->kind){
+            case TYPE_INTEGER:
+                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
+                scratch_free(d->value->reg);
+                break;
+            case TYPE_ARRAY:
+                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
+                scratch_free(d->value->reg);
+                break;
+            case TYPE_BOOLEAN:
+                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
+                scratch_free(d->value->reg);
+                break;
+            case TYPE_CHARACTER:
+                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
+                scratch_free(d->value->reg);
+                break;
+            case TYPE_STRING:
+                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
+                scratch_free(d->value->reg);
+                break;
+            default:
+                printf("error: declaration local code gen not found type\n");
+                exit(1);
+        }
+        decl_codegen_local(d->next);
+    }
+}
+
+void decl_codegen_global(struct decl *d){
+    if(!d) return;
+
+    switch(d->type->kind){
+        case TYPE_INTEGER:
+            printf(".data\n");
+            printf("%s:\t.quad %d\n", d->name, d->value->literal_value);
+            break;
+        case TYPE_FUNCTION:
+            if(d->code){ // definition included
+                //preamble
+                fprintf(asm_file, ".text\n.global %s\n%s:\n", d->name, d->name);
+                fprintf(asm_file, "\tPUSHQ %%rbp\n");
+                fprintf(asm_file, "\tMOVQ %%rsp, %%rbp\n");
+                //check args
+                int num_args = 0;
+                struct param_list *p = d->type->params;
+                //push args
+                const char *arg_regs[] = {"rdi", "rsi", "rdx", "rcx", "r8", "r9"};
+                while(p){
+                    if(num_args > 5){
+                        printf("error: too many arguments for function %s\n", d->name);
+                        exit(1);
+                    }
+                    fprintf(asm_file, "\tPUSHQ %%%s\n", arg_regs[num_args]);
+                    num_args++;
+                    p = p->next;
+                }
+                //allocate local vars (current space for 10)
+                fprintf(asm_file, "\tSUBQ $40, %%rsp\n");
+                //push callee saved regs
+                fprintf(asm_file, "\tPUSHQ %%rbx\n\tPUSHQ %%r12\n\tPUSHQ %%r13\n\tPUSHQ %%r14\n\tPUSHQ %%r15\n");
+                //body
+                char func_label[256]; //need pass return label to stmt_codegen
+                sprintf(func_label, "%s_epilogue", d->name);
+                stmt_codegen(d->code, func_label);
+                //func epilogue
+                fprintf(asm_file, "%s:\n", func_label);
+                fprintf(asm_file, "\tPOPQ %%r15\n\tPOPQ %%r14\n\tPOPQ %%r13\n\tPOPQ %%r12\n\tPOPQ %%rbx\n");
+                fprintf(asm_file, "\tMOVQ %%rbp, %%rsp\n");
+                fprintf(asm_file, "\tPOPQ %%rbp\n");
+                fprintf(asm_file, "\tRET\n");
+            }else{ // prototype
+                fprintf(asm_file, ".text\n.global %s\n", d->name);
+            }
+    }
+
+    
+    
+    decl_codegen_global(d->next);
 }
 
 void decl_typecheck(struct decl *d){

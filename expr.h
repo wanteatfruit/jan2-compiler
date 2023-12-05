@@ -54,6 +54,8 @@ struct expr {
 	const char * string_literal;
 	struct symbol *symbol;
 	struct expr *next; //used for comma separated expressions lists
+
+	int reg;
 };
 
 
@@ -73,5 +75,6 @@ void expr_delete( struct expr *e );
 void expr_print_type_error(expr_t e_type, struct expr *e, struct type *lt, struct type *rt);
 const char *expr_type_to_str(expr_t type);
 int expr_get_length(struct expr * e);
+void expr_codegen(struct expr *e);
 
 #endif
