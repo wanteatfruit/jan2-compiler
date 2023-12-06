@@ -54,14 +54,41 @@ void decl_codegen_global(struct decl *d){
     if(!d) return;
 
     switch(d->type->kind){
+        //print a data for every global decl
         case TYPE_INTEGER:
-            printf(".data\n");
-            printf("%s:\t.quad %d\n", d->name, d->value->literal_value);
+            fprintf(asm_file, ".data\n");
+            fprintf(asm_file, "%s:\t.quad %d\n", d->name, d->value->literal_value);
             break;
+        case TYPE_ARRAY:
+            fprintf(asm_file, ".data\n");
+            fprintf(asm_file, "%s:\t.quad ", d->name);
+            struct expr *array_literal = d->value->left;
+            while(array_literal){
+                fprintf(asm_file, "%d", array_literal->literal_value);
+                if(array_literal->next){
+                    fprintf(asm_file, ", ");
+                }
+                array_literal = array_literal->next;
+            }
+            fprintf(asm_file, "\n");
+            break;
+        case TYPE_BOOLEAN:
+            fprintf(asm_file, ".data\n");
+            fprintf(asm_file, "%s:\t.quad %d\n", d->name, d->value->literal_value);
+            break;
+        case TYPE_CHARACTER:
+            fprintf(asm_file, ".data\n");
+            fprintf(asm_file, "%s:\t.quad %d\n", d->name, d->value->literal_value);
+            break;
+        case TYPE_STRING:
+            fprintf(asm_file, ".data\n");
+            fprintf(asm_file, "%s:\t.string %s\n", d->name, d->value->string_literal);
+            break;
+       
         case TYPE_FUNCTION:
             if(d->code){ // definition included
                 //preamble
-                fprintf(asm_file, ".text\n.global %s\n%s:\n", d->name, d->name);
+                fprintf(asm_file, ".text\n.globl %s\n%s:\n", d->name, d->name);
                 fprintf(asm_file, "\tPUSHQ %%rbp\n");
                 fprintf(asm_file, "\tMOVQ %%rsp, %%rbp\n");
                 //check args
@@ -87,13 +114,13 @@ void decl_codegen_global(struct decl *d){
                 sprintf(func_label, "%s_epilogue", d->name);
                 stmt_codegen(d->code, func_label);
                 //func epilogue
-                fprintf(asm_file, "%s:\n", func_label);
+                fprintf(asm_file, ".%s:\n", func_label);
                 fprintf(asm_file, "\tPOPQ %%r15\n\tPOPQ %%r14\n\tPOPQ %%r13\n\tPOPQ %%r12\n\tPOPQ %%rbx\n");
                 fprintf(asm_file, "\tMOVQ %%rbp, %%rsp\n");
                 fprintf(asm_file, "\tPOPQ %%rbp\n");
                 fprintf(asm_file, "\tRET\n");
             }else{ // prototype
-                fprintf(asm_file, ".text\n.global %s\n", d->name);
+                fprintf(asm_file, ".text\n.globl %s\n", d->name);
             }
     }
 

@@ -1,5 +1,6 @@
 #include "stmt.h"
 #include "scope.h"
+#include "label.h"
 #include <stdlib.h>
 #include "scratch.h"
 
@@ -24,6 +25,30 @@ void stmt_codegen(struct stmt *s, const char *end_label){
     case STMT_DECL:
         decl_codegen_local(s->decl);
         break;
+    case STMT_BLOCK:
+        stmt_codegen(s->body, end_label);
+        break;
+    case STMT_IF_ELSE:
+    {
+        int else_label = label_create();
+        int end_if_label = label_create();
+        expr_codegen(s->expr); //if
+        fprintf(asm_file, "\tCMP $0, %s\n", scratch_name(s->expr->reg));//cmp if
+        scratch_free(s->expr->reg);
+        fprintf(asm_file, "\tJE %s\n", label_name(else_label)); //jmp to else
+        stmt_codegen(s->body, end_label); //if body
+        fprintf(asm_file, "\tJMP %s\n", label_name(end_if_label)); //jmp to end if
+        fprintf(asm_file, "%s:\n", label_name(else_label)); //else label
+        stmt_codegen(s->else_body, end_label); //else body
+        fprintf(asm_file, "%s:\n", label_name(end_if_label)); //end if label
+    }
+        break;
+    case STMT_FOR:
+    {
+        int top_label = label_create();
+        int end_for_label = label_create();
+    }
+    break;
     case STMT_EXPR:
         expr_codegen(s->expr);
         scratch_free(s->expr->reg);
@@ -32,7 +57,7 @@ void stmt_codegen(struct stmt *s, const char *end_label){
         expr_codegen(s->expr);
         fprintf(asm_file, "\tMOV %s, %%rax\n", scratch_name(s->expr->reg));
         //need to get function name
-        fprintf(asm_file, "\tJMP .%s_epilogue\n", end_label);
+        fprintf(asm_file, "\tJMP .%s\n", end_label);
         scratch_free(s->expr->reg);
         break;
     }

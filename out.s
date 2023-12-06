@@ -1,5 +1,5 @@
 .text
-.global main
+.globl main
 main:
 	PUSHQ %rbp
 	MOVQ %rsp, %rbp
@@ -17,10 +17,10 @@ main:
 	MOVQ -16(%rbp), %r10
 	ADDQ %rbx, %r10
 	MOVQ %r10, -8(%rbp)
-	MOVQ $1, %rbx
+	MOVQ $0, %rbx
 	MOV %rbx, %rax
-	JMP .main_epilogue_epilogue
-main_epilogue:
+	JMP .main_epilogue
+.main_epilogue:
 	POPQ %r15
 	POPQ %r14
 	POPQ %r13
