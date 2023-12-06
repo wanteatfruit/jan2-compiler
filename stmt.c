@@ -47,11 +47,42 @@ void stmt_codegen(struct stmt *s, const char *end_label){
     {
         int top_label = label_create();
         int end_for_label = label_create();
+        if(s->init_expr){ //init expr
+            expr_codegen(s->init_expr);
+            scratch_free(s->init_expr->reg);
+        }
+        fprintf(asm_file, "%s:\n", label_name(top_label)); //top label
+        if(s->expr){
+            expr_codegen(s->expr); //for condition
+            fprintf(asm_file, "\tCMP $0, %s\n", scratch_name(s->expr->reg)); //cmp for condition
+            scratch_free(s->expr->reg);
+            fprintf(asm_file, "\tJE %s\n", label_name(end_for_label)); //jmp to end for
+        }
+        stmt_codegen(s->body, end_label); //for body
+        if(s->next_expr){
+            expr_codegen(s->next_expr); //next expr
+            scratch_free(s->next_expr->reg);
+        }
+        fprintf(asm_file, "\tJMP %s\n", label_name(top_label)); //jmp to top
+        fprintf(asm_file, "%s:\n", label_name(end_for_label)); //end for label
     }
     break;
     case STMT_EXPR:
         expr_codegen(s->expr);
         scratch_free(s->expr->reg);
+        break;
+    case STMT_PRINT:
+    {
+        struct expr *print = s->expr;
+        while(print){
+            struct type *printed_type = expr_typecheck(print);
+            switch (printed_type->kind)
+            {
+                case TYPE_BOOLEAN:
+                    break;
+            }
+        }
+    }
         break;
     case STMT_RETURN:
         expr_codegen(s->expr);

@@ -49,6 +49,22 @@ void expr_codegen(struct expr *e){
             e->reg = e->right->reg;
             scratch_free(e->left->reg);
             break;
+        case EXPR_SUB:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tSUBQ %s, %s\n", scratch_name(e->right->reg), scratch_name(e->left->reg));
+            e->reg = e->right->reg;
+            scratch_free(e->left->reg);
+            break;
+        case EXPR_MUL:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->reg)); //move first arg to rax
+            scratch_free(e->left->reg);
+            fprintf(asm_file, "\tIMULQ %s\n", scratch_name(e->right->reg)); //imul second arg
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->right->reg)); //move result to second arg
+            e->reg = e->right->reg;
+            break;
         case EXPR_ASSIGN:
             expr_codegen(e->right);
             if(left->kind == EXPR_IDENTIFIER){
@@ -57,6 +73,43 @@ void expr_codegen(struct expr *e){
                 // array subscription
             }
             e->reg = e->right->reg;
+            break;
+        case EXPR_FUNC:
+        {
+            // function call
+            // solve argument first
+            const char *arg_regs[] = {"rdi", "rsi", "rdx", "rcx", "r8", "r9"};
+            struct expr *arg = e->right;
+            while(arg){
+                expr_codegen(arg);
+                arg = arg->next;
+            }
+            // push argument to reg
+            arg = e->right;
+            int arg_num = 0; //check for argument number
+            while(arg){
+
+                if(arg_num > 6){
+                    printf("codegen error: function argument number exceed 6\n");
+                    exit(1);
+                }
+                fprintf(asm_file, "\tMOVQ %s, %%%s\n", scratch_name(arg->left->reg), arg_regs[arg_num]);
+                scratch_free(arg->reg);
+                arg = arg->next;
+                arg_num++;
+            }
+            // push caller saved registers
+            fprintf(asm_file, "\tPUSHQ %%r10\n");
+            fprintf(asm_file, "\tPUSHQ %%r11\n");
+            // call function
+            fprintf(asm_file, "\tCALL %s\n", e->left->name);
+            // pop caller saved registers
+            fprintf(asm_file, "\tPOPQ %%r11\n");
+            fprintf(asm_file, "\tPOPQ %%r10\n");
+            // pop arguments
+            e->reg = scratch_alloc();
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->reg));
+        }
             break;
     }
 

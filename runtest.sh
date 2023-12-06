@@ -2,13 +2,35 @@
 
 for testfile in test/codegen/good*.bminor
 do
-	if ./bminor --codegen $testfile > $testfile.out
+	output_file="${testfile}.s"
+	if ./bminor --codegen $testfile $output_file > $testfile.out
 	then
-		echo "$testfile success (as expected)"
+		echo "$testfile codegen success (as expected)"
 	else
-		echo "$testfile failure (INCORRECT)"
+		echo "$testfile codegen failure (INCORRECT)"
 	fi
 done
+
+for asmfile in test/codegen/good*.bminor.s
+do
+	if gcc -g ${asmfile} library.c -o ${asmfile%%.*}_bin
+	then
+		echo "$asmfile gcc success (as expected)"
+	else
+		echo "$asmfile gcc failure (INCORRECT)"
+	fi
+done
+
+for binfile in test/codegen/good*_bin
+do
+	if ./${binfile} > ${binfile}.out
+	then
+		echo "$binfile run success (as expected)"
+	else
+		echo "$binfile run failure (INCORRECT)"
+	fi
+done
+
 
 # for testfile in test/typechecker/bad*.bminor
 # do
