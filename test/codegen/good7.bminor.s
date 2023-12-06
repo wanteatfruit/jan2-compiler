@@ -11,11 +11,28 @@ main:
 	PUSHQ %r13
 	PUSHQ %r14
 	PUSHQ %r15
-	MOVQ x, %rbx
-	MOVQ x, %r10
-	ADDQ %rbx, %r10
-	MOV %r10, %rax
+	MOVQ $0, %rbx
+	CMP $0, %rbx
+	JE .L0
+	MOVQ $15, %rbx
+	MOVQ %rbx, x
+	JMP .L1
+.L0:
+	MOVQ $10, %rbx
+	MOVQ %rbx, x
+.L1:
+	MOVQ $1, %rbx
+	CMP $0, %rbx
+	JE .L2
+	MOVQ $0, %rbx
+	MOV %rbx, %rax
 	JMP .main_epilogue
+	JMP .L3
+.L2:
+	MOVQ $0, %rbx
+	MOV %rbx, %rax
+	JMP .main_epilogue
+.L3:
 .main_epilogue:
 	POPQ %r15
 	POPQ %r14

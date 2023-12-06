@@ -1,5 +1,3 @@
-.data
-x:	.quad 5
 .text
 .globl main
 main:
@@ -11,10 +9,7 @@ main:
 	PUSHQ %r13
 	PUSHQ %r14
 	PUSHQ %r15
-	MOVQ x, %rbx
-	MOVQ x, %r10
-	ADDQ %rbx, %r10
-	MOV %r10, %rax
+	MOV %rbx, %rax
 	JMP .main_epilogue
 .main_epilogue:
 	POPQ %r15

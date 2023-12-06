@@ -76,11 +76,18 @@ void stmt_codegen(struct stmt *s, const char *end_label){
         struct expr *print = s->expr;
         while(print){
             struct type *printed_type = expr_typecheck(print);
+            struct expr *printed_expr; // call lib function
             switch (printed_type->kind)
             {
                 case TYPE_BOOLEAN:
                     break;
+                case TYPE_INTEGER:
+                    printed_expr = expr_create(EXPR_FUNC, expr_create_name("print_integer"), print);
+                    break;
             }
+            expr_codegen(printed_expr);
+            scratch_free(printed_expr->reg);
+            print = print->next;
         }
     }
         break;

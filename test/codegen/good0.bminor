@@ -1,2 +1,6 @@
-x: integer = 5;
-y: integer = 10;
+// Adds a global variable
+x:integer=5;
+main:function integer ()=
+{
+	return x + x;
+}
