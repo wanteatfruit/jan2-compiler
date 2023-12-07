@@ -1,0 +1,10 @@
+//test logical operator
+
+main:function integer () =
+{
+	x:boolean = true;
+    y:boolean = false;
+    z:boolean = x&&y;
+    print z;
+    return 0;
+}

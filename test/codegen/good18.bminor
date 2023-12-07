@@ -1,0 +1,7 @@
+// tests post increment
+x:integer = 1;
+main: function integer () =
+{
+	y:integer = x++;
+    return y;
+}

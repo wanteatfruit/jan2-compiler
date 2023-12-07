@@ -1,0 +1,8 @@
+// tests exp
+
+main:function integer () =
+{
+	x:integer = 2;
+    y:integer = 3;
+    return x^y;
+}

@@ -1,0 +1,9 @@
+// tests strings/string assignments and printing 
+
+main:function integer () =
+{
+	c:char = 'd';
+    str:string = "hello";
+	print str;
+	return 0;
+}
