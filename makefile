@@ -49,6 +49,10 @@ label.o: label.c
 clean:
 	rm -f bminor
 	rm -f ./test/*/*.out
+	rm -f ./test/*/*.s
+	rm -f ./test/*/*.exe
+	rm -f ./test/*/*_bin
+
 
 test: bminor
 	./runtest.sh

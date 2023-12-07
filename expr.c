@@ -50,7 +50,22 @@ void expr_codegen(struct expr *e){
                 fprintf(asm_file, "\tLEAQ %s, %s\n", label_name(label), scratch_name(e->reg));
             }
             break;
-
+        case EXPR_ARRAY_LITERAL:
+            {
+                int label = label_create();
+                fprintf(asm_file, ".data\n");
+                fprintf(asm_file, "%s:\n", label_name(label));
+                struct expr *inner = e->left; // first element
+                while (inner)
+                {
+                    fprintf(asm_file, "\t.quad %d\n", inner->literal_value);
+                    inner = inner->next;
+                }
+                fprintf(asm_file, ".text\n");
+                e->reg = scratch_alloc();
+                fprintf(asm_file, "\tLEAQ %s, %s\n", label_name(label), scratch_name(e->reg));
+            }
+            break;
         // Internal node: codegen children, then combine
         case EXPR_ADD:
             expr_codegen(e->left);
@@ -109,6 +124,11 @@ void expr_codegen(struct expr *e){
             e->reg = e->right->reg;
             scratch_free(e->left->reg);
             break;
+        case EXPR_NOT:
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tNOTQ %s\n", scratch_name(e->right->reg));
+            e->reg = e->right->reg;
+            break;
         case EXPR_POSTDEC:
             expr_codegen(e->left);
             fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->reg)); //move first arg to rax
@@ -133,13 +153,31 @@ void expr_codegen(struct expr *e){
         case EXPR_NEQUAL:
             expr_codegen_comparison(e);
             break;
-
+        case EXPR_ARRAY_SUB:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->right->reg)); //move first arg to rax
+            scratch_free(e->right->reg);
+            fprintf(asm_file, "\tIMULQ $8\n"); //imul second arg
+            fprintf(asm_file, "\tADDQ %s, %%rax\n", scratch_name(e->left->reg)); //add base address
+            fprintf(asm_file, "\tMOVQ (%%rax), %s\n", scratch_name(e->left->reg)); //move result to second arg
+            e->reg = e->left->reg;
+            break;
         case EXPR_ASSIGN:
             expr_codegen(e->right);
             if(left->kind == EXPR_IDENTIFIER){
                 fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(e->right->reg), symbol_codegen(e->left->symbol));
             }else if(left->kind == EXPR_ARRAY_SUB){
                 // array subscription
+                expr_codegen(e->left->left);
+                expr_codegen(e->left->right);
+                fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->right->reg)); //move first arg to rax
+                scratch_free(e->left->right->reg);
+                fprintf(asm_file, "\tIMULQ $8\n"); //imul second arg
+                fprintf(asm_file, "\tADDQ %s, %%rax\n", scratch_name(e->left->left->reg)); //add base address
+                fprintf(asm_file, "\tMOVQ %s, (%%rax)\n", scratch_name(e->right->reg)); //move result to second arg
+                scratch_free(e->left->left->reg);
+                scratch_free(e->left->right->reg);
             }
             e->reg = e->right->reg;
             break;

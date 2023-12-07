@@ -61,16 +61,18 @@ void decl_codegen_global(struct decl *d){
             break;
         case TYPE_ARRAY:
             fprintf(asm_file, ".data\n");
-            fprintf(asm_file, "%s:\t.quad ", d->name);
-            struct expr *array_literal = d->value->left;
-            while(array_literal){
-                fprintf(asm_file, "%d", array_literal->literal_value);
-                if(array_literal->next){
-                    fprintf(asm_file, ", ");
+            {
+                int label_num = label_create();
+                fprintf(asm_file, "%s:\n", label_name(label_num));
+                struct expr *array_literal = d->value->left;
+                while(array_literal){
+                    fprintf(asm_file, "\t.quad %d\n", array_literal->literal_value);
+                    array_literal = array_literal->next;
                 }
-                array_literal = array_literal->next;
+            
+            fprintf(asm_file, ".globl %s\n%s:\n", d->name, d->name);
+            fprintf(asm_file, "\t.quad %s\n", label_name(label_num));
             }
-            fprintf(asm_file, "\n");
             break;
         case TYPE_BOOLEAN:
             fprintf(asm_file, ".data\n");
@@ -123,9 +125,6 @@ void decl_codegen_global(struct decl *d){
                 fprintf(asm_file, ".text\n.globl %s\n", d->name);
             }
     }
-
-    
-    
     decl_codegen_global(d->next);
 }
 

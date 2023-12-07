@@ -1,33 +1,15 @@
 #!/bin/sh
-
-for testfile in test/codegen/good*.bminor
+for testfile in ./test/codegen/good*.bminor
 do
-	output_file="${testfile}.s"
-	if ./bminor --codegen $testfile $output_file > $testfile.out
+	if ./bminor --codegen $testfile $testfile.s >> $testfile.out
 	then
-		echo "$testfile codegen success (as expected)"
+		gcc -g $testfile.s library.c -o $testfile.exe
+		echo -e "----------------EXECUTION OUTPUT----------------" >> $testfile.out
+		./$testfile.exe >> $testfile.out
+		echo -e "\n----------------STD OUTPUT----------------\n$?" >> $testfile.out
+		echo "$testfile success (as expected)"
 	else
-		echo "$testfile codegen failure (INCORRECT)"
-	fi
-done
-
-for asmfile in test/codegen/good*.bminor.s
-do
-	if gcc -g ${asmfile} library.c -o ${asmfile%%.*}_bin
-	then
-		echo "$asmfile gcc success (as expected)"
-	else
-		echo "$asmfile gcc failure (INCORRECT)"
-	fi
-done
-
-for binfile in test/codegen/good*_bin
-do
-	if ./${binfile} > ${binfile}.out
-	then
-		echo "$binfile run success (as expected), output = $?"
-	else
-		echo "$binfile run failure (INCORRECT)"
+		echo "$testfile failure (INCORRECT)"
 	fi
 done
 

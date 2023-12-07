@@ -3,5 +3,5 @@ str:string = "hello";
 main:function integer () =
 {
 	c:char = 'd';
-	print str;
+	print "Hello";
 }

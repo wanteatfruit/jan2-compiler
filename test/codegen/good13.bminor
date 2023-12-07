@@ -1,0 +1,7 @@
+// print arrays
+
+main: function integer () = {
+    b: array [3] integer = {1,2,3};
+    print b[1];
+    return 0;
+}
