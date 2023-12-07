@@ -93,7 +93,7 @@ void expr_codegen(struct expr *e){
                     printf("codegen error: function argument number exceed 6\n");
                     exit(1);
                 }
-                fprintf(asm_file, "\tMOVQ %s, %%%s\n", scratch_name(arg->left->reg), arg_regs[arg_num]);
+                fprintf(asm_file, "\tMOVQ %s, %%%s\n", scratch_name(arg->reg), arg_regs[arg_num]);
                 scratch_free(arg->reg);
                 arg = arg->next;
                 arg_num++;

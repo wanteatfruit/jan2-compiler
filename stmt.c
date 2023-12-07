@@ -74,6 +74,7 @@ void stmt_codegen(struct stmt *s, const char *end_label){
     case STMT_PRINT:
     {
         struct expr *print = s->expr;
+        expr_print(print);
         while(print){
             struct type *printed_type = expr_typecheck(print);
             struct expr *printed_expr; // call lib function
