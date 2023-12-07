@@ -4,4 +4,5 @@ main:function integer () =
 {
 	c:char = 'd';
 	print "Hello";
+	return 0;
 }

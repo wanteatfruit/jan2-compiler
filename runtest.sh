@@ -4,9 +4,9 @@ do
 	if ./bminor --codegen $testfile $testfile.s >> $testfile.out
 	then
 		gcc -g $testfile.s library.c -o $testfile.exe
-		echo -e "----------------EXECUTION OUTPUT----------------" >> $testfile.out
+		echo -e "----------------EXECUTION OUTPUT----------------" > $testfile.out
 		./$testfile.exe >> $testfile.out
-		echo -e "\n----------------STD OUTPUT----------------\n$?" >> $testfile.out
+		echo -e "\n----------------MAIN OUTPUT----------------\n$?" >> $testfile.out
 		echo "$testfile success (as expected)"
 	else
 		echo "$testfile failure (INCORRECT)"
