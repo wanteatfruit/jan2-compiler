@@ -19,9 +19,6 @@ main:
 	POPQ %r11
 	POPQ %r10
 	MOVQ %rax, %rbx
-	MOVQ $0, %rbx
-	MOV %rbx, %rax
-	JMP .main_epilogue
 .main_epilogue:
 	POPQ %r15
 	POPQ %r14

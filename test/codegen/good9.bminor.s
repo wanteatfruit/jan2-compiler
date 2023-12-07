@@ -1,3 +1,5 @@
+.data
+str:	.string "hello"
 .text
 .globl main
 main:
@@ -9,14 +11,16 @@ main:
 	PUSHQ %r13
 	PUSHQ %r14
 	PUSHQ %r15
-	MOVQ $20, %rbx
-	MOVQ $2, %r10
-	MOVQ %rbx, %rax
-	CQO
-	IDIVQ %r10
-	MOVQ %rax, %r10
-	MOV %r10, %rax
-	JMP .main_epilogue
+	MOVQ $100, %rbx
+	MOVQ %rbx, -8(%rbp)
+	MOVQ str, %rbx
+	MOVQ %rbx, %rdi
+	PUSHQ %r10
+	PUSHQ %r11
+	CALL print_string
+	POPQ %r11
+	POPQ %r10
+	MOVQ %rax, %rbx
 .main_epilogue:
 	POPQ %r15
 	POPQ %r14

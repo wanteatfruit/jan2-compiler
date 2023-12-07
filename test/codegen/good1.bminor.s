@@ -17,7 +17,7 @@ main:
 	MOVQ -16(%rbp), %r10
 	ADDQ %rbx, %r10
 	MOVQ %r10, -8(%rbp)
-	MOVQ $0, %rbx
+	MOVQ -8(%rbp), %rbx
 	MOV %rbx, %rax
 	JMP .main_epilogue
 .main_epilogue:

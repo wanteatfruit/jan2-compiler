@@ -81,9 +81,16 @@ void stmt_codegen(struct stmt *s, const char *end_label){
             switch (printed_type->kind)
             {
                 case TYPE_BOOLEAN:
+                    printed_expr = expr_create(EXPR_FUNC, expr_create_name("print_boolean"), print);
                     break;
                 case TYPE_INTEGER:
                     printed_expr = expr_create(EXPR_FUNC, expr_create_name("print_integer"), print);
+                    break;
+                case TYPE_CHARACTER:
+                    printed_expr = expr_create(EXPR_FUNC, expr_create_name("print_character"), print);
+                    break;
+                case TYPE_STRING:
+                    printed_expr = expr_create(EXPR_FUNC, expr_create_name("print_string"), print);
                     break;
             }
             expr_codegen(printed_expr);

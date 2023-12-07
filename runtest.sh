@@ -25,7 +25,7 @@ for binfile in test/codegen/good*_bin
 do
 	if ./${binfile} > ${binfile}.out
 	then
-		echo "$binfile run success (as expected)"
+		echo "$binfile run success (as expected), output = $?"
 	else
 		echo "$binfile run failure (INCORRECT)"
 	fi

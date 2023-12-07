@@ -1,5 +1,6 @@
 #include "expr.h"
 #include "scratch.h"
+#include "label.h"
 #include "scope.h"
 #include <string.h>
 #include <stdlib.h>
@@ -39,6 +40,15 @@ void expr_codegen(struct expr *e){
             fprintf(asm_file, "\tMOVQ $%d, %s\n", e->literal_value, scratch_name(e->reg));
             break;
         case EXPR_STRING_LITERAL: //need store in data
+            {
+                int label = label_create();
+                fprintf(asm_file, ".data\n");
+                fprintf(asm_file, "%s:\n", label_name(label));
+                fprintf(asm_file, "\t.string %s\n", e->string_literal);
+                fprintf(asm_file, ".text\n");
+                e->reg = scratch_alloc();
+                fprintf(asm_file, "\tLEAQ %s, %s\n", label_name(label), scratch_name(e->reg));
+            }
             break;
 
         // Internal node: codegen children, then combine
@@ -65,6 +75,65 @@ void expr_codegen(struct expr *e){
             fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->right->reg)); //move result to second arg
             e->reg = e->right->reg;
             break;
+        case EXPR_DIV:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->reg)); //move first arg to rax
+            scratch_free(e->left->reg);
+            fprintf(asm_file, "\tCQO\n"); //sign extend rax to rdx:rax
+            fprintf(asm_file, "\tIDIVQ %s\n", scratch_name(e->right->reg)); //idiv second arg
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->right->reg)); //move result to second arg
+            e->reg = e->right->reg;
+            break;
+        case EXPR_MOD:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->reg)); //move first arg to rax
+            scratch_free(e->left->reg);
+            fprintf(asm_file, "\tCQO\n"); //sign extend rax to rdx:rax
+            fprintf(asm_file, "\tIDIVQ %s\n", scratch_name(e->right->reg)); //idiv second arg
+            fprintf(asm_file, "\tMOVQ %%rdx, %s\n", scratch_name(e->right->reg)); //move result to second arg
+            e->reg = e->right->reg;
+            break;
+        case EXPR_OR:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tORQ %s, %s\n", scratch_name(e->left->reg), scratch_name(e->right->reg));
+            e->reg = e->right->reg;
+            scratch_free(e->left->reg);
+            break;
+        case EXPR_AND:
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tANDQ %s, %s\n", scratch_name(e->left->reg), scratch_name(e->right->reg));
+            e->reg = e->right->reg;
+            scratch_free(e->left->reg);
+            break;
+        case EXPR_POSTDEC:
+            expr_codegen(e->left);
+            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->reg)); //move first arg to rax
+            scratch_free(e->left->reg);
+            fprintf(asm_file, "\tSUBQ $1, %%rax\n"); //rax--
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->left->reg)); //move result to second arg
+            e->reg = e->left->reg;
+            break;
+        case EXPR_POSTINC:
+            expr_codegen(e->left);
+            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->reg)); //move first arg to rax
+            scratch_free(e->left->reg);
+            fprintf(asm_file, "\tADDQ $1, %%rax\n"); //rax++
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->left->reg)); //move result to second arg
+            e->reg = e->left->reg;
+            break;
+        case EXPR_LE:
+        case EXPR_LESS:
+        case EXPR_GE:
+        case EXPR_GREATER:
+        case EXPR_EQUAL:
+        case EXPR_NEQUAL:
+            expr_codegen_comparison(e);
+            break;
+
         case EXPR_ASSIGN:
             expr_codegen(e->right);
             if(left->kind == EXPR_IDENTIFIER){
@@ -707,4 +776,46 @@ void expr_print(struct expr *e)
     {
         printf("Invalid expression kind\n");
     }
+}
+
+void expr_codegen_comparison(struct expr *e){
+    if(!e) return;
+    expr_codegen(e->left);
+    expr_codegen(e->right);
+    int label1 = label_create();
+    int label2 = label_create();
+    fprintf(asm_file, "\tCMPQ %s, %s\n", scratch_name(e->right->reg), scratch_name(e->left->reg));
+
+    switch (e->kind)
+    {
+    case EXPR_LESS:
+        fprintf(asm_file, "\tJL %s\n", label_name(label1));
+        break;
+    case EXPR_LE:
+        fprintf(asm_file, "\tJLE %s\n", label_name(label1));
+        break;
+    case EXPR_GREATER:
+        fprintf(asm_file, "\tJG %s\n", label_name(label1));
+        break;
+    case EXPR_GE:
+        fprintf(asm_file, "\tJGE %s\n", label_name(label1));
+        break;
+    case EXPR_EQUAL:
+        fprintf(asm_file, "\tJE %s\n", label_name(label1));
+        break;
+    case EXPR_NEQUAL:
+        fprintf(asm_file, "\tJNE %s\n", label_name(label1));
+        break;
+    default:
+        break;
+    }
+    // false
+    fprintf(asm_file, "\tMOVQ $0, %s\n", scratch_name(e->left->reg));
+    fprintf(asm_file, "\tJMP %s\n", label_name(label2));
+    // true
+    fprintf(asm_file, "%s:\n", label_name(label1));
+    fprintf(asm_file, "\tMOVQ $1, %s\n", scratch_name(e->left->reg));
+    fprintf(asm_file, "%s:\n", label_name(label2));
+    e->reg = e->left->reg;
+    scratch_free(e->right->reg);
 }
