@@ -117,11 +117,17 @@ void expr_codegen(struct expr *e){
         case EXPR_PARENTHESES:
             expr_codegen(e->left);
             break;
-        // case EXPR_EXP:
-        //     {
-        //         struct expr *power_func_arg = expr_create(EXPR_INTEGER_LITERAL, expr_copy(e->left), expr_create_integer_literal(8));
-        //         struct expr *power_func = expr_create(EXPR_FUNC, expr_create_name("integer_power"), expr_create(EXPR_INTEGER_LITERAL));
-        //     }
+        case EXPR_EXP:
+            //wrap in integer_power function
+            expr_codegen(e->left);
+            expr_codegen(e->right);
+            fprintf(asm_file, "\tMOVQ %s, %%rdi\n", scratch_name(e->left->reg)); //move first arg to rdi
+            fprintf(asm_file, "\tMOVQ %s, %%rsi\n", scratch_name(e->right->reg)); //move second arg to rsi
+            fprintf(asm_file, "\tCALL integer_power\n");
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(e->right->reg)); //move result to second arg
+            e->reg = e->right->reg;
+            scratch_free(e->left->reg);
+            break;
         case EXPR_OR:
             expr_codegen(e->left);
             expr_codegen(e->right);
@@ -166,20 +172,19 @@ void expr_codegen(struct expr *e){
             expr_codegen_comparison(e);
             break;
         case EXPR_ARRAY_SUB: //only global array
+        {
             expr_codegen(e->left); //identifier
             expr_codegen(e->right); //index
-            fprintf(asm_file, "\tMOVQ (%s,%s,8), %s\n", scratch_name(e->left->reg),scratch_name(e->right->reg),scratch_name(e->left->reg));
+            int tmp_reg = scratch_alloc();
+            fprintf(asm_file, "\tMOVQ $8, %%rax\n"); // ready for multiply 8
+            fprintf(asm_file, "\tIMULQ %s\n", scratch_name(e->right->reg));
+            fprintf(asm_file, "\tMOVQ %%rax, %s\n", scratch_name(tmp_reg));
+            fprintf(asm_file, "\tADDQ %s, %s\n", scratch_name(e->left->reg), scratch_name(tmp_reg)); //add base address
+            fprintf(asm_file, "\tMOVQ (%s), %s\n", scratch_name(tmp_reg), scratch_name(e->left->reg)); //load address to left reg
+            scratch_free(tmp_reg);
             e->reg = e->left->reg;
             scratch_free(e->right->reg);
-            // e->reg = scratch_alloc();
-            // fprintf(asm_file, "LEAQ %s, %s\n", symbol_codegen(e->left->symbol), scratch_name(e->reg));
-
-            // fprintf(asm_file, "MOVQ $8, %s\n", scratch_name(e->reg));
-            // fprintf(asm_file, "MOVQ %s, %%rax\n", scratch_name(e->right->reg));
-            // fprintf(asm_file, "IMULQ %s\n", scratch_name(e->reg));
-            // fprintf(asm_file, "ADDQ %%rax, %s\n", scratch_name(e->reg));
-            // fprintf(asm_file, "MOVQ (%s), %s\n", scratch_name(e->reg), scratch_name(e->reg));
-
+        }
             break;
         case EXPR_ASSIGN:
             expr_codegen(e->right);

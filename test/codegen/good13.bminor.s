@@ -19,7 +19,11 @@ main:
 	PUSHQ %r15
 	MOVQ b, %rbx
 	MOVQ $1, %r10
-	MOVQ (%rbx,%r10,8), %rbx
+	MOVQ $8, %rax
+	IMULQ %r10
+	MOVQ %rax, %r11
+	ADDQ %rbx, %r11
+	MOVQ (%r11), %rbx
 	MOV %rbx, %rax
 	JMP .main_epilogue
 .main_epilogue:
