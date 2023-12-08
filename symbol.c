@@ -15,13 +15,13 @@ const char* symbol_codegen(struct symbol *s){
     }
     else if(s->kind == SYMBOL_LOCAL){
         // uses abs position
-        char buffer[100];
+        char buffer[256];
         sprintf(buffer, "-%d(%%rbp)", 8*s->which_reg);
         return strdup(buffer);
     }
     else if(s->kind == SYMBOL_PARAM){
         // uses abs position
-        char buffer[100];
+        char buffer[256];
         sprintf(buffer, "%d(%%rbp)", 8*s->which_reg);
         return strdup(buffer);
     }

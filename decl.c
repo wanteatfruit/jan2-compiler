@@ -103,7 +103,7 @@ void decl_codegen_global(struct decl *d){
                     num_args++;
                     p = p->next;
                 }
-                //allocate local vars (current space for 10)
+                //allocate local vars (fixed space for 10)
                 fprintf(asm_file, "\tSUBQ $40, %%rsp\n");
                 //push callee saved regs
                 fprintf(asm_file, "\tPUSHQ %%rbx\n\tPUSHQ %%r12\n\tPUSHQ %%r13\n\tPUSHQ %%r14\n\tPUSHQ %%r15\n");
