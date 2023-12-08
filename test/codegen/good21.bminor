@@ -1,0 +1,6 @@
+//test strings with escape characters
+main:function integer () =
+{
+	print "Hello World\nHello\tWorld";
+    return 0;
+}
