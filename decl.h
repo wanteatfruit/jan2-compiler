@@ -5,6 +5,7 @@
 #include "type.h"
 #include "stmt.h"
 #include "expr.h"
+#include "label.h"
 #include <stdio.h>
 #include <stdlib.h>
 

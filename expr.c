@@ -17,9 +17,6 @@ struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right)
 
 void expr_codegen(struct expr *e){
     if(!e) return;
-    struct expr *left = e->left;
-    struct expr *right = e->right;
-
     switch (e->kind)
     {
         // Leaf node: allocate register, load value into register
@@ -188,9 +185,9 @@ void expr_codegen(struct expr *e){
             break;
         case EXPR_ASSIGN:
             expr_codegen(e->right);
-            if(left->kind == EXPR_IDENTIFIER){
+            if(e->left->kind == EXPR_IDENTIFIER){
                 fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(e->right->reg), symbol_codegen(e->left->symbol));
-            }else if(left->kind == EXPR_ARRAY_SUB){
+            }else if(e->left->kind == EXPR_ARRAY_SUB){
                 printf("codegen error: array not implemented\n");
                 exit(1);
             }
