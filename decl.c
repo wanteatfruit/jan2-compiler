@@ -20,13 +20,9 @@ void decl_codegen_local(struct decl *d){
     if(!d) return;
     if(d->value){
         expr_codegen(d->value);
-        //function not allowed
+        //function and array not allowed
         switch(d->type->kind){
             case TYPE_INTEGER:
-                fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
-                scratch_free(d->value->reg);
-                break;
-            case TYPE_ARRAY:
                 fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(d->value->reg), symbol_codegen(d->symbol));
                 scratch_free(d->value->reg);
                 break;
