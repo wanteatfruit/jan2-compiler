@@ -1,7 +1,6 @@
 // assign array
-
+b: array [3] integer = {1,2,3};
 main: function integer () = {
-    b: array [3] integer = {1,2,3};
     x: integer = b[1];
     print x;
     return 0;

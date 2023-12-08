@@ -1,7 +1,18 @@
-// assign array
+ //function calls with no parameters and with parameters
+x:integer=5;
+fxnCall:function integer() =
+{
+	return x*4;
+}
 
-main: function integer () = {
-    b: array [3] integer = {1,2,3};
-    b[1] = 20;
-    return 0;
+fxnCall2:function integer(z:integer) =
+{
+    return z*2;
+}
+
+main:function integer () =
+{
+	y:integer = 2;
+    y = y+ fxnCall()+fxnCall2(14);
+	return y;
 }

@@ -1,6 +1,5 @@
-// decl local arrays
-
+// decl global arrays
+b: array [3] integer = {1,2,3};
 main: function integer () = {
-    b: array [3] integer = {1,2,3};
-    return 0;
+    return b[1];
 }

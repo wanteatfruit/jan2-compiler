@@ -39,6 +39,10 @@ void expr_codegen(struct expr *e){
             e->reg = scratch_alloc();
             fprintf(asm_file, "\tMOVQ $%d, %s\n", e->literal_value, scratch_name(e->reg));
             break;
+        case EXPR_FLOAT_LITERAL:
+            printf("codegen error: float not implemented\n");
+            exit(1);
+            break;
         case EXPR_STRING_LITERAL: //need store in data
             {
                 int label = label_create();
@@ -110,6 +114,14 @@ void expr_codegen(struct expr *e){
             fprintf(asm_file, "\tMOVQ %%rdx, %s\n", scratch_name(e->right->reg)); //move result to second arg
             e->reg = e->right->reg;
             break;
+        case EXPR_PARENTHESES:
+            expr_codegen(e->left);
+            break;
+        // case EXPR_EXP:
+        //     {
+        //         struct expr *power_func_arg = expr_create(EXPR_INTEGER_LITERAL, expr_copy(e->left), expr_create_integer_literal(8));
+        //         struct expr *power_func = expr_create(EXPR_FUNC, expr_create_name("integer_power"), expr_create(EXPR_INTEGER_LITERAL));
+        //     }
         case EXPR_OR:
             expr_codegen(e->left);
             expr_codegen(e->right);
@@ -153,31 +165,29 @@ void expr_codegen(struct expr *e){
         case EXPR_NEQUAL:
             expr_codegen_comparison(e);
             break;
-        case EXPR_ARRAY_SUB:
-            expr_codegen(e->left);
-            expr_codegen(e->right);
-            fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->right->reg)); //move first arg to rax
-            scratch_free(e->right->reg);
-            fprintf(asm_file, "\tIMULQ $8\n"); //imul second arg
-            fprintf(asm_file, "\tADDQ %s, %%rax\n", scratch_name(e->left->reg)); //add base address
-            fprintf(asm_file, "\tMOVQ (%%rax), %s\n", scratch_name(e->left->reg)); //move result to second arg
+        case EXPR_ARRAY_SUB: //only global array
+            expr_codegen(e->left); //identifier
+            expr_codegen(e->right); //index
+            fprintf(asm_file, "\tMOVQ (%s,%s,8), %s\n", scratch_name(e->left->reg),scratch_name(e->right->reg),scratch_name(e->left->reg));
             e->reg = e->left->reg;
+            scratch_free(e->right->reg);
+            // e->reg = scratch_alloc();
+            // fprintf(asm_file, "LEAQ %s, %s\n", symbol_codegen(e->left->symbol), scratch_name(e->reg));
+
+            // fprintf(asm_file, "MOVQ $8, %s\n", scratch_name(e->reg));
+            // fprintf(asm_file, "MOVQ %s, %%rax\n", scratch_name(e->right->reg));
+            // fprintf(asm_file, "IMULQ %s\n", scratch_name(e->reg));
+            // fprintf(asm_file, "ADDQ %%rax, %s\n", scratch_name(e->reg));
+            // fprintf(asm_file, "MOVQ (%s), %s\n", scratch_name(e->reg), scratch_name(e->reg));
+
             break;
         case EXPR_ASSIGN:
             expr_codegen(e->right);
             if(left->kind == EXPR_IDENTIFIER){
                 fprintf(asm_file, "\tMOVQ %s, %s\n", scratch_name(e->right->reg), symbol_codegen(e->left->symbol));
             }else if(left->kind == EXPR_ARRAY_SUB){
-                // array subscription
-                expr_codegen(e->left->left);
-                expr_codegen(e->left->right);
-                fprintf(asm_file, "\tMOVQ %s, %%rax\n", scratch_name(e->left->right->reg)); //move first arg to rax
-                scratch_free(e->left->right->reg);
-                fprintf(asm_file, "\tIMULQ $8\n"); //imul second arg
-                fprintf(asm_file, "\tADDQ %s, %%rax\n", scratch_name(e->left->left->reg)); //add base address
-                fprintf(asm_file, "\tMOVQ %s, (%%rax)\n", scratch_name(e->right->reg)); //move result to second arg
-                scratch_free(e->left->left->reg);
-                scratch_free(e->left->right->reg);
+                printf("codegen error: array not implemented\n");
+                exit(1);
             }
             e->reg = e->right->reg;
             break;

@@ -395,6 +395,9 @@ main:
 	POPQ %r10
 	MOVQ %rax, %rbx
 .L55:
+	MOVQ $0, %rbx
+	MOV %rbx, %rax
+	JMP .main_epilogue
 .main_epilogue:
 	POPQ %r15
 	POPQ %r14

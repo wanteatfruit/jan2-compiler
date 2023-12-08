@@ -1,3 +1,11 @@
+.data
+.L0:
+	.quad 1
+	.quad 2
+	.quad 3
+.globl b
+b:
+	.quad .L0
 .text
 .globl main
 main:
@@ -9,15 +17,9 @@ main:
 	PUSHQ %r13
 	PUSHQ %r14
 	PUSHQ %r15
-.data
-.L0:
-	.quad 1
-	.quad 2
-	.quad 3
-.text
-	LEAQ .L0, %rbx
-	MOVQ %rbx, -8(%rbp)
-	MOVQ $0, %rbx
+	MOVQ b, %rbx
+	MOVQ $1, %r10
+	MOVQ (%rbx,%r10,8), %rbx
 	MOV %rbx, %rax
 	JMP .main_epilogue
 .main_epilogue:

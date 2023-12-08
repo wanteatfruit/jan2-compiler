@@ -1,3 +1,11 @@
+.data
+.L0:
+	.quad 1
+	.quad 2
+	.quad 3
+.globl b
+b:
+	.quad .L0
 .text
 .globl main
 main:
@@ -9,22 +17,11 @@ main:
 	PUSHQ %r13
 	PUSHQ %r14
 	PUSHQ %r15
-.data
-.L0:
-	.quad 1
-	.quad 2
-	.quad 3
-.text
-	LEAQ .L0, %rbx
+	MOVQ b, %rbx
+	MOVQ $1, %r10
+	MOVQ (%rbx,%r10,8), %rbx
 	MOVQ %rbx, -8(%rbp)
 	MOVQ -8(%rbp), %rbx
-	MOVQ $1, %r10
-	MOVQ %r10, %rax
-	IMULQ $8
-	ADDQ %rbx, %rax
-	MOVQ (%rax), %rbx
-	MOVQ %rbx, -16(%rbp)
-	MOVQ -16(%rbp), %rbx
 	MOVQ %rbx, %rdi
 	PUSHQ %r10
 	PUSHQ %r11
